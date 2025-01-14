@@ -2,6 +2,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { inject, Injectable } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { catchError, mergeMap, of, tap } from 'rxjs';
 import { PersistenceService } from '../../../../core/services/persistence.service';
 import { setUserAction } from '../../../../core/store/user/actions/user.action';
@@ -14,6 +15,7 @@ import {
 @Injectable()
 export class registerEffect {
   private actions$ = inject(Actions);
+  private router = inject(Router);
   private authService = inject(AuthService);
   private persistenceService = inject(PersistenceService);
 
@@ -37,5 +39,16 @@ export class registerEffect {
         )
       )
     )
+  );
+
+  redirectAfterSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(registerSuccessAction),
+        tap(() => {
+          this.router.navigateByUrl('/');
+        })
+      ),
+    { dispatch: false }
   );
 }

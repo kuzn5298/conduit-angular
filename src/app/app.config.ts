@@ -1,4 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { isDevMode } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -10,6 +15,7 @@ import { routes } from './app.routes';
 import { reducers } from './core/store/reducer';
 import { effects } from './core/store/effects';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { InitializerService } from './core/services/initializer.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +28,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideAppInitializer(() => inject(InitializerService).initialize()),
   ],
 };
