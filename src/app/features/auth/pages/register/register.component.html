@@ -4,14 +4,15 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center">
-          <a href="/login">Have an account?</a>
+          <a [routerLink]="['/login']">Have an account?</a>
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
+        <app-error-messages
+          *ngIf="errors$ | async as errors"
+          [errors]="errors"
+        />
 
-        <form>
+        <form [formGroup]="form" (submit)="onSubmit()">
           <fieldset class="form-group">
             <input
               class="form-control form-control-lg"
@@ -33,7 +34,13 @@
               placeholder="Password"
             />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="isSubmitting$ | async"
+            type="submit"
+          >
+            Sign up
+          </button>
         </form>
       </div>
     </div>
