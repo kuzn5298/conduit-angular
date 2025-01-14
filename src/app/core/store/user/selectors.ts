@@ -12,3 +12,8 @@ export const userSelector = createSelector(
   authSelector,
   (state: UserState) => state.user
 );
+
+export const isLoadingUserSelector = createSelector(
+  authSelector,
+  (state: UserState) => state.isLoading
+);

@@ -1,3 +1,7 @@
+@if(isUserLoading$ | async) {
+<div>loading...</div>
+} @else {
 <app-header />
 <router-outlet />
 <app-footer />
+}
