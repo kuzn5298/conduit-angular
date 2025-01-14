@@ -16,13 +16,7 @@ import { clearAuthStateAction } from '../../store/actions/auth.action';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    RouterLink,
-    ErrorMessagesComponent,
-    AsyncPipe,
-    ReactiveFormsModule,
-    NgIf,
-  ],
+  imports: [RouterLink, ErrorMessagesComponent, AsyncPipe, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

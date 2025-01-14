@@ -1,17 +1,58 @@
 <nav class="navbar navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="/">conduit</a>
+    <a class="navbar-brand" [routerLink]="['/']">conduit</a>
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        <!-- Add "active" class when you're on that page" -->
-        <a class="nav-link active" href="/">Home</a>
+        <a
+          class="nav-link"
+          [routerLink]="['/']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+      </li>
+      @if(user$ | async; as user) {
+      <li class="nav-item">
+        <a
+          [routerLink]="['/editor']"
+          class="nav-link"
+          routerLinkActive="active"
+        >
+          <i class="ion-compose"></i>
+          New Post
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login">Sign in</a>
+        <a
+          [routerLink]="['/settings']"
+          class="nav-link"
+          routerLinkActive="active"
+        >
+          <i class="ion-gear-a"></i>
+          Settings
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/register">Sign up</a>
+        <a [routerLink]="['/profiles', user?.username]" class="nav-link">
+          <img class="user-pic" [src]="avatar$ | async" />
+          {{ user?.username }}
+        </a>
       </li>
+      } @else {
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">
+          Sign in
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/register']"
+          routerLinkActive="active"
+          >Sign up</a
+        >
+      </li>
+      }
     </ul>
   </div>
 </nav>

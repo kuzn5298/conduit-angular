@@ -16,13 +16,7 @@ import { clearAuthStateAction } from '../../store/actions/auth.action';
 
 @Component({
   selector: 'app-register',
-  imports: [
-    RouterLink,
-    ErrorMessagesComponent,
-    AsyncPipe,
-    ReactiveFormsModule,
-    NgIf,
-  ],
+  imports: [RouterLink, ErrorMessagesComponent, AsyncPipe, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

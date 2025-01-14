@@ -7,10 +7,9 @@
           <a [routerLink]="['/login']">Have an account?</a>
         </p>
 
-        <app-error-messages
-          *ngIf="errors$ | async as errors"
-          [errors]="errors"
-        />
+        @if(errors$ | async; as errors) {
+        <app-error-messages [errors]="errors" />
+        }
 
         <form [formGroup]="form" (submit)="onSubmit()">
           <fieldset class="form-group">
