@@ -1,0 +1,29 @@
+<div class="home-page">
+  <div class="banner">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <app-feed-toggle [feedType]="feedType()" [tag]="tag()" />
+
+        <app-feed-articles />
+
+        <app-feed-pagination
+          [limit]="limit"
+          [total]="(articlesCount$ | async) ?? 0"
+          [page]="page()"
+        />
+      </div>
+      <div class="col-md-3">
+        <div class="sidebar">
+          <app-feed-tags />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

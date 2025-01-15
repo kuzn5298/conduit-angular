@@ -1,0 +1,36 @@
+<div class="feed-toggle">
+  <ul class="nav nav-pills outline-active">
+    @if(isLoggedIn$ | async) {
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="[]"
+        [queryParams]="{ feed: Feed.Your }"
+        [class.active]="feedType() === Feed.Your"
+      >
+        Your Feed
+      </a>
+    </li>
+    }
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="[]"
+        [queryParams]="{ feed: Feed.Global }"
+        [class.active]="feedType() === Feed.Global"
+      >
+        Global Feed
+      </a>
+    </li>
+
+    @if(tag() && feedType() === Feed.Tag) {
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="feedType() === Feed.Tag">
+        <i class="ion-pound"></i>
+        {{ tag() }}
+      </a>
+    </li>
+    }
+  </ul>
+</div>

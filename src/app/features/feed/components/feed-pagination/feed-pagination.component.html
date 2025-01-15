@@ -1,0 +1,14 @@
+<ul class="pagination">
+  @for(p of pages(); track p) {
+  <li class="page-item" [class.active]="p === page()">
+    <a
+      class="page-link"
+      [routerLink]="[]"
+      [queryParams]="{ page: p }"
+      [queryParamsHandling]="'merge'"
+    >
+      {{ p }}
+    </a>
+  </li>
+  }
+</ul>

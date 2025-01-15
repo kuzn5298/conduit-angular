@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./features/home/home.routes').then((m) => m.homeRoutes),
+      import('./features/feed/feed.routes').then((m) => m.homeRoutes),
   },
   {
     path: '',
