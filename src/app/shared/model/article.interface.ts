@@ -12,3 +12,18 @@ export interface Article {
   tagList: string[];
   updatedAt: string;
 }
+
+export interface ArticleInput {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+}
+
+export interface ArticleForm extends Omit<ArticleInput, 'tagList'> {
+  tagList: string;
+}
+
+export interface ArticleResponse {
+  article: Article;
+}

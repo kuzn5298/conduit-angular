@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './core/guards/guest.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,12 @@ export const routes: Routes = [
     path: 'article',
     loadChildren: () =>
       import('./features/article/article.routes').then((m) => m.articleRoutes),
+  },
+  {
+    path: 'editor',
+    loadChildren: () =>
+      import('./features/editor/editor.routes').then((m) => m.editorRoutes),
+    canActivate: [authGuard],
   },
   { path: '**', redirectTo: '' },
 ];

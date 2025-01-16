@@ -1,0 +1,19 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        @if(errors$ | async; as errors) {
+        <app-error-messages [errors]="errors" />
+        } @if(isLoading$ | async) {
+        <p>loading...</p>
+        } @if(initialValue$ | async; as initialValue) {
+        <app-article-form
+          [initialValue]="initialValue"
+          [disabled]="(isSubmitting$ | async) ?? false"
+          (formSubmit)="onSubmit($event)"
+        />
+        }
+      </div>
+    </div>
+  </div>
+</div>
