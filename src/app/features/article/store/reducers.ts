@@ -6,10 +6,22 @@ import {
   getArticleFailureAction,
   getArticleSuccessAction,
 } from './actions/getArticle.action';
+import {
+  getCommentsAction,
+  getCommentsFailureAction,
+  getCommentsSuccessAction,
+} from './actions/getComments.action';
 
 const initialState: ArticleState = {
-  isLoading: false,
-  article: null,
+  article: {
+    isLoading: false,
+    data: null,
+  },
+  comments: {
+    isSubmitting: false,
+    isLoading: false,
+    data: null,
+  },
 };
 
 export const articleReducer = createReducer(
@@ -18,23 +30,63 @@ export const articleReducer = createReducer(
     getArticleAction,
     (state): ArticleState => ({
       ...state,
-      article: null,
-      isLoading: true,
+      article: {
+        isLoading: true,
+        data: null,
+      },
     })
   ),
   on(
     getArticleSuccessAction,
     (state, { article }): ArticleState => ({
       ...state,
-      article,
-      isLoading: false,
+      article: {
+        isLoading: false,
+        data: article,
+      },
     })
   ),
   on(
     getArticleFailureAction,
     (state): ArticleState => ({
       ...state,
-      isLoading: true,
+      article: {
+        isLoading: false,
+        data: null,
+      },
+    })
+  ),
+  on(
+    getCommentsAction,
+    (state): ArticleState => ({
+      ...state,
+      comments: {
+        ...state.comments,
+        isLoading: false,
+        data: null,
+      },
+    })
+  ),
+  on(
+    getCommentsSuccessAction,
+    (state, { comments }): ArticleState => ({
+      ...state,
+      comments: {
+        ...state.comments,
+        isLoading: false,
+        data: comments,
+      },
+    })
+  ),
+  on(
+    getCommentsFailureAction,
+    (state): ArticleState => ({
+      ...state,
+      comments: {
+        ...state.comments,
+        isLoading: false,
+        data: null,
+      },
     })
   ),
   on(clearEditorStateAction, (): ArticleState => ({ ...initialState }))

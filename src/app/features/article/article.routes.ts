@@ -4,6 +4,7 @@ import { provideEffects } from '@ngrx/effects';
 import { ArticleComponent } from './pages/article/article.component';
 import { articleReducer } from './store/reducers';
 import { GetArticleEffect } from './store/effects/getArticle.effect';
+import { GetCommentsEffect } from './store/effects/getComments.effect';
 
 export const articleRoutes: Routes = [
   {
@@ -11,7 +12,7 @@ export const articleRoutes: Routes = [
     component: ArticleComponent,
     providers: [
       provideState('article', articleReducer),
-      provideEffects([GetArticleEffect]),
+      provideEffects([GetArticleEffect, GetCommentsEffect]),
     ],
   },
 ];

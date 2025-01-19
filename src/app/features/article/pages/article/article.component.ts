@@ -12,10 +12,18 @@ import { userSelector } from '../../../../core/store/user/selectors';
 import { clearEditorStateAction } from '../../store/actions/article.action';
 import { Article } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
+import { CommentsComponent } from '../../components/comments/comments.component';
+import { ArticleActionsComponent } from '../../components/article-actions/article-actions.component';
 
 @Component({
   selector: 'app-article',
-  imports: [AsyncPipe, RouterLink, DatePipe],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    DatePipe,
+    CommentsComponent,
+    ArticleActionsComponent,
+  ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
 })
