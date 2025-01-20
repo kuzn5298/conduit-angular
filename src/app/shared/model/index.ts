@@ -7,3 +7,4 @@ export * from './comment.interface';
 export * from './feed.interface';
 export * from './tags.interface';
 export * from './auth.interface';
+export * from './settings.interface';

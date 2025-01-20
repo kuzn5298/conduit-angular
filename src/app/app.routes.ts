@@ -25,5 +25,13 @@ export const routes: Routes = [
       import('./features/editor/editor.routes').then((m) => m.editorRoutes),
     canActivate: [authGuard],
   },
+  {
+    path: 'settings',
+    loadChildren: () =>
+      import('./features/settings/settings.routes').then(
+        (m) => m.settingsRoutes
+      ),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '' },
 ];
