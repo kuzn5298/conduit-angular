@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/']">conduit</a>
-    <ul class="nav navbar-nav pull-xs-right">
+    <ul class="nav navbar-nav pull-xs-right items-center">
       <li class="nav-item">
         <a
           class="nav-link"
@@ -41,6 +41,11 @@
           <img class="user-pic" [src]="avatar$ | async" />
           {{ user?.username }}
         </a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-sm btn-outline-secondary" (click)="logout()">
+          <i class="ion-log-out"></i>
+        </button>
       </li>
       } @else {
       <li class="nav-item">

@@ -8,6 +8,7 @@ import {
   userSelector,
 } from '../../../core/store/user/selectors';
 import { getAvatarPlaceholder } from '../../utils';
+import { logoutAction } from '../../../core/store';
 
 @Component({
   selector: 'app-header',
@@ -25,5 +26,9 @@ export class HeaderComponent {
     return this.user$.pipe(
       map((user) => getAvatarPlaceholder(user?.image ?? null, user?.username))
     );
+  }
+
+  logout(): void {
+    this.store.dispatch(logoutAction());
   }
 }
