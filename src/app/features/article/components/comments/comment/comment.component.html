@@ -18,5 +18,13 @@
       >{{ comment().author.username }}</a
     >
     <span class="date-posted">{{ comment().createdAt | date }}</span>
+    @if(isAuthor$ | async) {
+    <button
+      class="btn btn-sm btn-outline-secondary pull-xs-right"
+      (click)="deleteComment()"
+    >
+      <i class="ion-trash-a"></i>
+    </button>
+    }
   </div>
 </div>

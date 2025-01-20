@@ -6,6 +6,12 @@ import {
   getCommentsSuccessAction,
 } from './actions/getComments.action';
 import { clearCommentsStateAction } from './actions/comments.action';
+import {
+  addCommentAction,
+  addCommentFailureAction,
+  addCommentSuccessAction,
+  deleteCommentSuccessAction,
+} from './actions';
 
 const initialState: CommentsState = {
   isSubmitting: false,
@@ -37,6 +43,35 @@ export const commentsReducer = createReducer(
       ...state,
       isLoading: false,
       comments: null,
+    })
+  ),
+  on(
+    addCommentAction,
+    (state): CommentsState => ({
+      ...state,
+      isSubmitting: true,
+    })
+  ),
+  on(
+    addCommentSuccessAction,
+    (state, { comments }): CommentsState => ({
+      ...state,
+      isSubmitting: false,
+      comments,
+    })
+  ),
+  on(
+    addCommentFailureAction,
+    (state): CommentsState => ({
+      ...state,
+      isSubmitting: false,
+    })
+  ),
+  on(
+    deleteCommentSuccessAction,
+    (state, { comments }): CommentsState => ({
+      ...state,
+      comments,
     })
   ),
   on(clearCommentsStateAction, (): CommentsState => ({ ...initialState }))

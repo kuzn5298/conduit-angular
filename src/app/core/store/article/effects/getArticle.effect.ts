@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
@@ -17,7 +16,6 @@ export class GetArticleEffect {
   actions$ = inject(Actions);
   articleService = inject(ArticleService);
   router = inject(Router);
-  store = inject(Store);
 
   getArticle$ = createEffect(() =>
     this.actions$.pipe(

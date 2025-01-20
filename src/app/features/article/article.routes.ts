@@ -3,8 +3,10 @@ import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { ArticleComponent } from './pages/article/article.component';
 import {
+  AddCommentEffect,
   articleReducer,
   commentsReducer,
+  DeleteCommentEffect,
   GetArticleEffect,
   GetCommentsEffect,
 } from '../../core/store';
@@ -16,7 +18,12 @@ export const articleRoutes: Routes = [
     providers: [
       provideState('article', articleReducer),
       provideState('comments', commentsReducer),
-      provideEffects([GetArticleEffect, GetCommentsEffect]),
+      provideEffects([
+        GetArticleEffect,
+        GetCommentsEffect,
+        AddCommentEffect,
+        DeleteCommentEffect,
+      ]),
     ],
   },
 ];

@@ -9,6 +9,11 @@ export const isLoadingCommentsSelector = createSelector(
   (commentsState: CommentsState) => commentsState.isLoading
 );
 
+export const isSubmittingCommentsSelector = createSelector(
+  commentsStoreSelector,
+  (commentsState: CommentsState) => commentsState.isSubmitting
+);
+
 export const commentsSelector = createSelector(
   commentsStoreSelector,
   (commentsState: CommentsState) => commentsState.comments

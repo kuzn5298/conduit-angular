@@ -63,7 +63,8 @@ export class EditArticleEffect {
         ofType(getArticleSuccessAction),
         withLatestFrom(this.store.pipe(select(userSelector))),
         tap(([{ article }, user]) => {
-          if (user?.username !== article?.author?.username) {
+          const isEdit = this.router.url.startsWith('/editor');
+          if (user?.username !== article?.author?.username && isEdit) {
             this.router.navigateByUrl('/');
           }
         })

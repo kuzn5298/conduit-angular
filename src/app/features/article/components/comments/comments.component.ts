@@ -3,15 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { userSelector } from '../../../../core/store/user/selectors';
 import { User } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentComponent } from './comment/comment.component';
 import {
+  addCommentAction,
   commentsSelector,
+  deleteCommentAction,
   getCommentsAction,
   isLoadingCommentsSelector,
+  isSubmittingCommentsSelector,
 } from '../../../../core/store';
 
 @Component({
@@ -26,6 +28,7 @@ export class CommentsComponent implements OnInit {
 
   user$ = this.store.pipe(select(userSelector));
   isLoading$ = this.store.pipe(select(isLoadingCommentsSelector));
+  isSubmitting$ = this.store.pipe(select(isSubmittingCommentsSelector));
   comments$ = this.store.pipe(select(commentsSelector));
 
   ngOnInit(): void {
@@ -38,9 +41,15 @@ export class CommentsComponent implements OnInit {
   }
 
   addComment(form: HTMLFormElement): void {
-    const comment = (form[0] as HTMLInputElement)?.value;
+    const articleId = this.route.snapshot.paramMap.get('id') ?? '';
+    const text = (form[0] as HTMLInputElement)?.value;
     form.reset();
-    console.log('Add comment:', comment);
+    this.store.dispatch(addCommentAction({ articleId, text }));
+  }
+
+  deleteComment(commentId: number): void {
+    const articleId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.store.dispatch(deleteCommentAction({ commentId, articleId }));
   }
 
   getAvatar(user: User | null): string {

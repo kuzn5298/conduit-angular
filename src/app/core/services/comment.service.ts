@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommentsResponse } from '../../shared/model';
+import { CommentResponse, CommentsResponse } from '../../shared/model';
 import { environment } from '../../../environments/environment';
 
 const { apiUrl } = environment;
@@ -9,7 +9,7 @@ const { apiUrl } = environment;
 @Injectable({
   providedIn: 'root',
 })
-export class CommentsService {
+export class CommentService {
   private http = inject(HttpClient);
 
   getComments(articleId: string): Observable<CommentsResponse> {
@@ -18,10 +18,16 @@ export class CommentsService {
     );
   }
 
-  addComment(articleId: string, body: string): Observable<CommentsResponse> {
-    return this.http.post<CommentsResponse>(
+  addComment(articleId: string, text: string): Observable<CommentResponse> {
+    return this.http.post<CommentResponse>(
       `${apiUrl}/articles/${articleId}/comments`,
-      { comment: { body } }
+      { comment: { body: text } }
+    );
+  }
+
+  deleteComment(articleId: string, commentId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${apiUrl}/articles/${articleId}/comments/${commentId}`
     );
   }
 }
