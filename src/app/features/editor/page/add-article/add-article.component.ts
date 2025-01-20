@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { ArticleFormComponent } from '../../components/article-form/article-form.component';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import {
-  errorsEditorSelector,
-  isSubmittingEditorSelector,
-} from '../../store/selectors';
 import { ArticleInput, Errors } from '../../../../shared/model';
-import { createArticleAction } from '../../store/actions/createArticle.action';
-import { clearEditorStateAction } from '../../store/actions/editor.action';
+import {
+  clearArticleStateAction,
+  createArticleAction,
+  errorsArticleSelector,
+  isSubmittingArticleSelector,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-add-article',
@@ -22,10 +22,10 @@ export class AddArticleComponent implements OnDestroy {
   private store = inject(Store);
 
   isSubmitting$: Observable<boolean> = this.store.pipe(
-    select(isSubmittingEditorSelector)
+    select(isSubmittingArticleSelector)
   );
   errors$: Observable<Errors | null> = this.store.pipe(
-    select(errorsEditorSelector)
+    select(errorsArticleSelector)
   );
 
   onSubmit(articleInput: ArticleInput): void {
@@ -33,6 +33,6 @@ export class AddArticleComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(clearEditorStateAction());
+    this.store.dispatch(clearArticleStateAction());
   }
 }

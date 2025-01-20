@@ -5,16 +5,16 @@ import { select, Store } from '@ngrx/store';
 import { filter, map, Observable } from 'rxjs';
 import { ArticleFormComponent } from '../../components/article-form/article-form.component';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import {
-  articleEditorSelector,
-  errorsEditorSelector,
-  isLoadingEditorSelector,
-  isSubmittingEditorSelector,
-} from '../../store/selectors';
 import { ArticleInput, Errors } from '../../../../shared/model';
-import { getArticleAction } from '../../store/actions/getArticle.action';
-import { updateArticleAction } from '../../store/actions/updateArticle.action';
-import { clearEditorStateAction } from '../../store/actions/editor.action';
+import {
+  articleSelector,
+  clearArticleStateAction,
+  errorsArticleSelector,
+  getArticleAction,
+  isLoadingArticleSelector,
+  isSubmittingArticleSelector,
+  updateArticleAction,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-edit-article',
@@ -27,19 +27,19 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
 
   isSubmitting$: Observable<boolean> = this.store.pipe(
-    select(isSubmittingEditorSelector)
+    select(isSubmittingArticleSelector)
   );
 
   isLoading$: Observable<boolean> = this.store.pipe(
-    select(isLoadingEditorSelector)
+    select(isLoadingArticleSelector)
   );
 
   errors$: Observable<Errors | null> = this.store.pipe(
-    select(errorsEditorSelector)
+    select(errorsArticleSelector)
   );
 
   initialValue$ = this.store.pipe(
-    select(articleEditorSelector),
+    select(articleSelector),
     filter(Boolean),
     map(
       (article): ArticleInput => ({
@@ -56,7 +56,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(clearEditorStateAction());
+    this.store.dispatch(clearArticleStateAction());
   }
 
   fetchArticle(): void {

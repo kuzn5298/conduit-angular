@@ -2,16 +2,17 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
-import { getCommentsAction } from '../../store/actions/getComments.action';
-import {
-  commentsSelector,
-  isLoadingCommentsSelector,
-} from '../../store/selectors';
+import { FormsModule } from '@angular/forms';
+
 import { userSelector } from '../../../../core/store/user/selectors';
-import { Profile, User } from '../../../../shared/model';
+import { User } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentComponent } from './comment/comment.component';
-import { FormsModule } from '@angular/forms';
+import {
+  commentsSelector,
+  getCommentsAction,
+  isLoadingCommentsSelector,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-comments',

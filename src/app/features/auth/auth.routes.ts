@@ -3,9 +3,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { authReducer } from './store/reducers';
-import { LoginEffect } from './store/effects/login.effect';
-import { registerEffect } from './store/effects/register.effect';
+import { authReducer, LoginEffect, registerEffect } from '../../core/store';
 
 export const authRoutes: Routes = [
   {

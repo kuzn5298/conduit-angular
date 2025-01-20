@@ -11,12 +11,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FeedToggleComponent } from '../../components/feed-toggle/feed-toggle.component';
 import { FeedTagsComponent } from '../../components/feed-tags/feed-tags.component';
-import { articlesCountSelector } from '../../store/selectors';
-import { clearFeedStateAction } from '../../store/actions/feed.action';
 import { FeedArticlesComponent } from '../../components/feed-articles/feed-articles.component';
 import { FeedPaginationComponent } from '../../components/feed-pagination/feed-pagination.component';
-import { getArticlesAction } from '../../store/actions/articles.action';
-import { FeedType } from '../../model/feed-type.enum';
+import {
+  articlesCountSelector,
+  clearArticlesStateAction,
+  getArticlesAction,
+} from '../../../../core/store';
+import { FeedType } from '../../../../shared/model';
 
 const LIMIT = 10;
 
@@ -49,7 +51,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(clearFeedStateAction());
+    this.store.dispatch(clearArticlesStateAction());
   }
 
   fetchFeed(): void {

@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Comment } from '../../../model/comment.interface';
+import { Comment } from '../../../../../shared/model/comment.interface';
 import { getAvatarPlaceholder } from '../../../../../shared/utils';
 import { Profile } from '../../../../../shared/model';
 

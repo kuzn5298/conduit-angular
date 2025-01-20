@@ -12,16 +12,15 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 
 import { routes } from './app.routes';
-import { reducers } from './core/store/reducer';
-import { effects } from './core/store/effects';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { InitializerService } from './core/services/initializer.service';
+import { globalEffects, globalReducers } from './core/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideStore(reducers),
-    provideEffects(effects),
+    provideStore(globalReducers),
+    provideEffects(globalEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

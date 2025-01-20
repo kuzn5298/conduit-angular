@@ -3,3 +3,7 @@ export * from './errors.interface';
 export * from './article.interface';
 export * from './pagination.interface';
 export * from './profile.interface';
+export * from './comment.interface';
+export * from './feed.interface';
+export * from './tags.interface';
+export * from './auth.interface';

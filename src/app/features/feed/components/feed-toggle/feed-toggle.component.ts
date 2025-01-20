@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { isLoggedInSelector } from '../../../../core/store/user/selectors';
-import { FeedType } from '../../model/feed-type.enum';
+import { FeedType } from '../../../../shared/model';
 
 @Component({
   selector: 'app-feed-toggle',

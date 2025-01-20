@@ -1,18 +1,18 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { EMPTY, Observable } from 'rxjs';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { Errors } from '../../../../shared/model';
-import {
-  authErrorSelector,
-  authSubmittingSelector,
-} from '../../store/selectors';
-import { loginAction } from '../../store/actions/login.action';
 import { LoginForm } from './login-form.interface';
-import { clearAuthStateAction } from '../../store/actions/auth.action';
+import {
+  authErrorsSelector,
+  clearAuthStateAction,
+  isSubmittingAuthSelector,
+  loginAction,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-login',
@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.select(authSubmittingSelector);
-    this.errors$ = this.store.select(authErrorSelector);
+    this.isSubmitting$ = this.store.select(isSubmittingAuthSelector);
+    this.errors$ = this.store.select(authErrorsSelector);
   }
 
   onSubmit(): void {

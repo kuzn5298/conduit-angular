@@ -3,17 +3,18 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
-import { getArticleAction } from '../../store/actions/getArticle.action';
-import {
-  articleSelector,
-  isLoadingArticleSelector,
-} from '../../store/selectors';
+
 import { userSelector } from '../../../../core/store/user/selectors';
-import { clearEditorStateAction } from '../../store/actions/article.action';
 import { Article } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentsComponent } from '../../components/comments/comments.component';
 import { ArticleActionsComponent } from '../../components/article-actions/article-actions.component';
+import {
+  articleSelector,
+  clearArticleStateAction,
+  getArticleAction,
+  isLoadingArticleSelector,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-article',
@@ -45,7 +46,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(clearEditorStateAction());
+    this.store.dispatch(clearArticleStateAction());
   }
 
   fetchArticle(): void {

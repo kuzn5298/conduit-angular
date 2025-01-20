@@ -6,13 +6,13 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { EMPTY, Observable } from 'rxjs';
 import { Errors } from '../../../../shared/model';
 import { RegisterForm } from './register-form.interface';
-import {
-  authErrorSelector,
-  authSubmittingSelector,
-} from '../../store/selectors';
-import { registerAction } from '../../store/actions/register.action';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { clearAuthStateAction } from '../../store/actions/auth.action';
+import {
+  authErrorsSelector,
+  clearAuthStateAction,
+  isSubmittingAuthSelector,
+  registerAction,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-register',
@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.select(authSubmittingSelector);
-    this.errors$ = this.store.select(authErrorSelector);
+    this.isSubmitting$ = this.store.select(isSubmittingAuthSelector);
+    this.errors$ = this.store.select(authErrorsSelector);
   }
 
   onSubmit(): void {

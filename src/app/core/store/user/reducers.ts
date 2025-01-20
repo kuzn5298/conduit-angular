@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { UserState } from './user-state.interface';
-import { removeUserAction, setUserAction } from './actions/user.action';
+import { removeUserAction, setUserAction } from './actions/auth.action';
 import {
   getCurrentUserAction,
   getCurrentUserFailureAction,
   getCurrentUserSuccessAction,
 } from './actions/getCurrentUser.action';
+import { UserState } from './user-state.interface';
 
 const initialState: UserState = {
   user: null,

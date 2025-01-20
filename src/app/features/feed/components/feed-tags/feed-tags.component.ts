@@ -1,9 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { isLoadingTagsSelector, tagsSelector } from '../../store/selectors';
 import { RouterLink } from '@angular/router';
-import { getTagsAction } from '../../store/actions/tags.action';
+import {
+  getTagsAction,
+  isLoadingTagsSelector,
+  tagsSelector,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-feed-tags',

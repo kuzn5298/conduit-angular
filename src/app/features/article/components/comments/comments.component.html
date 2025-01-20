@@ -19,9 +19,12 @@
 
     @if(isLoading$ | async) {
     <p>Loading comments...</p>
-    } @else { @if(comments$ | async; as comments) { @for(comment of comments;
-    track comment.id) {
-    <app-comment [comment]="comment" />
-    } } }
+    } @else { @if(comments$ | async; as comments) {
+    <div>
+      @for(comment of comments; track comment.id) {
+      <app-comment [comment]="comment" />
+      }
+    </div>
+    } }
   </div>
 </div>

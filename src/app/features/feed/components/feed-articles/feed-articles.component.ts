@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { Article } from '../../../../shared/model/article.interface';
+import { getAvatarPlaceholder } from '../../../../shared/utils';
 import {
   articlesSelector,
   isLoadingArticlesSelector,
-} from '../../store/selectors';
-import { Article } from '../../../../shared/model/article.interface';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-feed-articles',
