@@ -24,6 +24,7 @@
     <button
       class="btn btn-sm btn-outline-primary"
       [class.active]="article().favorited"
+      (click)="favoriteArticle(article())"
     >
       <i class="ion-heart"></i>
       &nbsp; Favorite Article

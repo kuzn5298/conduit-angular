@@ -21,5 +21,5 @@ export const errorsArticleSelector = createSelector(
 
 export const articleSelector = createSelector(
   articleStoreSelector,
-  (articleState: ArticleState) => articleState.article
+  (articleState: ArticleState) => articleState?.article ?? null
 );

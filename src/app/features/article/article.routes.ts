@@ -7,6 +7,7 @@ import {
   articleReducer,
   commentsReducer,
   DeleteCommentEffect,
+  FavoriteArticleEffect,
   GetArticleEffect,
   GetCommentsEffect,
 } from '../../core/store';
@@ -16,13 +17,13 @@ export const articleRoutes: Routes = [
     path: ':id',
     component: ArticleComponent,
     providers: [
-      provideState('article', articleReducer),
       provideState('comments', commentsReducer),
       provideEffects([
         GetArticleEffect,
         GetCommentsEffect,
         AddCommentEffect,
         DeleteCommentEffect,
+        FavoriteArticleEffect,
       ]),
     ],
   },

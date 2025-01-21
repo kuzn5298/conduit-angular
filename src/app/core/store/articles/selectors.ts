@@ -6,7 +6,7 @@ export const articlesStoreSelector =
 
 export const articlesSelector = createSelector(
   articlesStoreSelector,
-  (state: ArticlesState) => state.articles
+  (state: ArticlesState) => state?.articles ?? []
 );
 
 export const articlesCountSelector = createSelector(

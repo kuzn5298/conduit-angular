@@ -6,7 +6,9 @@ import { Article } from '../../../../shared/model/article.interface';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import {
   articlesSelector,
+  favoriteArticleAction,
   isLoadingArticlesSelector,
+  unfavoriteArticleAction,
 } from '../../../../core/store';
 
 @Component({
@@ -24,5 +26,13 @@ export class FeedArticlesComponent {
   getAvatar(article: Article): string {
     const user = article.author;
     return getAvatarPlaceholder(user?.image ?? null, user?.username);
+  }
+
+  favoriteArticle(article: Article): void {
+    if (article.favorited) {
+      this.store.dispatch(unfavoriteArticleAction({ id: article.slug }));
+    } else {
+      this.store.dispatch(favoriteArticleAction({ id: article.slug }));
+    }
   }
 }

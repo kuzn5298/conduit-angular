@@ -22,12 +22,25 @@ export class ArticleService {
     });
   }
 
-  updateArticle(
+  editArticle(
     slug: string,
     articleInput: ArticleInput
   ): Observable<ArticleResponse> {
     return this.http.put<ArticleResponse>(`${apiUrl}/articles/${slug}`, {
       article: articleInput,
     });
+  }
+
+  favoriteArticle(id: string): Observable<ArticleResponse> {
+    return this.http.post<ArticleResponse>(
+      `${apiUrl}/articles/${id}/favorite`,
+      {}
+    );
+  }
+
+  unfavoriteArticle(id: string): Observable<ArticleResponse> {
+    return this.http.delete<ArticleResponse>(
+      `${apiUrl}/articles/${id}/favorite`
+    );
   }
 }

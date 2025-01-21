@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -17,6 +17,7 @@ export class ArticleActionsComponent {
   private store = inject(Store);
 
   article = input.required<Article>();
+  favorite = output<Article>();
 
   isAuthor$ = this.store
     .pipe(select(userSelector))
@@ -24,5 +25,9 @@ export class ArticleActionsComponent {
 
   getAvatar(author: Profile): string {
     return getAvatarPlaceholder(author?.image ?? null, author?.username);
+  }
+
+  favoriteArticle(article: Article): void {
+    this.favorite.emit(article);
   }
 }

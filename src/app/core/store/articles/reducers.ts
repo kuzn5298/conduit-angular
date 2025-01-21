@@ -1,6 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { ArticlesState } from './articles-state.interface';
-import { clearArticlesStateAction } from './actions/articles.action';
+import {
+  clearArticlesStateAction,
+  setArticlesStateAction,
+} from './actions/articles.action';
 import {
   getArticlesAction,
   getArticlesFailureAction,
@@ -40,6 +43,9 @@ export const articlesReducer = createReducer(
       articles: [],
     })
   ),
-
+  on(
+    setArticlesStateAction,
+    (state, { articles }): ArticlesState => ({ ...state, articles })
+  ),
   on(clearArticlesStateAction, (): ArticlesState => ({ ...initialState }))
 );

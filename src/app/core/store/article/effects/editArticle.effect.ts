@@ -12,10 +12,10 @@ import {
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
-  updateArticleAction,
-  updateArticleFailureAction,
-  updateArticleSuccessAction,
-} from '../actions/updateArticle.action';
+  editArticleAction,
+  editArticleFailureAction,
+  editArticleSuccessAction,
+} from '../actions/editArticle.action';
 import { ArticleService } from '../../../../core/services/article.service';
 import { ArticleResponse } from '../../../../shared/model';
 import { getArticleSuccessAction } from '../actions/getArticle.action';
@@ -28,17 +28,17 @@ export class EditArticleEffect {
   articleService = inject(ArticleService);
   router = inject(Router);
 
-  updateArticle$ = createEffect(() =>
+  editArticle$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(updateArticleAction),
+      ofType(editArticleAction),
       switchMap(({ id, articleInput }) => {
-        return this.articleService.updateArticle(id, articleInput).pipe(
+        return this.articleService.editArticle(id, articleInput).pipe(
           map((response: ArticleResponse) => {
-            return updateArticleSuccessAction({ article: response.article });
+            return editArticleSuccessAction({ article: response.article });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
-              updateArticleFailureAction({ errors: errorResponse.error.errors })
+              editArticleFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );
@@ -49,7 +49,7 @@ export class EditArticleEffect {
   redirectAfterUpdate$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(updateArticleSuccessAction),
+        ofType(editArticleSuccessAction),
         switchMap(({ article }) => {
           return this.router.navigate(['/article', article.slug]);
         })

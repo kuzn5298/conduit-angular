@@ -13,7 +13,7 @@ import {
   getArticleAction,
   isLoadingArticleSelector,
   isSubmittingArticleSelector,
-  updateArticleAction,
+  editArticleAction,
 } from '../../../../core/store';
 
 @Component({
@@ -66,6 +66,6 @@ export class EditArticleComponent implements OnInit, OnDestroy {
 
   onSubmit(articleInput: ArticleInput): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
-    this.store.dispatch(updateArticleAction({ id, articleInput }));
+    this.store.dispatch(editArticleAction({ id, articleInput }));
   }
 }

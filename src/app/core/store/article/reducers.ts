@@ -11,11 +11,11 @@ import {
   createArticleSuccessAction,
 } from './actions/createArticle.action';
 import {
-  updateArticleAction,
-  updateArticleFailureAction,
-  updateArticleSuccessAction,
-} from './actions/updateArticle.action';
-import { clearArticleStateAction } from './actions';
+  editArticleAction,
+  editArticleFailureAction,
+  editArticleSuccessAction,
+} from './actions/editArticle.action';
+import { clearArticleStateAction, setArticleStateAction } from './actions';
 
 const initialState: ArticleState = {
   isSubmitting: false,
@@ -50,7 +50,7 @@ export const articleReducer = createReducer(
     })
   ),
   on(
-    updateArticleAction,
+    editArticleAction,
     (state): ArticleState => ({
       ...state,
       errors: null,
@@ -58,14 +58,14 @@ export const articleReducer = createReducer(
     })
   ),
   on(
-    updateArticleSuccessAction,
+    editArticleSuccessAction,
     (state): ArticleState => ({
       ...state,
       isSubmitting: false,
     })
   ),
   on(
-    updateArticleFailureAction,
+    editArticleFailureAction,
     (state, { errors }): ArticleState => ({
       ...state,
       isSubmitting: false,
@@ -95,6 +95,10 @@ export const articleReducer = createReducer(
       ...state,
       isLoading: true,
     })
+  ),
+  on(
+    setArticleStateAction,
+    (state, { article }): ArticleState => ({ ...state, article })
   ),
   on(clearArticleStateAction, (): ArticleState => ({ ...initialState }))
 );

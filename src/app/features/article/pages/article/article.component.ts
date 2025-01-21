@@ -12,8 +12,10 @@ import { ArticleActionsComponent } from '../../components/article-actions/articl
 import {
   articleSelector,
   clearArticleStateAction,
+  favoriteArticleAction,
   getArticleAction,
   isLoadingArticleSelector,
+  unfavoriteArticleAction,
 } from '../../../../core/store';
 
 @Component({
@@ -57,5 +59,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
   getAvatar(article: Article): string {
     const user = article.author;
     return getAvatarPlaceholder(user?.image ?? null, user?.username);
+  }
+
+  favoriteArticle(article: Article): void {
+    if (article.favorited) {
+      this.store.dispatch(unfavoriteArticleAction({ id: article.slug }));
+    } else {
+      this.store.dispatch(favoriteArticleAction({ id: article.slug }));
+    }
   }
 }

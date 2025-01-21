@@ -4,6 +4,7 @@ import { provideEffects } from '@ngrx/effects';
 import { MainComponent } from './pages/main/main.component';
 import {
   articlesReducer,
+  FavoriteArticleEffect,
   GetArticlesEffect,
   GetTagsEffect,
   tagsReducer,
@@ -14,9 +15,8 @@ export const homeRoutes: Routes = [
     path: '',
     component: MainComponent,
     providers: [
-      provideState('articles', articlesReducer),
       provideState('tags', tagsReducer),
-      provideEffects([GetTagsEffect, GetArticlesEffect]),
+      provideEffects([GetTagsEffect, GetArticlesEffect, FavoriteArticleEffect]),
     ],
   },
 ];

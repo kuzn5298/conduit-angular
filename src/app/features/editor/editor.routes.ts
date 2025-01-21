@@ -22,9 +22,6 @@ export const editorRoutes: Routes = [
   {
     path: ':id',
     component: EditArticleComponent,
-    providers: [
-      provideState('article', articleReducer),
-      provideEffects([EditArticleEffect, GetArticleEffect]),
-    ],
+    providers: [provideEffects([EditArticleEffect, GetArticleEffect])],
   },
 ];
