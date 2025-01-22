@@ -54,7 +54,8 @@
     <hr />
     <app-article-actions
       [article]="article"
-      (favorite)="favoriteArticle(article)"
+      (favorite)="favoriteArticle($event)"
+      (follow)="followProfile($event)"
     />
     <app-comments />
   </div>

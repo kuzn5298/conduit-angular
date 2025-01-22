@@ -8,6 +8,7 @@ import {
   commentsReducer,
   DeleteCommentEffect,
   FavoriteArticleEffect,
+  FollowProfileEffect,
   GetArticleEffect,
   GetCommentsEffect,
 } from '../../core/store';
@@ -24,6 +25,7 @@ export const articleRoutes: Routes = [
         AddCommentEffect,
         DeleteCommentEffect,
         FavoriteArticleEffect,
+        FollowProfileEffect,
       ]),
     ],
   },

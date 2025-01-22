@@ -18,6 +18,7 @@ export class ArticleActionsComponent {
 
   article = input.required<Article>();
   favorite = output<Article>();
+  follow = output<Profile>();
 
   isAuthor$ = this.store
     .pipe(select(userSelector))
@@ -29,5 +30,9 @@ export class ArticleActionsComponent {
 
   favoriteArticle(article: Article): void {
     this.favorite.emit(article);
+  }
+
+  followProfile(profile: Profile): void {
+    this.follow.emit(profile);
   }
 }
