@@ -6,6 +6,13 @@ import { map } from 'rxjs';
 import { Article, Profile } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { userSelector } from '../../../../core/store/user/selectors';
+import {
+  deleteArticleAction,
+  favoriteArticleAction,
+  followProfileAction,
+  unfavoriteArticleAction,
+  unfollowProfileAction,
+} from '../../../../core/store';
 
 @Component({
   selector: 'app-article-actions',
@@ -17,8 +24,6 @@ export class ArticleActionsComponent {
   private store = inject(Store);
 
   article = input.required<Article>();
-  favorite = output<Article>();
-  follow = output<Profile>();
 
   isAuthor$ = this.store
     .pipe(select(userSelector))
@@ -29,10 +34,22 @@ export class ArticleActionsComponent {
   }
 
   favoriteArticle(article: Article): void {
-    this.favorite.emit(article);
+    if (article.favorited) {
+      this.store.dispatch(unfavoriteArticleAction({ id: article.slug }));
+    } else {
+      this.store.dispatch(favoriteArticleAction({ id: article.slug }));
+    }
   }
 
   followProfile(profile: Profile): void {
-    this.follow.emit(profile);
+    if (profile.following) {
+      this.store.dispatch(unfollowProfileAction({ id: profile.username }));
+    } else {
+      this.store.dispatch(followProfileAction({ id: profile.username }));
+    }
+  }
+
+  deleteArticle(id: string): void {
+    this.store.dispatch(deleteArticleAction({ id }));
   }
 }

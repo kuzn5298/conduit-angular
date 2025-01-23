@@ -38,11 +38,7 @@
       </div>
     </div>
     <hr />
-    <app-article-actions
-      [article]="article"
-      (favorite)="favoriteArticle($event)"
-      (follow)="followProfile($event)"
-    />
+    <app-article-actions [article]="article" />
     <app-comments />
   </div>
 </div>

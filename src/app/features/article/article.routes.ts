@@ -12,6 +12,7 @@ import {
   GetArticleEffect,
   GetCommentsEffect,
 } from '../../core/store';
+import { DeleteArticleEffect } from '../../core/store/article/effects/deleteArticle.effect';
 
 export const articleRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ export const articleRoutes: Routes = [
         DeleteCommentEffect,
         FavoriteArticleEffect,
         FollowProfileEffect,
+        DeleteArticleEffect,
       ]),
     ],
   },

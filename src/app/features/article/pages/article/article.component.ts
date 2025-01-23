@@ -5,20 +5,15 @@ import { select, Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 
 import { userSelector } from '../../../../core/store/user/selectors';
-import { Article, Profile } from '../../../../shared/model';
+import { Article } from '../../../../shared/model';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentsComponent } from '../../components/comments/comments.component';
 import { ArticleActionsComponent } from '../../components/article-actions/article-actions.component';
 import {
   articleSelector,
   clearArticleStateAction,
-  favoriteArticleAction,
-  followProfileAction,
   getArticleAction,
   isLoadingArticleSelector,
-  unfavoriteArticleAction,
-  unfavoriteArticleSuccessAction,
-  unfollowProfileAction,
 } from '../../../../core/store';
 
 @Component({
@@ -62,21 +57,5 @@ export class ArticleComponent implements OnInit, OnDestroy {
   getAvatar(article: Article): string {
     const user = article.author;
     return getAvatarPlaceholder(user?.image ?? null, user?.username);
-  }
-
-  favoriteArticle(article: Article): void {
-    if (article.favorited) {
-      this.store.dispatch(unfavoriteArticleAction({ id: article.slug }));
-    } else {
-      this.store.dispatch(favoriteArticleAction({ id: article.slug }));
-    }
-  }
-
-  followProfile(profile: Profile): void {
-    if (profile.following) {
-      this.store.dispatch(unfollowProfileAction({ id: profile.username }));
-    } else {
-      this.store.dispatch(followProfileAction({ id: profile.username }));
-    }
   }
 }

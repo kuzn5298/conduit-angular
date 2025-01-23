@@ -31,6 +31,10 @@ export class ArticleService {
     });
   }
 
+  deleteArticle(id: string): Observable<void> {
+    return this.http.delete<void>(`${apiUrl}/articles/${id}`);
+  }
+
   favoriteArticle(id: string): Observable<ArticleResponse> {
     return this.http.post<ArticleResponse>(
       `${apiUrl}/articles/${id}/favorite`,
