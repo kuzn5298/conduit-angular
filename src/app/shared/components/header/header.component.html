@@ -1,10 +1,10 @@
-<nav class="navbar navbar-light">
-  <div class="container">
-    <a class="navbar-brand" [routerLink]="['/']">conduit</a>
-    <ul class="nav navbar-nav pull-xs-right items-center">
-      <li class="nav-item">
-        <a
-          class="nav-link"
+<mat-toolbar>
+  <div class="container header-container">
+    <a class="logo" [routerLink]="['/']">conduit</a>
+    <ul>
+      <li>
+        <button
+          mat-button
           [routerLink]="['/']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{
@@ -12,56 +12,63 @@
             queryParams: 'ignored',
             paths: 'exact'
           }"
-          >Home</a
         >
+          <mat-icon>home</mat-icon>
+          Home
+        </button>
       </li>
       @if(user$ | async; as user) {
-      <li class="nav-item">
-        <a
-          [routerLink]="['/editor']"
-          class="nav-link"
-          routerLinkActive="active"
-        >
-          <i class="ion-compose"></i>
-          New Post
-        </a>
+      <li>
+        <button mat-button [routerLink]="['/editor']" routerLinkActive="active">
+          <mat-icon>edit_square</mat-icon>
+          New post
+        </button>
       </li>
-      <li class="nav-item">
-        <a
+      <li>
+        <button
+          mat-button
+          routerLinkActive="active"
           [routerLink]="['/settings']"
-          class="nav-link"
-          routerLinkActive="active"
         >
-          <i class="ion-gear-a"></i>
+          <mat-icon>settings</mat-icon>
           Settings
-        </a>
+        </button>
       </li>
-      <li class="nav-item">
-        <a [routerLink]="['/profile', user?.username]" class="nav-link">
-          <img class="user-pic" [src]="avatar$ | async" />
+      <li>
+        <button
+          mat-button
+          routerLinkActive="active"
+          [routerLink]="['/profile', user?.username]"
+        >
+          <app-avatar
+            [image]="user.image"
+            [name]="user.username"
+            class="avatar"
+          />
           {{ user?.username }}
-        </a>
+        </button>
       </li>
-      <li class="nav-item">
-        <button class="btn btn-sm btn-outline-secondary" (click)="logout()">
-          <i class="ion-log-out"></i>
+      <li>
+        <button mat-button class="logout-button" (click)="logout()">
+          <mat-icon>logout</mat-icon>
         </button>
       </li>
       } @else {
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">
+      <li>
+        <button mat-button routerLinkActive="active" [routerLink]="['/login']">
           Sign in
-        </a>
+        </button>
       </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/register']"
+      <li>
+        <button
+          mat-button
           routerLinkActive="active"
-          >Sign up</a
+          [routerLink]="['/register']"
         >
+          Sign up
+        </button>
       </li>
       }
     </ul>
   </div>
-</nav>
+</mat-toolbar>

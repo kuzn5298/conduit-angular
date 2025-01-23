@@ -1,4 +1,44 @@
-.items-center {
+.header-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.5rem;
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+}
+
+ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  gap: 0.25rem;
+}
+
+.logout-button {
+  min-width: 0;
+
+  mat-icon {
+    margin: 0;
+  }
+}
+
+.avatar {
+  position: relative;
+  vertical-align: top;
+  margin-right: 0.25rem;
+}
+
+::ng-deep
+  button.mat-mdc-button.active
+  .mat-mdc-button-persistent-ripple::before {
+  opacity: var(
+    --mat-text-button-hover-state-layer-opacity,
+    var(--mat-sys-hover-state-layer-opacity)
+  );
 }

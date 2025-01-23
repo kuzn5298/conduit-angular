@@ -2,17 +2,27 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import {
   isLoggedInSelector,
   userSelector,
-} from '../../../core/store/user/selectors';
-import { getAvatarPlaceholder } from '../../utils';
-import { logoutAction } from '../../../core/store';
+  logoutAction,
+} from '../../../core/store';
+import { AvatarComponent } from '../avatar/avatar.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, AsyncPipe, RouterLinkActive],
+  imports: [
+    RouterLink,
+    AsyncPipe,
+    RouterLinkActive,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    AvatarComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -21,12 +31,6 @@ export class HeaderComponent {
 
   isLoggedIn$ = this.store.select(isLoggedInSelector);
   user$ = this.store.select(userSelector);
-
-  get avatar$() {
-    return this.user$.pipe(
-      map((user) => getAvatarPlaceholder(user?.image ?? null, user?.username))
-    );
-  }
 
   logout(): void {
     this.store.dispatch(logoutAction());
