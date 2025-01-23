@@ -5,11 +5,10 @@ import {
   map,
   catchError,
   switchMap,
-  tap,
   withLatestFrom,
   filter,
 } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import {
   favoriteArticleAction,
   favoriteArticleFailureAction,

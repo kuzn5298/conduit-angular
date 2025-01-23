@@ -20,6 +20,8 @@ import {
   unfollowProfileFailureAction,
   unfollowProfileSuccessAction,
 } from '../actions';
+import { profileSelector, setProfileStateAction } from '../../profile';
+import { Article, Profile } from '../../../../shared/model';
 
 @Injectable()
 export class FollowProfileEffect {
@@ -63,8 +65,11 @@ export class FollowProfileEffect {
   updateFollowedProfile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(followProfileSuccessAction, unfollowProfileSuccessAction),
-      withLatestFrom(this.store.pipe(select(articleSelector))),
-      map(([action, article]) => {
+      withLatestFrom(
+        this.store.pipe(select(articleSelector)),
+        this.store.pipe(select(profileSelector))
+      ),
+      map(([action, article, profile]) => {
         if (article && article.author.username === action?.profile?.username) {
           const newArticle = {
             ...article,
@@ -74,6 +79,13 @@ export class FollowProfileEffect {
             },
           };
           return setArticleStateAction({ article: newArticle });
+        } else if (profile && profile.username === action?.profile?.username) {
+          const newProfile: Profile = {
+            ...action.profile,
+            image: action.profile.image || profile.image,
+          };
+
+          return setProfileStateAction({ profile: newProfile });
         }
         return null;
       }),

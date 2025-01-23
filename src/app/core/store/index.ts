@@ -7,6 +7,7 @@ export * from './auth';
 export * from './settings';
 export * from './favorite';
 export * from './follow';
+export * from './profile';
 
 export * from './globalReducer';
 export * from './globalEffects';

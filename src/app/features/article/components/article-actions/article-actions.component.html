@@ -10,7 +10,17 @@
       <span class="date">{{ article().createdAt | date }}</span>
     </div>
 
-    @if(article().author.following) {
+    @if(isAuthor$ | async) {
+    <button
+      [routerLink]="['/editor', article().slug]"
+      class="btn btn-sm btn-outline-secondary"
+    >
+      <i class="ion-edit"></i> Edit Article
+    </button>
+    <button class="btn btn-sm btn-outline-danger">
+      <i class="ion-trash-a"></i> Delete Article
+    </button>
+    } @else { @if(article().author.following) {
     <button
       class="btn btn-sm btn-outline-secondary active"
       (click)="followProfile(article().author)"
@@ -35,13 +45,6 @@
       <i class="ion-heart"></i>
       &nbsp; Favorite Article
       <span class="counter">({{ article().favoritesCount }})</span>
-    </button>
-    @if(isAuthor$ | async) {
-    <button class="btn btn-sm btn-outline-secondary">
-      <i class="ion-edit"></i> Edit Article
-    </button>
-    <button class="btn btn-sm btn-outline-danger">
-      <i class="ion-trash-a"></i> Delete Article
     </button>
     }
   </div>

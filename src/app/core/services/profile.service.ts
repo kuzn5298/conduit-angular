@@ -22,4 +22,8 @@ export class ProfileService {
   unfollowProfile(id: string): Observable<ProfileResponse> {
     return this.http.delete<ProfileResponse>(`${apiUrl}/profiles/${id}/follow`);
   }
+
+  getProfile(id: string): Observable<ProfileResponse> {
+    return this.http.get<ProfileResponse>(`${apiUrl}/profiles/${id}`);
+  }
 }

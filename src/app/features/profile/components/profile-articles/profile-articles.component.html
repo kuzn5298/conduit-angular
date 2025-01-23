@@ -31,7 +31,7 @@
         @for(tag of article.tagList; track tag) {
         <a
           (click)="$event.stopPropagation()"
-          [routerLink]="[]"
+          [routerLink]="['/']"
           [queryParams]="{ tag, feed: 'tag' }"
           class="tag-default tag-pill tag-outline"
         >

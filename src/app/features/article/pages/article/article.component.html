@@ -7,32 +7,18 @@
       <h1>{{ article.title }}</h1>
 
       <div class="article-meta">
-        <a [routerLink]="['/profiles', article?.author?.username]">
+        <a [routerLink]="['/profile', article?.author?.username]">
           <img [src]="getAvatar(article)" />
         </a>
         <div class="info">
           <a
-            [routerLink]="['/profiles', article?.author?.username]"
+            [routerLink]="['/profile', article?.author?.username]"
             class="author"
           >
             {{ article?.author?.username }}
           </a>
           <span class="date">{{ article?.createdAt | date }}</span>
         </div>
-
-        @if(isAuthor$ | async) {
-        <a
-          [routerLink]="['/editor', article?.slug]"
-          class="btn btn-sm btn-outline-secondary"
-        >
-          <i class="ion-edit"></i>
-          Edit Article
-        </a>
-        <button class="btn btn-sm btn-outline-danger">
-          <i class="ion-trash-a"></i>
-          Delete Article
-        </button>
-        }
       </div>
     </div>
   </div>

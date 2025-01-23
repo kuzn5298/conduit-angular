@@ -37,7 +37,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/profiles', user?.username]" class="nav-link">
+        <a [routerLink]="['/profile', user?.username]" class="nav-link">
           <img class="user-pic" [src]="avatar$ | async" />
           {{ user?.username }}
         </a>

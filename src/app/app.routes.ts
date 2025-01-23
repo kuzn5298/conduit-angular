@@ -33,5 +33,10 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.routes').then((m) => m.profileRoutes),
+  },
   { path: '**', redirectTo: '' },
 ];
