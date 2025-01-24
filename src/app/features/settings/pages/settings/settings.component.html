@@ -1,64 +1,61 @@
-<div class="settings-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Your Settings</h1>
+<div class="settings-page container">
+  <h2>Your Settings</h2>
+  @if(errors$ | async; as errors) {
+  <app-error-messages [errors]="errors" class="errors" />
+  }
 
-        @if(errors$ | async; as errors) {
-        <app-error-messages [errors]="errors" />
-        }
-
-        <form [formGroup]="form" (ngSubmit)="submit()">
-          <fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="URL of profile picture"
-                formControlName="image"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="text"
-                placeholder="Your Name"
-                formControlName="username"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <textarea
-                class="form-control form-control-lg"
-                rows="8"
-                placeholder="Short bio about you"
-                formControlName="bio"
-              ></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="text"
-                placeholder="Email"
-                formControlName="email"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="password"
-                placeholder="Password*"
-                formControlName="password"
-              />
-            </fieldset>
-            <button
-              class="btn btn-lg btn-primary pull-xs-right"
-              [disabled]="form.invalid || (isSubmitting$ | async)"
-            >
-              Update Settings
-            </button>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <fieldset class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Avatar</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="image"
+          placeholder="URL of profile picture"
+        />
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+          placeholder="Your Name"
+        />
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Bio</mat-label>
+        <textarea
+          matInput
+          type="text"
+          formControlName="username"
+          placeholder="Short bio about you"
+        ></textarea>
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" formControlName="email" />
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required />
+      </mat-form-field>
+    </fieldset>
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="form.invalid || (isSubmitting$ | async)"
+    >
+      Update Settings
+    </button>
+  </form>
 </div>

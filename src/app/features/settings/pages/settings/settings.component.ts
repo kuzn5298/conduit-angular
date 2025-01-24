@@ -12,10 +12,18 @@ import {
 } from '../../../../core/store';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { UserWithPassword } from '../../../../shared/model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-settings',
-  imports: [AsyncPipe, ErrorMessagesComponent, ReactiveFormsModule],
+  imports: [
+    AsyncPipe,
+    ErrorMessagesComponent,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
