@@ -1,14 +1,32 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnChanges,
+  OnInit,
+  output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ArticleForm, ArticleInput } from '../../../../shared/model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-article-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './article-form.component.html',
   styleUrl: './article-form.component.css',
 })
-export class ArticleFormComponent implements OnInit {
+export class ArticleFormComponent implements OnInit, OnChanges {
   private fb = inject(FormBuilder);
 
   initialValue = input<Partial<ArticleInput>>({});
@@ -19,6 +37,20 @@ export class ArticleFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['disabled']) {
+      this.toggleForm();
+    }
+  }
+
+  toggleForm() {
+    if (this.disabled()) {
+      this.form?.disable();
+    } else {
+      this.form?.enable();
+    }
   }
 
   initializeForm() {

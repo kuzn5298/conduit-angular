@@ -1,0 +1,11 @@
+:host {
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  display: block;
+}
+
+ul {
+  margin: 0;
+}

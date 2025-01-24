@@ -1,15 +1,10 @@
-<div class="editor-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-10 offset-md-1 col-xs-12">
-        @if(errors$ | async; as errors) {
-        <app-error-messages [errors]="errors" />
-        }
-        <app-article-form
-          [disabled]="(isSubmitting$ | async) ?? false"
-          (formSubmit)="onSubmit($event)"
-        />
-      </div>
-    </div>
-  </div>
+<div class="editor-page container">
+  <h2>New Article</h2>
+  @if(errors$ | async; as errors) {
+  <app-error-messages [errors]="errors" class="errors" />
+  }
+  <app-article-form
+    [disabled]="(isSubmitting$ | async) ?? false"
+    (formSubmit)="onSubmit($event)"
+  />
 </div>

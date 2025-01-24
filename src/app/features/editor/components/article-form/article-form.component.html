@@ -1,44 +1,39 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <fieldset>
-    <fieldset class="form-group">
-      <input
-        type="text"
-        class="form-control form-control-lg"
-        placeholder="Article Title"
-        formControlName="title"
-      />
-    </fieldset>
-    <fieldset class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="What's this article about?"
-        formControlName="description"
-      />
-    </fieldset>
-    <fieldset class="form-group">
-      <textarea
-        class="form-control"
-        rows="8"
-        placeholder="Write your article (in markdown)"
-        formControlName="body"
-      ></textarea>
-    </fieldset>
-    <fieldset class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter tags"
-        formControlName="tagList"
-      />
-      <div class="tag-list"></div>
-    </fieldset>
-    <button
-      class="btn btn-lg pull-xs-right btn-primary"
-      type="submit"
-      [disabled]="disabled() || form.invalid"
-    >
-      Publish Article
-    </button>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" formControlName="title" />
+    </mat-form-field>
   </fieldset>
+  <fieldset>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="description"
+        placeholder="What's this article about?"
+      />
+    </mat-form-field>
+  </fieldset>
+  <fieldset>
+    <mat-form-field appearance="outline">
+      <mat-label>Body</mat-label>
+      <textarea
+        rows="8"
+        matInput
+        formControlName="body"
+        placeholder="Write your article (in markdown)"
+      ></textarea>
+    </mat-form-field>
+  </fieldset>
+  <fieldset>
+    <mat-form-field appearance="outline">
+      <mat-label>Tags</mat-label>
+      <input matInput type="text" formControlName="tagList" />
+    </mat-form-field>
+  </fieldset>
+  <button mat-flat-button type="submit" [disabled]="disabled() || form.invalid">
+    Publish Article
+  </button>
 </form>

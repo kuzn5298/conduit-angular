@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { select, Store } from '@ngrx/store';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { filter, map, Observable } from 'rxjs';
 import { ArticleFormComponent } from '../../components/article-form/article-form.component';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
@@ -18,7 +19,12 @@ import {
 
 @Component({
   selector: 'app-edit-article',
-  imports: [ArticleFormComponent, AsyncPipe, ErrorMessagesComponent],
+  imports: [
+    ArticleFormComponent,
+    AsyncPipe,
+    ErrorMessagesComponent,
+    MatProgressBarModule,
+  ],
   templateUrl: './edit-article.component.html',
   styleUrl: './edit-article.component.css',
 })

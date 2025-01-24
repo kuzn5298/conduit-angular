@@ -1,0 +1,12 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset > * {
+  width: 100%;
+}
+
+button {
+  align-self: flex-end;
+}
