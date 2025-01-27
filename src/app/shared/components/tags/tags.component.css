@@ -17,6 +17,7 @@
 }
 
 .tag ::ng-deep .mdc-evolution-chip__action--primary::before {
+  border-radius: 1rem;
   border-color: var(--mat-sys-outline);
 }
 
