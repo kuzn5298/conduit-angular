@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Article } from '../../../../shared/model/article.interface';
 import { getAvatarPlaceholder } from '../../../../shared/utils';
@@ -10,10 +9,11 @@ import {
   isLoadingArticlesSelector,
   unfavoriteArticleAction,
 } from '../../../../core/store';
+import { ArticleCardComponent } from '../../../../shared/components/article-card/article-card.component';
 
 @Component({
   selector: 'app-feed-articles',
-  imports: [RouterLink, DatePipe, AsyncPipe],
+  imports: [AsyncPipe, ArticleCardComponent],
   templateUrl: './feed-articles.component.html',
   styleUrl: './feed-articles.component.css',
 })

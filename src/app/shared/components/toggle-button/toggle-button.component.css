@@ -1,0 +1,11 @@
+button {
+  height: 2rem;
+  min-width: 1rem;
+  padding: 0 1rem;
+
+  ::ng-deep .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}

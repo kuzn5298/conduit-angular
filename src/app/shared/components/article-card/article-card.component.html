@@ -1,0 +1,33 @@
+<mat-card class="article-card" appearance="outlined">
+  <mat-card-header>
+    <div class="profile">
+      <app-avatar
+        [routerLink]="['/profile', article().author.username]"
+        [image]="article().author.image"
+        [name]="article().author.username"
+      />
+      <div class="profile-info">
+        <a
+          class="profile-name"
+          [routerLink]="['/profile', article().author.username]"
+        >
+          {{ article().author.username }}
+        </a>
+        <span class="profile-date">{{ article().createdAt | date }}</span>
+      </div>
+    </div>
+    <app-toggle-button
+      [active]="article().favorited"
+      (click)="favoriteArticle(article())"
+    >
+      <mat-icon>favorite</mat-icon> {{ article().favoritesCount }}
+    </app-toggle-button>
+  </mat-card-header>
+  <mat-card-content [routerLink]="['/article', article().slug]">
+    <mat-card-title>{{ article().title }}</mat-card-title>
+    <p class="card-body">{{ article().description }}</p>
+  </mat-card-content>
+  <mat-card-footer>
+    <app-tags [tags]="article().tagList"></app-tags>
+  </mat-card-footer>
+</mat-card>

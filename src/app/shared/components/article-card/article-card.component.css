@@ -1,0 +1,58 @@
+.article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+mat-card-header {
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+app-avatar {
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.profile-name {
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-title-medium);
+}
+
+.profile-date {
+  color: var(--mat-sys-outline);
+  font: var(--mat-sys-body-small);
+}
+
+mat-card-title {
+  font: var(--mat-sys-headline-small);
+  font-weight: bold;
+}
+
+mat-card-content {
+  cursor: pointer;
+}
+
+.card-body {
+  color: var(--mat-sys-outline);
+}
+
+mat-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  padding-top: 0;
+}

@@ -1,0 +1,13 @@
+<ng-template #content>
+  <ng-content />
+</ng-template>
+
+@if(active()) {
+<button mat-flat-button (click)="onClick()">
+  <ng-container *ngTemplateOutlet="content" />
+</button>
+} @else {
+<button mat-stroked-button (click)="onClick()">
+  <ng-container *ngTemplateOutlet="content" />
+</button>
+}

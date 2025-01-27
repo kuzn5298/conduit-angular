@@ -1,0 +1,11 @@
+<mat-chip-set class="tags">
+  @for(tag of tags(); track tag) {
+  <mat-chip
+    class="tag"
+    [routerLink]="['/']"
+    [queryParams]="{ tag, feed: 'tag' }"
+  >
+    {{ tag }}
+  </mat-chip>
+  }
+</mat-chip-set>
