@@ -16,9 +16,10 @@
         } @else {
         <app-feed-articles />
         <app-feed-pagination
-          [limit]="limit"
           [total]="(articlesCount$ | async) ?? 0"
           [page]="page()"
+          [pageSize]="limit"
+          (handlePage)="handlePageChange($event)"
         />
         }
       </div>

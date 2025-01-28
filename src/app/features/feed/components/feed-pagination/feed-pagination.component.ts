@@ -1,19 +1,19 @@
-import { Component, input, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, input, computed, output } from '@angular/core';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-feed-pagination',
-  imports: [RouterLink],
+  imports: [MatPaginatorModule],
   templateUrl: './feed-pagination.component.html',
   styleUrl: './feed-pagination.component.css',
 })
 export class FeedPaginationComponent {
   page = input.required<number>();
   total = input.required<number>();
-  limit = input.required<number>();
+  pageSize = input<number>(10);
+  handlePage = output<number>();
 
-  pages = computed(() => {
-    const pagesCount = Math.ceil(this.total() / this.limit());
-    return Array.from({ length: pagesCount }, (_, i) => i + 1);
-  });
+  handlePageEvent(event: PageEvent): void {
+    this.handlePage.emit(event.pageIndex);
+  }
 }

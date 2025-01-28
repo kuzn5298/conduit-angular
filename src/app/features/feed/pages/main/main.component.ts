@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
 import { FeedToggleComponent } from '../../components/feed-toggle/feed-toggle.component';
@@ -40,6 +40,7 @@ const LIMIT = 10;
 export class MainComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
   articlesCount$ = this.store.select(articlesCountSelector);
@@ -47,7 +48,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   limit = LIMIT;
 
-  page = signal(1);
+  page = signal(0);
   tag = signal<string>('');
   feedType = signal(FeedType.Global);
 
@@ -60,7 +61,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   fetchFeed(): void {
-    const offset = this.page() - 1;
+    const offset = this.page();
 
     this.store.dispatch(
       getArticlesAction({
@@ -74,7 +75,7 @@ export class MainComponent implements OnInit, OnDestroy {
     const queryParamSubscription = this.route.queryParams.subscribe(
       (params: Params) => {
         this.feedType.set(params['feed'] ?? FeedType.Global);
-        this.page.set(Number(params['page'] ?? '1'));
+        this.page.set(Number(params['page'] ?? '0'));
         this.tag.set(params['tag'] ?? '');
 
         this.fetchFeed();
@@ -82,5 +83,12 @@ export class MainComponent implements OnInit, OnDestroy {
     );
 
     this.destroyRef.onDestroy(() => queryParamSubscription.unsubscribe());
+  }
+
+  handlePageChange(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
   }
 }
