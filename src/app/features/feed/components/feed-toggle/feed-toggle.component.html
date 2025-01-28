@@ -5,6 +5,7 @@
     [routerLink]="[]"
     [queryParams]="{ feed: Feed.Your }"
     [active]="feedType() === Feed.Your"
+    [disableRipple]="feedType() === Feed.Your"
   >
     Your Feed
   </a>
@@ -14,11 +15,16 @@
     [routerLink]="[]"
     [queryParams]="{ feed: Feed.Global }"
     [active]="feedType() === Feed.Global"
+    [disableRipple]="feedType() === Feed.Global"
   >
     Global Feed
   </a>
   @if(tag() && feedType() === Feed.Tag) {
-  <a mat-tab-link [active]="feedType() === Feed.Tag" [disableRipple]="true">
+  <a
+    mat-tab-link
+    [active]="feedType() === Feed.Tag"
+    [disableRipple]="feedType() === Feed.Tag"
+  >
     <mat-icon fontIcon="tag" />
     {{ tag() }}
   </a>
