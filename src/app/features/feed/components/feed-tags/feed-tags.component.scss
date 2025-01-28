@@ -1,0 +1,32 @@
+@use "@angular/material" as mat;
+
+.feed-tags {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font: var(--mat-sys-title-small);
+  margin: 0;
+  line-height: 1rem;
+  padding: 1rem 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tags-container {
+  max-height: 50rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}

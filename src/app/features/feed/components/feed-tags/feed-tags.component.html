@@ -1,18 +1,11 @@
-@if(isLoading$ | async) {
-<div>loading...</div>
-}
+<div class="feed-tags">
+  <p class="title">Popular Tags</p>
+  <div class="tags-container">
+    @if(isLoading$ | async) {
+    <div class="loading-container"><mat-spinner /></div>
+    } @else {
+    <app-tags [tags]="(tags$ | async) ?? []" />
 
-<div>
-  <p>Popular Tags</p>
-  <div class="tag-list">
-    @for(tag of tags$ | async; track tag) {
-    <a
-      [routerLink]="[]"
-      [queryParams]="{ tag, feed: 'tag' }"
-      class="tag-default tag-pill"
-    >
-      {{ tag }}
-    </a>
     }
   </div>
 </div>

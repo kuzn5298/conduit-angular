@@ -24,7 +24,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
     AvatarComponent,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   private store = inject(Store);

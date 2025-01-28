@@ -21,6 +21,7 @@ import {
   isLoadingArticlesSelector,
 } from '../../../../core/store';
 import { FeedType } from '../../../../shared/model';
+import { FeedBannerComponent } from '../../components/feed-banner/feed-banner.component';
 
 const LIMIT = 10;
 
@@ -33,6 +34,7 @@ const LIMIT = 10;
     FeedPaginationComponent,
     AsyncPipe,
     MatProgressBarModule,
+    FeedBannerComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',

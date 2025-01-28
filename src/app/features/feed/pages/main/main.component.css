@@ -1,0 +1,14 @@
+.home-page {
+  padding-bottom: 1rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1rem;
+  width: 100%;
+
+  & > * {
+    overflow: hidden;
+  }
+}

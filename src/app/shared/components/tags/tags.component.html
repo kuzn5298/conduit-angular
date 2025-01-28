@@ -2,6 +2,8 @@
   @for(tag of tags(); track tag) {
   <mat-chip
     class="tag"
+    [class.outlined]="variant() === 'outlined'"
+    [class.filled]="variant() === 'filled'"
     [routerLink]="['/']"
     [queryParams]="{ tag, feed: 'tag' }"
   >

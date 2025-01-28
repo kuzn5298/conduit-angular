@@ -6,8 +6,9 @@ import { RouterLink } from '@angular/router';
   selector: 'app-tags',
   imports: [MatChipsModule, RouterLink],
   templateUrl: './tags.component.html',
-  styleUrl: './tags.component.css',
+  styleUrl: './tags.component.scss',
 })
 export class TagsComponent {
   tags = input.required<string[]>();
+  variant = input<'filled' | 'outlined'>('filled');
 }
