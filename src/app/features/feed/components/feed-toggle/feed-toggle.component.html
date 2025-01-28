@@ -1,36 +1,27 @@
-<div class="feed-toggle">
-  <ul class="nav nav-pills outline-active">
-    @if(isLoggedIn$ | async) {
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="[]"
-        [queryParams]="{ feed: Feed.Your }"
-        [class.active]="feedType() === Feed.Your"
-      >
-        Your Feed
-      </a>
-    </li>
-    }
-
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="[]"
-        [queryParams]="{ feed: Feed.Global }"
-        [class.active]="feedType() === Feed.Global"
-      >
-        Global Feed
-      </a>
-    </li>
-
-    @if(tag() && feedType() === Feed.Tag) {
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="feedType() === Feed.Tag">
-        <i class="ion-pound"></i>
-        {{ tag() }}
-      </a>
-    </li>
-    }
-  </ul>
-</div>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  @if(isLoggedIn$ | async) {
+  <a
+    mat-tab-link
+    [routerLink]="[]"
+    [queryParams]="{ feed: Feed.Your }"
+    [active]="feedType() === Feed.Your"
+  >
+    Your Feed
+  </a>
+  }
+  <a
+    mat-tab-link
+    [routerLink]="[]"
+    [queryParams]="{ feed: Feed.Global }"
+    [active]="feedType() === Feed.Global"
+  >
+    Global Feed
+  </a>
+  @if(tag() && feedType() === Feed.Tag) {
+  <a mat-tab-link [active]="feedType() === Feed.Tag" [disableRipple]="true">
+    <mat-icon fontIcon="tag" />
+    {{ tag() }}
+  </a>
+  }
+</nav>
+<mat-tab-nav-panel #tabPanel />

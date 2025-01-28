@@ -11,13 +11,16 @@
       <div class="col-md-9">
         <app-feed-toggle [feedType]="feedType()" [tag]="tag()" />
 
+        @if(isLoading$ | async) {
+        <mat-progress-bar mode="indeterminate" />
+        } @else {
         <app-feed-articles />
-
         <app-feed-pagination
           [limit]="limit"
           [total]="(articlesCount$ | async) ?? 0"
           [page]="page()"
         />
+        }
       </div>
       <div class="col-md-3">
         <div class="sidebar">

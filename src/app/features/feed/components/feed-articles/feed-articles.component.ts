@@ -6,7 +6,6 @@ import { getAvatarPlaceholder } from '../../../../shared/utils';
 import {
   articlesSelector,
   favoriteArticleAction,
-  isLoadingArticlesSelector,
   unfavoriteArticleAction,
 } from '../../../../core/store';
 import { ArticleCardComponent } from '../../../../shared/components/article-card/article-card.component';
@@ -21,7 +20,6 @@ export class FeedArticlesComponent {
   private store = inject(Store);
 
   articles$ = this.store.select(articlesSelector);
-  isLoading$ = this.store.select(isLoadingArticlesSelector);
 
   getAvatar(article: Article): string {
     const user = article.author;

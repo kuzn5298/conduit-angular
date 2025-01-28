@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
 import { FeedToggleComponent } from '../../components/feed-toggle/feed-toggle.component';
 import { FeedTagsComponent } from '../../components/feed-tags/feed-tags.component';
@@ -17,6 +18,7 @@ import {
   articlesCountSelector,
   clearArticlesStateAction,
   getArticlesAction,
+  isLoadingArticlesSelector,
 } from '../../../../core/store';
 import { FeedType } from '../../../../shared/model';
 
@@ -30,6 +32,7 @@ const LIMIT = 10;
     FeedArticlesComponent,
     FeedPaginationComponent,
     AsyncPipe,
+    MatProgressBarModule,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
@@ -40,6 +43,8 @@ export class MainComponent implements OnInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
 
   articlesCount$ = this.store.select(articlesCountSelector);
+  isLoading$ = this.store.select(isLoadingArticlesSelector);
+
   limit = LIMIT;
 
   page = signal(1);

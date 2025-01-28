@@ -1,7 +1,3 @@
-@if(isLoading$ | async) {
-<div>loading...</div>
-}
-
 <div class="articles">
   @for(article of articles$ | async; track $index) {
   <app-article-card [article]="article" />
