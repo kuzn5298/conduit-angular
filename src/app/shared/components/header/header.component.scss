@@ -45,6 +45,10 @@ ul {
   margin-right: 0.25rem;
 }
 
+.profile-button.mat-mdc-button:has(.material-icons, mat-icon, [matButtonIcon]) {
+  padding-left: 0.5rem;
+}
+
 ::ng-deep
   button.mat-mdc-button.active
   .mat-mdc-button-persistent-ripple::before {
@@ -52,4 +56,8 @@ ul {
     --mat-text-button-hover-state-layer-opacity,
     var(--mat-sys-hover-state-layer-opacity)
   );
+}
+
+::ng-deep .profile-menu.mat-mdc-menu-panel {
+  min-width: 10rem;
 }

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import {
   isLoggedInSelector,
   userSelector,
@@ -21,6 +22,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
     AvatarComponent,
   ],
   templateUrl: './header.component.html',

@@ -27,18 +27,9 @@
       <li>
         <button
           mat-button
+          [matMenuTriggerFor]="menu"
           routerLinkActive="active"
-          [routerLink]="['/settings']"
-        >
-          <mat-icon>settings</mat-icon>
-          Settings
-        </button>
-      </li>
-      <li>
-        <button
-          mat-button
-          routerLinkActive="active"
-          [routerLink]="['/profile', user?.username]"
+          class="profile-button"
         >
           <app-avatar
             [image]="user.image"
@@ -46,12 +37,23 @@
             class="avatar"
           />
           {{ user?.username }}
+          <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
-      </li>
-      <li>
-        <button mat-button class="logout-button" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-        </button>
+        <mat-menu #menu="matMenu" class="profile-menu">
+          <button mat-menu-item [routerLink]="['/profile', user?.username]">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item [routerLink]="['/settings']">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <hr />
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
       </li>
       } @else {
       <li>
