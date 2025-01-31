@@ -1,4 +1,14 @@
+.logo {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--mat-sys-primary);
+}
+
 footer {
   position: static;
+  font-size: 0.75rem;
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
   margin: 0;
 }
