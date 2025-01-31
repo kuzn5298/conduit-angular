@@ -1,42 +1,24 @@
-<div class="auth-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign in</h1>
-        <p class="text-xs-center">
-          <a [routerLink]="['/register']">Need an account?</a>
-        </p>
-
-        @if(errors$ | async; as errors) {
-        <app-error-messages [errors]="errors" />
-        }
-
-        <form [formGroup]="form" (submit)="onSubmit()">
-          <fieldset class="form-group">
-            <input
-              class="form-control form-control-lg"
-              type="text"
-              placeholder="Email"
-              formControlName="email"
-            />
-          </fieldset>
-          <fieldset class="form-group">
-            <input
-              class="form-control form-control-lg"
-              type="password"
-              placeholder="Password"
-              formControlName="password"
-            />
-          </fieldset>
-          <button
-            class="btn btn-lg btn-primary pull-xs-right"
-            [disabled]="isSubmitting$ | async"
-            type="submit"
-          >
-            Sign in
-          </button>
-        </form>
-      </div>
-    </div>
+<div class="auth-page container">
+  <div class="auth-header">
+    <h1>Sign in</h1>
+    <a [routerLink]="['/register']">Need an account?</a>
   </div>
+
+  @if(errors$ | async; as errors) {
+  <app-error-messages [errors]="errors" class="errors" />
+  }
+
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+    <button mat-flat-button [disabled]="isSubmitting$ | async" type="submit">
+      Sign in
+    </button>
+  </form>
 </div>

@@ -2,7 +2,10 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { EMPTY, Observable } from 'rxjs';
 import { Errors } from '../../../../shared/model';
 import { RegisterForm } from './register-form.interface';
@@ -16,7 +19,15 @@ import {
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ErrorMessagesComponent, AsyncPipe, ReactiveFormsModule],
+  imports: [
+    RouterLink,
+    ErrorMessagesComponent,
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

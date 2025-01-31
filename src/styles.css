@@ -48,6 +48,10 @@ button:focus {
   outline: none;
 }
 
+a {
+  color: var(--mat-sys-primary);
+}
+
 a:focus,
 a:hover {
   color: inherit;

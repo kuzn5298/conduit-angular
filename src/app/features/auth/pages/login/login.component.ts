@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { EMPTY, Observable } from 'rxjs';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { Errors } from '../../../../shared/model';
@@ -16,7 +19,15 @@ import {
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ErrorMessagesComponent, AsyncPipe, ReactiveFormsModule],
+  imports: [
+    RouterLink,
+    ErrorMessagesComponent,
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
