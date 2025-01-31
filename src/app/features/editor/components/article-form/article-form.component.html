@@ -1,38 +1,30 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <fieldset>
-    <mat-form-field appearance="outline">
-      <mat-label>Title</mat-label>
-      <input matInput type="text" formControlName="title" />
-    </mat-form-field>
-  </fieldset>
-  <fieldset>
-    <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="description"
-        placeholder="What's this article about?"
-      />
-    </mat-form-field>
-  </fieldset>
-  <fieldset>
-    <mat-form-field appearance="outline">
-      <mat-label>Body</mat-label>
-      <textarea
-        rows="8"
-        matInput
-        formControlName="body"
-        placeholder="Write your article (in markdown)"
-      ></textarea>
-    </mat-form-field>
-  </fieldset>
-  <fieldset>
-    <mat-form-field appearance="outline">
-      <mat-label>Tags</mat-label>
-      <input matInput type="text" formControlName="tagList" />
-    </mat-form-field>
-  </fieldset>
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput type="text" formControlName="title" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="description"
+      placeholder="What's this article about?"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Body</mat-label>
+    <textarea
+      rows="8"
+      matInput
+      formControlName="body"
+      placeholder="Write your article (in markdown)"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Tags</mat-label>
+    <input matInput type="text" formControlName="tagList" />
+  </mat-form-field>
   <button mat-flat-button type="submit" [disabled]="disabled() || form.invalid">
     Publish Article
   </button>

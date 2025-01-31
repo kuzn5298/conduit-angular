@@ -1,24 +1,23 @@
-<div class="articles-toggle">
-  <ul class="nav nav-pills outline-active">
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="[]"
-        [queryParams]="{ feed: Feed.My }"
-        [class.active]="feedType() === Feed.My"
-      >
-        My Articles
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="[]"
-        [queryParams]="{ feed: Feed.Favorite }"
-        [class.active]="feedType() === Feed.Favorite"
-      >
-        Favorited Articles
-      </a>
-    </li>
-  </ul>
-</div>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  @if(isLoggedIn$ | async) {
+  <a
+    mat-tab-link
+    [routerLink]="[]"
+    [queryParams]="{ feed: Feed.My }"
+    [active]="feedType() === Feed.My"
+    [disableRipple]="feedType() === Feed.My"
+  >
+    My Articles
+  </a>
+  }
+  <a
+    mat-tab-link
+    [routerLink]="[]"
+    [queryParams]="{ feed: Feed.Favorite }"
+    [active]="feedType() === Feed.Favorite"
+    [disableRipple]="feedType() === Feed.Favorite"
+  >
+    Favorited Articles
+  </a>
+</nav>
+<mat-tab-nav-panel #tabPanel />

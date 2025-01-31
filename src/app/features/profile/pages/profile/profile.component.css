@@ -1,0 +1,10 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-page .container {
+  max-width: 50rem;
+  box-sizing: border-box;
+}

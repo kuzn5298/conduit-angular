@@ -1,0 +1,55 @@
+@if(profile$ | async; as profile) {
+<div class="profile-user">
+  <div class="container">
+    <app-avatar [image]="profile.image" [name]="profile.username" />
+    <h4>{{ profile.username }}</h4>
+    @if(profile.bio) {
+    <p>
+      {{ profile.bio }}
+    </p>
+    } @if(isAuthor$ | async) {
+    <a mat-stroked-button [routerLink]="['/settings']">
+      <mat-icon>settings</mat-icon>
+      Edit Profile Settings
+    </a>
+    }@else { @if(profile.following) {
+    <button mat-stroked-button (click)="followProfile(profile)">
+      <mat-icon>remove</mat-icon>
+      Unfollow {{ profile.username }}
+    </button>
+    } @else {
+    <button mat-flat-button (click)="followProfile(profile)">
+      <mat-icon>add</mat-icon>
+
+      Follow {{ profile.username }}
+    </button>
+    } }
+
+    <!-- @if(isAuthor$ | async) {
+    <a
+      class="btn btn-sm btn-outline-secondary action-btn"
+      [routerLink]="['/settings']"
+    >
+      <i class="ion-gear-a"></i>
+      &nbsp; Edit Profile Settings
+    </a>
+    } @else { @if(profile.following) {
+    <button
+      class="btn btn-sm btn-outline-secondary action-btn"
+      (click)="followProfile(profile)"
+    >
+      <i class="ion-minus-round"></i>
+      &nbsp; Unfollow {{ profile.username }}
+    </button>
+    } @else {
+    <button
+      class="btn btn-sm btn-outline-secondary action-btn"
+      (click)="followProfile(profile)"
+    >
+      <i class="ion-plus-round"></i>
+      &nbsp; Follow {{ profile.username }}
+    </button>
+    } } -->
+  </div>
+</div>
+}

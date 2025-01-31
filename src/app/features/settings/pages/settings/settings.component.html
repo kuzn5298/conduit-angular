@@ -5,51 +5,41 @@
   }
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <fieldset class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Avatar</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="image"
-          placeholder="URL of profile picture"
-        />
-      </mat-form-field>
-    </fieldset>
-    <fieldset class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="username"
-          placeholder="Your Name"
-        />
-      </mat-form-field>
-    </fieldset>
-    <fieldset class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Bio</mat-label>
-        <textarea
-          matInput
-          type="text"
-          formControlName="username"
-          placeholder="Short bio about you"
-        ></textarea>
-      </mat-form-field>
-    </fieldset>
-    <fieldset class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput type="text" formControlName="email" />
-      </mat-form-field>
-    </fieldset>
-    <fieldset class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required />
-      </mat-form-field>
-    </fieldset>
+    <mat-form-field appearance="outline">
+      <mat-label>Avatar</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="image"
+        placeholder="URL of profile picture"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="username"
+        placeholder="Your Name"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Bio</mat-label>
+      <textarea
+        matInput
+        type="text"
+        formControlName="username"
+        placeholder="Short bio about you"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required />
+    </mat-form-field>
     <button
       mat-flat-button
       type="submit"

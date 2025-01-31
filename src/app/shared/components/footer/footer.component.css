@@ -11,4 +11,5 @@ footer {
   background-color: var(--mat-sys-surface-container-low);
   color: var(--mat-sys-on-surface);
   margin: 0;
+  padding: 1rem 0;
 }

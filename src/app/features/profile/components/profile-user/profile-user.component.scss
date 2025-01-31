@@ -1,0 +1,29 @@
+.profile-user {
+  padding: 2rem 0;
+  background-color: var(--mat-sys-surface-container);
+}
+
+.profile-user .container {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+
+  h4,
+  p {
+    margin: 0;
+  }
+
+  h4 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  p {
+    color: var(--mat-sys-outline);
+  }
+}
+
+app-avatar {
+  width: 6rem;
+  height: 6rem;
+}

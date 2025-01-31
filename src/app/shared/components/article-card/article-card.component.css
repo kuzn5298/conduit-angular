@@ -52,7 +52,6 @@ mat-card-content {
 
 mat-card-footer {
   display: flex;
-  justify-content: flex-end;
   padding: 1rem;
   padding-top: 0;
 }

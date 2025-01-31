@@ -1,46 +1,6 @@
-@if(isLoading$ | async) {
-<div>loading...</div>
-}
-
-<div>
+<div class="articles">
   @for(article of articles$ | async; track $index) {
-  <div class="article-preview">
-    <div class="article-meta">
-      <a [routerLink]="['/profile', article.author.username]">
-        <img src="{{ getAvatar(article) }}" />
-      </a>
-      <div class="info">
-        <a [routerLink]="['/profile', article.author.username]" class="author">
-          {{ article.author.username }}
-        </a>
-        <span class="date">{{ article.createdAt | date }}</span>
-      </div>
-      <button
-        class="btn btn-outline-primary btn-sm pull-xs-right"
-        (click)="favoriteArticle(article)"
-        [class.active]="article.favorited"
-      >
-        <i class="ion-heart"></i> {{ article.favoritesCount }}
-      </button>
-    </div>
-    <a [routerLink]="['/article', article.slug]" class="preview-link">
-      <h1>{{ article.title }}</h1>
-      <p>{{ article.description }}</p>
-
-      <div class="tag-list pull-xs-right">
-        @for(tag of article.tagList; track tag) {
-        <a
-          (click)="$event.stopPropagation()"
-          [routerLink]="['/']"
-          [queryParams]="{ tag, feed: 'tag' }"
-          class="tag-default tag-pill tag-outline"
-        >
-          {{ tag }}
-        </a>
-        }
-      </div>
-    </a>
-  </div>
+  <app-article-card [article]="article" />
   } @empty {
   <p>No articles</p>
   }
