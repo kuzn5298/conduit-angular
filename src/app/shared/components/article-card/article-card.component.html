@@ -16,12 +16,14 @@
         <span class="profile-date">{{ article().createdAt | date }}</span>
       </div>
     </div>
+    @if(isLoggedIn$ |async) {
     <app-toggle-button
       [active]="article().favorited"
       (click)="favoriteArticle(article())"
     >
       <mat-icon>favorite</mat-icon> {{ article().favoritesCount }}
     </app-toggle-button>
+    }
   </mat-card-header>
   <mat-card-content [routerLink]="['/article', article().slug]">
     <mat-card-title>{{ article().title }}</mat-card-title>
