@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.article-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+  width: 100%;
+}
+
+.article-form {
+  overflow: hidden;
+  textarea {
+    border: 0;
+    padding: 1rem;
+    display: block;
+    width: 100%;
+    outline: none;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  app-avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .article-form-footer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+    padding: 0.5rem 1rem;
+    background-color: var(--mat-sys-surface-container);
+  }
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

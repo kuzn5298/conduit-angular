@@ -1,3 +1,7 @@
+.article-page {
+  padding-bottom: 1.5rem;
+}
+
 .article-page .container {
   display: flex;
   flex-direction: column;

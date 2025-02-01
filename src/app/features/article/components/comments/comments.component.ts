@@ -4,8 +4,6 @@ import { select, Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { userSelector } from '../../../../core/store/user/selectors';
-import { User } from '../../../../shared/model';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentComponent } from './comment/comment.component';
 import {
   addCommentAction,
@@ -15,10 +13,20 @@ import {
   isLoadingCommentsSelector,
   isSubmittingCommentsSelector,
 } from '../../../../core/store';
+import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-comments',
-  imports: [AsyncPipe, CommentComponent, FormsModule],
+  imports: [
+    AsyncPipe,
+    CommentComponent,
+    FormsModule,
+    AvatarComponent,
+    MatButtonModule,
+    MatCardModule,
+  ],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.css',
 })
@@ -50,9 +58,5 @@ export class CommentsComponent implements OnInit {
   deleteComment(commentId: number): void {
     const articleId = this.route.snapshot.paramMap.get('id') ?? '';
     this.store.dispatch(deleteCommentAction({ commentId, articleId }));
-  }
-
-  getAvatar(user: User | null): string {
-    return getAvatarPlaceholder(user?.image ?? null, user?.username);
   }
 }

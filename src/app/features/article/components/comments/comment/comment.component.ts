@@ -7,12 +7,24 @@ import { Profile } from '../../../../../shared/model';
 import { select, Store } from '@ngrx/store';
 import { userSelector } from '../../../../../core/store';
 import { map } from 'rxjs';
+import { AvatarComponent } from '../../../../../shared/components/avatar/avatar.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-comment',
-  imports: [RouterLink, DatePipe, AsyncPipe],
+  imports: [
+    RouterLink,
+    DatePipe,
+    AvatarComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe,
+  ],
   templateUrl: './comment.component.html',
-  styleUrl: './comment.component.css',
+  styleUrl: './comment.component.scss',
 })
 export class CommentComponent {
   comment = input.required<Comment>();
