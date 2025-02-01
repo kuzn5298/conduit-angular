@@ -1,13 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Article } from '../../../../shared/model/article.interface';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
-import {
-  articlesSelector,
-  favoriteArticleAction,
-  unfavoriteArticleAction,
-} from '../../../../core/store';
+import { articlesSelector } from '../../../../core/store';
 import { ArticleCardComponent } from '../../../../shared/components/article-card/article-card.component';
 
 @Component({
@@ -20,17 +14,4 @@ export class FeedArticlesComponent {
   private store = inject(Store);
 
   articles$ = this.store.select(articlesSelector);
-
-  getAvatar(article: Article): string {
-    const user = article.author;
-    return getAvatarPlaceholder(user?.image ?? null, user?.username);
-  }
-
-  favoriteArticle(article: Article): void {
-    if (article.favorited) {
-      this.store.dispatch(unfavoriteArticleAction({ id: article.slug }));
-    } else {
-      this.store.dispatch(favoriteArticleAction({ id: article.slug }));
-    }
-  }
 }

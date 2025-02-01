@@ -12,7 +12,8 @@ export class ToggleButtonComponent {
   active = input<boolean>(false);
   click = output<void>();
 
-  onClick() {
+  onClick(event: MouseEvent) {
+    event.stopPropagation();
     this.click.emit();
   }
 }

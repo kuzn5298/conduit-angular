@@ -35,7 +35,12 @@ export class FavoriteArticleEffect {
       switchMap(({ id }) => {
         return this.articleService.favoriteArticle(id).pipe(
           map(({ article }) => {
-            return favoriteArticleSuccessAction({ article });
+            const newArticle = {
+              ...article,
+              favorited: true,
+              favoritesCount: article.favoritesCount + 1,
+            };
+            return favoriteArticleSuccessAction({ article: newArticle });
           }),
           catchError(() => {
             return of(favoriteArticleFailureAction());
@@ -51,7 +56,12 @@ export class FavoriteArticleEffect {
       switchMap(({ id }) => {
         return this.articleService.unfavoriteArticle(id).pipe(
           map(({ article }) => {
-            return unfavoriteArticleSuccessAction({ article });
+            const newArticle = {
+              ...article,
+              favorited: false,
+              favoritesCount: article.favoritesCount - 1,
+            };
+            return unfavoriteArticleSuccessAction({ article: newArticle });
           }),
           catchError(() => {
             return of(unfavoriteArticleFailureAction());

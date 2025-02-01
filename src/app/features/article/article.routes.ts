@@ -4,7 +4,6 @@ import { provideEffects } from '@ngrx/effects';
 import { ArticleComponent } from './pages/article/article.component';
 import {
   AddCommentEffect,
-  articleReducer,
   commentsReducer,
   DeleteCommentEffect,
   FavoriteArticleEffect,
