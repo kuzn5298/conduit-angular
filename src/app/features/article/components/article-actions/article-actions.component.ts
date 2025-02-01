@@ -13,12 +13,21 @@ import {
   unfavoriteArticleAction,
   unfollowProfileAction,
 } from '../../../../core/store';
+import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-article-actions',
-  imports: [RouterLink, DatePipe, AsyncPipe],
+  imports: [
+    RouterLink,
+    AsyncPipe,
+    ToggleButtonComponent,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './article-actions.component.html',
-  styleUrl: './article-actions.component.css',
+  styleUrl: './article-actions.component.scss',
 })
 export class ArticleActionsComponent {
   private store = inject(Store);
@@ -28,10 +37,6 @@ export class ArticleActionsComponent {
   isAuthor$ = this.store
     .pipe(select(userSelector))
     .pipe(map((user) => this.article().author.username === user?.username));
-
-  getAvatar(author: Profile): string {
-    return getAvatarPlaceholder(author?.image ?? null, author?.username);
-  }
 
   favoriteArticle(article: Article): void {
     if (article.favorited) {

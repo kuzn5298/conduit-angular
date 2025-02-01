@@ -1,29 +1,29 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 import { select, Store } from '@ngrx/store';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { combineLatest, map } from 'rxjs';
 
 import { userSelector } from '../../../../core/store/user/selectors';
-import { Article } from '../../../../shared/model';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { CommentsComponent } from '../../components/comments/comments.component';
-import { ArticleActionsComponent } from '../../components/article-actions/article-actions.component';
 import {
   articleSelector,
   clearArticleStateAction,
   getArticleAction,
   isLoadingArticleSelector,
 } from '../../../../core/store';
+import { ArticleBannerComponent } from '../../components/article-banner/article-banner.component';
+import { TagsComponent } from '../../../../shared/components/tags/tags.component';
 
 @Component({
   selector: 'app-article',
   imports: [
     AsyncPipe,
-    RouterLink,
-    DatePipe,
     CommentsComponent,
-    ArticleActionsComponent,
+    ArticleBannerComponent,
+    TagsComponent,
+    MatProgressBarModule,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -52,10 +52,5 @@ export class ArticleComponent implements OnInit, OnDestroy {
   fetchArticle(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
     this.store.dispatch(getArticleAction({ id }));
-  }
-
-  getAvatar(article: Article): string {
-    const user = article.author;
-    return getAvatarPlaceholder(user?.image ?? null, user?.username);
   }
 }

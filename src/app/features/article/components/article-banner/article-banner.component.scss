@@ -1,0 +1,47 @@
+.article-banner {
+  padding: 2rem 0;
+  background-color: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+}
+
+.article-banner .container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+app-avatar {
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.profile-name {
+  cursor: pointer;
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-title-medium);
+}
+
+.profile-date {
+  color: var(--mat-sys-outline);
+  font: var(--mat-sys-body-small);
+}
+
+.profile-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}

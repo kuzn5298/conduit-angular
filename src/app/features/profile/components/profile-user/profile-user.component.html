@@ -13,43 +13,17 @@
       Edit Profile Settings
     </a>
     }@else { @if(profile.following) {
-    <button mat-stroked-button (click)="followProfile(profile)">
+    <button mat-flat-button (click)="followProfile(profile)">
       <mat-icon>remove</mat-icon>
       Unfollow {{ profile.username }}
     </button>
     } @else {
-    <button mat-flat-button (click)="followProfile(profile)">
+    <button mat-stroked-button (click)="followProfile(profile)">
       <mat-icon>add</mat-icon>
 
       Follow {{ profile.username }}
     </button>
     } }
-
-    <!-- @if(isAuthor$ | async) {
-    <a
-      class="btn btn-sm btn-outline-secondary action-btn"
-      [routerLink]="['/settings']"
-    >
-      <i class="ion-gear-a"></i>
-      &nbsp; Edit Profile Settings
-    </a>
-    } @else { @if(profile.following) {
-    <button
-      class="btn btn-sm btn-outline-secondary action-btn"
-      (click)="followProfile(profile)"
-    >
-      <i class="ion-minus-round"></i>
-      &nbsp; Unfollow {{ profile.username }}
-    </button>
-    } @else {
-    <button
-      class="btn btn-sm btn-outline-secondary action-btn"
-      (click)="followProfile(profile)"
-    >
-      <i class="ion-plus-round"></i>
-      &nbsp; Follow {{ profile.username }}
-    </button>
-    } } -->
   </div>
 </div>
 }

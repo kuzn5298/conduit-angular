@@ -1,45 +1,20 @@
 @if(isLoading$ | async){
-<p>loading...</p>
+<mat-progress-bar mode="indeterminate" />
 } @if(article$ |async; as article) {
 <div class="article-page">
-  <div class="banner">
-    <div class="container">
-      <h1>{{ article.title }}</h1>
+  <app-article-banner [article]="article" />
 
-      <div class="article-meta">
-        <a [routerLink]="['/profile', article?.author?.username]">
-          <img [src]="getAvatar(article)" />
-        </a>
-        <div class="info">
-          <a
-            [routerLink]="['/profile', article?.author?.username]"
-            class="author"
-          >
-            {{ article?.author?.username }}
-          </a>
-          <span class="date">{{ article?.createdAt | date }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="container">
+    <div class="article-info">
+      <p [innerHTML]="article.body"></p>
 
-  <div class="container page">
-    <div class="row article-content">
-      <div class="col-md-12">
-        <p [innerHTML]="article.body"></p>
-
-        @if(article.tagList.length) {
-        <ul class="tag-list">
-          @for(tag of article.tagList; track tag) {
-          <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
-          }
-        </ul>
-        }
-      </div>
+      @if(article.tagList.length) {
+      <app-tags [tags]="article.tagList" variant="outlined" />
+      }
     </div>
     <hr />
-    <app-article-actions [article]="article" />
     <app-comments />
   </div>
 </div>
+
 }
