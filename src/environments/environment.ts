@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://conduit-realworld-example-app.fly.dev/api',
+  apiUrl: 'https://kuzn-conduit.up.railway.app/api',
 };
