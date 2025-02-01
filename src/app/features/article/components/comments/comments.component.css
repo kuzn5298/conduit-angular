@@ -20,6 +20,8 @@
     width: 100%;
     outline: none;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    box-sizing: border-box;
+    background-color: var(--mat-sys-surface);
   }
 
   app-avatar {
