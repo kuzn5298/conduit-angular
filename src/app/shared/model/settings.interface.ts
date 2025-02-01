@@ -1,7 +1,7 @@
 import { ShortUser, UserWithPassword } from './user.interface';
 
 export interface SettingsRequest {
-  user: UserWithPassword;
+  user: Partial<UserWithPassword>;
 }
 
 export interface SettingsResponse {

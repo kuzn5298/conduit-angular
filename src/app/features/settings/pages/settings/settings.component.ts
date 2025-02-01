@@ -37,7 +37,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     email: [''],
     username: [''],
-    password: ['', Validators.required],
+    oldPassword: [''],
+    password: [''],
     image: [''],
     bio: [''],
   });
@@ -50,18 +51,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.store.dispatch(clearSettingsStateAction());
   }
 
-  initializationForm(): void {
-    this.store
-      .select(userSelector)
-      .pipe(take(1))
-      .subscribe((user) => {
-        this.form.patchValue(user ?? {});
-      });
-  }
+  initializationForm(): void {}
 
   submit(): void {
     if (this.form.valid) {
-      const request = { user: this.form.value as UserWithPassword };
+      const user: Partial<UserWithPassword> = Object.entries(
+        this.form.value
+      ).reduce(
+        (acc, [key, value]) => (value ? { ...acc, [key]: value } : acc),
+        {}
+      );
+
+      const request = { user };
       this.store.dispatch(changeSettingsAction({ request }));
     }
   }
