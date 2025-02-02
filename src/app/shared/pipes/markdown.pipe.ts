@@ -5,7 +5,6 @@ import { marked } from 'marked';
 export class MarkdownPipe implements PipeTransform {
   transform(value: string) {
     const src = value.replaceAll('\\n', '  \n');
-    console.log(marked.parse(src));
     return marked.parse(src);
   }
 }
