@@ -7,7 +7,7 @@
     <p>
       {{ profile.bio }}
     </p>
-    } @if(isAuthor$ | async) {
+    } @if(isLoggedIn$ | async) { @if(isAuthor$ | async) {
     <a mat-stroked-button [routerLink]="['/settings']">
       <mat-icon>settings</mat-icon>
       Edit Profile Settings
@@ -23,7 +23,7 @@
 
       Follow {{ profile.username }}
     </button>
-    } }
+    } } }
   </div>
 </div>
 }

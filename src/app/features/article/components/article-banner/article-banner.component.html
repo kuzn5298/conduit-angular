@@ -19,7 +19,10 @@
           <span class="profile-date">{{ article().createdAt | date }}</span>
         </div>
       </div>
+      @if(isLoggedIn$ | async) {
       <app-article-actions [article]="article()" />
+
+      }
     </div>
   </div>
 </div>

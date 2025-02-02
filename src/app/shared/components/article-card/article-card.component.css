@@ -55,3 +55,7 @@ mat-card-footer {
   padding: 1rem;
   padding-top: 0;
 }
+
+p {
+  margin: 0;
+}

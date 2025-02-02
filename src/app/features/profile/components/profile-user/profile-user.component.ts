@@ -7,6 +7,7 @@ import {
   clearProfileStateAction,
   followProfileAction,
   getProfileAction,
+  isLoggedInSelector,
   profileSelector,
   unfollowProfileAction,
   userSelector,
@@ -34,6 +35,7 @@ export class ProfileUserComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
 
   profile$ = this.store.select(profileSelector);
+  isLoggedIn$ = this.store.select(isLoggedInSelector);
 
   isAuthor$ = combineLatest([
     this.profile$,

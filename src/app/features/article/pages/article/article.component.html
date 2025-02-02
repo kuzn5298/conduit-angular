@@ -6,14 +6,16 @@
 
   <div class="container">
     <div class="article-info">
-      <p [innerHTML]="article.body"></p>
+      <p [innerHTML]="article.body | markdown"></p>
 
       @if(article.tagList.length) {
       <app-tags [tags]="article.tagList" variant="outlined" />
       }
     </div>
+    @if(isLoggedIn$ | async) {
     <hr />
     <app-comments />
+    }
   </div>
 </div>
 

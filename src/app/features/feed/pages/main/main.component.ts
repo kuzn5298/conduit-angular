@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   fetchFeed(): void {
-    const offset = this.page();
+    const offset = this.page() * this.limit;
 
     this.store.dispatch(
       getArticlesAction({

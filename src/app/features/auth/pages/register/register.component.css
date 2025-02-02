@@ -1,7 +1,6 @@
 h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font: var(--mat-sys-headline-medium);
+  font: var(--mat-sys-headline-large);
+  margin: 0;
 }
 
 .errors {

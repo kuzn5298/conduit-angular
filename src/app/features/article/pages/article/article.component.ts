@@ -5,7 +5,10 @@ import { select, Store } from '@ngrx/store';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { combineLatest, map } from 'rxjs';
 
-import { userSelector } from '../../../../core/store/user/selectors';
+import {
+  isLoggedInSelector,
+  userSelector,
+} from '../../../../core/store/user/selectors';
 import { CommentsComponent } from '../../components/comments/comments.component';
 import {
   articleSelector,
@@ -15,6 +18,7 @@ import {
 } from '../../../../core/store';
 import { ArticleBannerComponent } from '../../components/article-banner/article-banner.component';
 import { TagsComponent } from '../../../../shared/components/tags/tags.component';
+import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
 
 @Component({
   selector: 'app-article',
@@ -24,6 +28,7 @@ import { TagsComponent } from '../../../../shared/components/tags/tags.component
     ArticleBannerComponent,
     TagsComponent,
     MatProgressBarModule,
+    MarkdownPipe,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -34,6 +39,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   isLoading$ = this.store.pipe(select(isLoadingArticleSelector));
   article$ = this.store.pipe(select(articleSelector));
+  isLoggedIn$ = this.store.select(isLoggedInSelector);
+
   isAuthor$ = combineLatest([
     this.article$,
     this.store.pipe(select(userSelector)),

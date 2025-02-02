@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   fetchFeed(): void {
-    const offset = this.page();
+    const offset = this.page() * this.limit;
     const id = this.route.snapshot.paramMap.get('id') ?? '';
 
     this.store.dispatch(
