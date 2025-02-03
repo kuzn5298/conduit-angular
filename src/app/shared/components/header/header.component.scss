@@ -9,17 +9,15 @@
   );
 }
 
-.header-container {
+mat-toolbar {
+  padding: 0;
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.logo {
-  font-family: "Titillium Web", sans-serif;
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: var(--mat-sys-primary);
+  gap: 1rem;
 }
 
 ul {
@@ -28,36 +26,22 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  gap: 0.25rem;
 }
 
-.logout-button {
-  min-width: 0;
+.profile-button {
+  ::ng-deep .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-  mat-icon {
-    margin: 0;
+  &.mat-mdc-button {
+    padding-left: 0.5rem;
   }
 }
 
-.avatar {
-  position: relative;
-  vertical-align: top;
-  margin-right: 0.25rem;
-}
-
-.profile-button.mat-mdc-button:has(.material-icons, mat-icon, [matButtonIcon]) {
-  padding-left: 0.5rem;
-}
-
-::ng-deep
-  button.mat-mdc-button.active
-  .mat-mdc-button-persistent-ripple::before {
-  opacity: var(
-    --mat-text-button-hover-state-layer-opacity,
-    var(--mat-sys-hover-state-layer-opacity)
-  );
-}
-
-::ng-deep .profile-menu.mat-mdc-menu-panel {
-  min-width: 10rem;
+.profile-menu {
+  ::ng-deep &.mat-mdc-menu-panel {
+    min-width: 10rem;
+  }
 }

@@ -1,6 +1,7 @@
 <mat-toolbar>
-  <div class="container header-container">
-    <a class="logo" [routerLink]="['/']">conduit</a>
+  <div class="container">
+    <app-logo [routerLink]="['/']" role="link" />
+
     <ul>
       <li>
         <button
@@ -17,7 +18,7 @@
           Home
         </button>
       </li>
-      @if(user$ | async; as user) {
+      @if(user(); as user) {
       <li>
         <button mat-button [routerLink]="['/editor']" routerLinkActive="active">
           <mat-icon>edit_square</mat-icon>
@@ -36,11 +37,11 @@
             [name]="user.username"
             class="avatar"
           />
-          {{ user?.username }}
+          {{ user.username }}
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu" class="profile-menu">
-          <button mat-menu-item [routerLink]="['/profile', user?.username]">
+          <button mat-menu-item [routerLink]="['/profile', user.username]">
             <mat-icon>person</mat-icon>
             <span>Profile</span>
           </button>

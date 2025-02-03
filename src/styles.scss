@@ -28,3 +28,12 @@ body {
     }
   }
 }
+
+a {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

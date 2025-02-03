@@ -1,0 +1,23 @@
+:host {
+  font-family: "Titillium Web", sans-serif;
+
+  &.small {
+    font-size: 1rem;
+  }
+
+  &.medium {
+    font-size: 1.5rem;
+  }
+
+  &.large {
+    font-size: 3.5rem;
+  }
+
+  &[role="link"] {
+    cursor: pointer;
+    &:focus-visible {
+      text-decoration: underline;
+      outline: none;
+    }
+  }
+}
