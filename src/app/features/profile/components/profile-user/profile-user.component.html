@@ -1,7 +1,11 @@
 @if(profile$ | async; as profile) {
 <div class="profile-user">
   <div class="container">
-    <app-avatar [image]="profile.image" [name]="profile.username" />
+    <app-avatar
+      [image]="profile.image"
+      [name]="profile.username"
+      size="large"
+    />
     <h4>{{ profile.username }}</h4>
     @if(profile.bio) {
     <p>

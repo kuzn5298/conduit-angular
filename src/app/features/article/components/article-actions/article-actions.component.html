@@ -21,7 +21,7 @@
   } @else {
   <app-toggle-button
     [active]="article().author.following"
-    (click)="followProfile(article().author)"
+    (toggle)="followProfile(article().author)"
   >
     <mat-icon>{{ article().author.following ? "remove " : "add " }}</mat-icon>
     {{ article().author.following ? "Unfollow " : "Follow " }}
@@ -30,7 +30,7 @@
 
   <app-toggle-button
     [active]="article().favorited"
-    (click)="favoriteArticle(article())"
+    (toggle)="favoriteArticle(article())"
   >
     <mat-icon>favorite</mat-icon>
     Favorite Article ({{ article().favoritesCount }})

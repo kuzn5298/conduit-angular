@@ -11,4 +11,19 @@
     height: 100%;
     object-fit: cover;
   }
+
+  &.small {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  &.medium {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  &.large {
+    height: 5rem;
+    width: 5rem;
+  }
 }

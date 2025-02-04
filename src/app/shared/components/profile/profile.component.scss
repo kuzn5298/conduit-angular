@@ -1,0 +1,36 @@
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  app-avatar {
+    cursor: pointer;
+  }
+
+  .profile-name {
+    font: var(--mat-sys-title-medium);
+  }
+
+  .profile-date {
+    color: var(--mat-sys-outline);
+    font: var(--mat-sys-body-small);
+  }
+}
+
+.horizontal {
+  .profile-info {
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row;
+  }
+
+  .profile-name {
+    font-size: 0.875rem;
+  }
+}

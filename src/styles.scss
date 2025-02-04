@@ -33,7 +33,8 @@ a {
   color: var(--mat-sys-primary);
   text-decoration: none;
 
-  &:hover {
+  &:focus-visible {
+    outline: none;
     text-decoration: underline;
   }
 }

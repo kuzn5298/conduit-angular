@@ -1,0 +1,35 @@
+.article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+mat-card-header {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+mat-card-title {
+  font: var(--mat-sys-headline-small);
+  font-weight: bold;
+}
+
+mat-card-content {
+  cursor: pointer;
+}
+
+.card-body {
+  color: var(--mat-sys-outline);
+}
+
+p {
+  margin: 0;
+}
+
+mat-card-footer {
+  display: flex;
+  padding: 1rem;
+  padding-top: 0;
+}

@@ -3,11 +3,11 @@
 </ng-template>
 
 @if(active()) {
-<button mat-flat-button (click)="onClick($event)">
+<button mat-flat-button (click)="onClick()" [disabled]="disabled()">
   <ng-container *ngTemplateOutlet="content" />
 </button>
 } @else {
-<button mat-stroked-button (click)="onClick($event)">
+<button mat-stroked-button (click)="onClick()" [disabled]="disabled()">
   <ng-container *ngTemplateOutlet="content" />
 </button>
 }

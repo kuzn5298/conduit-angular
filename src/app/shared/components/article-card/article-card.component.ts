@@ -1,9 +1,15 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import {
@@ -12,8 +18,8 @@ import {
   unfavoriteArticleAction,
 } from '../../../core/store';
 import { Article } from '../../model';
-import { AvatarComponent } from '../avatar/avatar.component';
 import { TagsComponent } from '../tags/tags.component';
+import { ProfileComponent } from '../../../shared/components/profile/profile.component';
 
 @Component({
   selector: 'app-article-card',
@@ -21,22 +27,24 @@ import { TagsComponent } from '../tags/tags.component';
     MatCardModule,
     MatButtonModule,
     DatePipe,
-    AvatarComponent,
     MatIconModule,
     ToggleButtonComponent,
     RouterLink,
     TagsComponent,
-    AsyncPipe,
+    ProfileComponent,
   ],
   templateUrl: './article-card.component.html',
-  styleUrl: './article-card.component.css',
+  styleUrl: './article-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleCardComponent {
   private store = inject(Store);
 
   article = input.required<Article>();
 
-  isLoggedIn$ = this.store.select(isLoggedInSelector);
+  isLoggedIn = toSignal(this.store.select(isLoggedInSelector), {
+    initialValue: false,
+  });
 
   favoriteArticle(article: Article): void {
     if (article.favorited) {

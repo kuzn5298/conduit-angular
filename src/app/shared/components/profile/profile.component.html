@@ -1,0 +1,14 @@
+<div class="profile" [class.horizontal]="orientation() === 'horizontal'">
+  <app-avatar
+    [routerLink]="['/profile', profile().username]"
+    [image]="profile().image"
+    [name]="profile().username"
+    [size]="orientation() === 'horizontal' ? 'small' : 'medium'"
+  />
+  <div class="profile-info">
+    <a class="profile-name" [routerLink]="['/profile', profile().username]">
+      {{ profile().username }}
+    </a>
+    <span class="profile-date">{{ subtitle() }}</span>
+  </div>
+</div>
