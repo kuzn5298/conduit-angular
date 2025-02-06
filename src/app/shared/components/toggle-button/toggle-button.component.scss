@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 button {
   padding: 0 1rem;
 
@@ -6,4 +8,21 @@ button {
     align-items: center;
     gap: 0.25rem;
   }
+}
+
+.disabled {
+  cursor: default;
+
+  @include mat.button-overrides(
+    (
+      filled-ripple-color: transparent,
+      outlined-ripple-color: transparent,
+      filled-focus-state-layer-opacity: 0,
+      outlined-focus-state-layer-opacity: 0,
+      filled-pressed-state-layer-opacity: 0,
+      outlined-pressed-state-layer-opacity: 0,
+      filled-hover-state-layer-opacity: 0,
+      outlined-hover-state-layer-opacity: 0,
+    )
+  );
 }

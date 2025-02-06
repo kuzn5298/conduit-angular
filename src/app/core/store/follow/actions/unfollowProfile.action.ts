@@ -13,5 +13,6 @@ export const unfollowProfileSuccessAction = createAction(
 );
 
 export const unfollowProfileFailureAction = createAction(
-  ActionTypes.UNFOLLOW_PROFILE_FAILURE
+  ActionTypes.UNFOLLOW_PROFILE_FAILURE,
+  props<{ id: string }>()
 );

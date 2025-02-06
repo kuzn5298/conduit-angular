@@ -6,24 +6,26 @@
   margin: 0;
 }
 
-:host .edit-button {
-  height: 2rem;
+:host {
+  .edit-button {
+    height: 2rem;
 
-  @include mat.button-overrides(
-    (
-      outlined-label-text-color: var(--mat-sys-outline),
-      outlined-outline-color: var(--mat-sys-outline),
-    )
-  );
-}
+    @include mat.button-overrides(
+      (
+        outlined-label-text-color: var(--mat-sys-outline),
+        outlined-outline-color: var(--mat-sys-outline),
+      )
+    );
+  }
 
-:host .remove-button {
-  height: 2rem;
+  .remove-button {
+    height: 2rem;
 
-  @include mat.button-overrides(
-    (
-      outlined-label-text-color: var(--mat-sys-error),
-      outlined-outline-color: var(--mat-sys-error),
-    )
-  );
+    @include mat.button-overrides(
+      (
+        outlined-label-text-color: var(--mat-sys-error),
+        outlined-outline-color: var(--mat-sys-error),
+      )
+    );
+  }
 }

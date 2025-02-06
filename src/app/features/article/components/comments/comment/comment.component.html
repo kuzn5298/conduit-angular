@@ -5,23 +5,18 @@
     </p>
   </div>
   <div class="card-footer">
-    <div class="comment-profile">
-      <app-avatar
-        [routerLink]="['/profile', comment().author.username]"
-        [name]="comment().author.username"
-        [image]="comment().author.image"
-        size="small"
-      />
-      <a
-        [routerLink]="['/profile', comment().author.username]"
-        class="comment-author"
-      >
-        {{ comment().author.username }}
-      </a>
-      <span class="comment-date">{{ comment().createdAt | date }}</span>
-    </div>
+    <app-profile
+      [profile]="comment().author"
+      [subtitle]="comment().createdAt | date"
+      orientation="horizontal"
+    />
     @if(isAuthor$ | async) {
-    <button mat-stroked-button (click)="deleteComment()" class="remove-button">
+    <button
+      mat-stroked-button
+      (click)="deleteComment()"
+      class="remove-button"
+      [disabled]="isDeleting()"
+    >
       <mat-icon>delete</mat-icon>
     </button>
     }

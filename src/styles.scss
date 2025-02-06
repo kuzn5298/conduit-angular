@@ -38,3 +38,9 @@ a {
     text-decoration: underline;
   }
 }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--mat-sys-surface-dim);
+  margin: 0;
+}

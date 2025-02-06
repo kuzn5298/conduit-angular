@@ -13,5 +13,6 @@ export const unfavoriteArticleSuccessAction = createAction(
 );
 
 export const unfavoriteArticleFailureAction = createAction(
-  ActionTypes.UNFAVORITE_ARTICLE_FAILURE
+  ActionTypes.UNFAVORITE_ARTICLE_FAILURE,
+  props<{ id: string }>()
 );

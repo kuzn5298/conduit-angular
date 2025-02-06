@@ -13,5 +13,6 @@ export const favoriteArticleSuccessAction = createAction(
 );
 
 export const favoriteArticleFailureAction = createAction(
-  ActionTypes.FAVORITE_ARTICLE_FAILURE
+  ActionTypes.FAVORITE_ARTICLE_FAILURE,
+  props<{ id: string }>()
 );

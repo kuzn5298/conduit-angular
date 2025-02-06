@@ -3,23 +3,11 @@
     <h1>{{ article().title }}</h1>
 
     <div class="profile-controls">
-      <div class="profile">
-        <app-avatar
-          [routerLink]="['/profile', article().author.username]"
-          [image]="article().author.image"
-          [name]="article().author.username"
-        />
-        <div class="profile-info">
-          <span
-            class="profile-name"
-            [routerLink]="['/profile', article().author.username]"
-          >
-            {{ article().author.username }}
-          </span>
-          <span class="profile-date">{{ article().createdAt | date }}</span>
-        </div>
-      </div>
-      @if(isLoggedIn$ | async) {
+      <app-profile
+        [profile]="article().author"
+        [subtitle]="article().createdAt | date"
+      />
+      @if(isLoggedIn()) {
       <app-article-actions [article]="article()" />
 
       }

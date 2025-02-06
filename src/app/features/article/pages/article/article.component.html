@@ -1,6 +1,6 @@
-@if(isLoading$ | async){
+@if(isLoading()){
 <mat-progress-bar mode="indeterminate" />
-} @if(article$ |async; as article) {
+} @if(article(); as article) {
 <div class="article-page">
   <app-article-banner [article]="article" />
 
@@ -12,7 +12,7 @@
       <app-tags [tags]="article.tagList" variant="outlined" />
       }
     </div>
-    @if(isLoggedIn$ | async) {
+    @if(isLoggedIn()) {
     <hr />
     <app-comments />
     }

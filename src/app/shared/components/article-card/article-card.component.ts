@@ -15,6 +15,7 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
 import {
   favoriteArticleAction,
   isLoggedInSelector,
+  isSubmittingFavoriteSelector,
   unfavoriteArticleAction,
 } from '../../../core/store';
 import { Article } from '../../model';
@@ -45,6 +46,11 @@ export class ArticleCardComponent {
   isLoggedIn = toSignal(this.store.select(isLoggedInSelector), {
     initialValue: false,
   });
+
+  isSubmittingFavorite = toSignal(
+    this.store.select(isSubmittingFavoriteSelector),
+    { initialValue: false }
+  );
 
   favoriteArticle(article: Article): void {
     if (article.favorited) {

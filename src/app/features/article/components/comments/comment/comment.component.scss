@@ -16,23 +16,6 @@
   background-color: var(--mat-sys-surface-container);
 }
 
-.comment-profile {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font: var(--mat-sys-title-small);
-}
-
-.comment-author {
-  text-decoration: none;
-  color: var(--mat-sys-primary);
-}
-
-.comment-date {
-  color: var(--mat-sys-outline);
-  font: var(--mat-sys-body-small);
-}
-
 .remove-button {
   height: 2rem;
   min-width: 4rem;

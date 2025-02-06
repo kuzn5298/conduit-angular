@@ -22,6 +22,7 @@ import {
 } from '../actions';
 import { profileSelector, setProfileStateAction } from '../../profile';
 import { Article, Profile } from '../../../../shared/model';
+import { getOptimisticProfile } from '../helpers';
 
 @Injectable()
 export class FollowProfileEffect {
@@ -39,7 +40,7 @@ export class FollowProfileEffect {
             return followProfileSuccessAction({ profile });
           }),
           catchError(() => {
-            return of(followProfileFailureAction());
+            return of(followProfileFailureAction({ id }));
           })
         );
       })
@@ -55,7 +56,7 @@ export class FollowProfileEffect {
             return unfollowProfileSuccessAction({ profile });
           }),
           catchError(() => {
-            return of(unfollowProfileFailureAction());
+            return of(unfollowProfileFailureAction({ id }));
           })
         );
       })
@@ -84,6 +85,36 @@ export class FollowProfileEffect {
             ...action.profile,
             image: action.profile.image || profile.image,
           };
+
+          return setProfileStateAction({ profile: newProfile });
+        }
+        return null;
+      }),
+      filter(Boolean)
+    )
+  );
+
+  optimisticUpdateProfileArticle$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        followProfileAction,
+        unfollowProfileAction,
+        followProfileFailureAction,
+        unfollowProfileFailureAction
+      ),
+      withLatestFrom(
+        this.store.pipe(select(articleSelector)),
+        this.store.pipe(select(profileSelector))
+      ),
+      map(([action, article, profile]) => {
+        if (article && article.author.username === action?.id) {
+          const newArticle = {
+            ...article,
+            author: getOptimisticProfile(article.author),
+          };
+          return setArticleStateAction({ article: newArticle });
+        } else if (profile && profile.username === action?.id) {
+          const newProfile: Profile = getOptimisticProfile(profile);
 
           return setProfileStateAction({ profile: newProfile });
         }

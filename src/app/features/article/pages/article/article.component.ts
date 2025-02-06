@@ -1,10 +1,15 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { combineLatest, map } from 'rxjs';
-
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   isLoggedInSelector,
   userSelector,
@@ -23,7 +28,6 @@ import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
 @Component({
   selector: 'app-article',
   imports: [
-    AsyncPipe,
     CommentsComponent,
     ArticleBannerComponent,
     TagsComponent,
@@ -31,21 +35,19 @@ import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
     MarkdownPipe,
   ],
   templateUrl: './article.component.html',
-  styleUrl: './article.component.css',
+  styleUrl: './article.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private store = inject(Store);
 
-  isLoading$ = this.store.pipe(select(isLoadingArticleSelector));
-  article$ = this.store.pipe(select(articleSelector));
-  isLoggedIn$ = this.store.select(isLoggedInSelector);
-
-  isAuthor$ = combineLatest([
-    this.article$,
-    this.store.pipe(select(userSelector)),
-  ]).pipe(
-    map(([article, user]) => article?.author.username === user?.username)
+  isLoading = toSignal(this.store.select(isLoadingArticleSelector));
+  article = toSignal(this.store.select(articleSelector));
+  isLoggedIn = toSignal(this.store.select(isLoggedInSelector));
+  user = toSignal(this.store.select(userSelector));
+  isAuthor = computed(
+    () => this.article()?.author.username === this.user()?.username
   );
 
   ngOnInit(): void {

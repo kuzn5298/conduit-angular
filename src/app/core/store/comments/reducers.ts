@@ -10,6 +10,8 @@ import {
   addCommentAction,
   addCommentFailureAction,
   addCommentSuccessAction,
+  deleteCommentAction,
+  deleteCommentFailureAction,
   deleteCommentSuccessAction,
 } from './actions';
 
@@ -17,6 +19,7 @@ const initialState: CommentsState = {
   isSubmitting: false,
   isLoading: false,
   comments: null,
+  deletingCommentId: null,
 };
 
 export const commentsReducer = createReducer(
@@ -25,7 +28,7 @@ export const commentsReducer = createReducer(
     getCommentsAction,
     (state): CommentsState => ({
       ...state,
-      isLoading: false,
+      isLoading: true,
       comments: null,
     })
   ),
@@ -68,10 +71,25 @@ export const commentsReducer = createReducer(
     })
   ),
   on(
+    deleteCommentAction,
+    (state, { commentId }): CommentsState => ({
+      ...state,
+      deletingCommentId: commentId,
+    })
+  ),
+  on(
     deleteCommentSuccessAction,
     (state, { comments }): CommentsState => ({
       ...state,
       comments,
+      deletingCommentId: null,
+    })
+  ),
+  on(
+    deleteCommentFailureAction,
+    (state): CommentsState => ({
+      ...state,
+      deletingCommentId: null,
     })
   ),
   on(clearCommentsStateAction, (): CommentsState => ({ ...initialState }))

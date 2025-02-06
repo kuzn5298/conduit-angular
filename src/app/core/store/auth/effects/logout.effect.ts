@@ -17,7 +17,10 @@ export class LogoutEffect {
       ofType(logoutAction),
       tap(() => {
         this.persistenceService.remove('accessToken');
-        this.router.navigateByUrl('/');
+        const currentUrl = this.router.url;
+        const currentRoutes = this.router.config;
+        this.router.resetConfig(currentRoutes);
+        this.router.navigateByUrl(currentUrl);
       }),
       map(() => removeUserAction())
     )

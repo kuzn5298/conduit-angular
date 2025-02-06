@@ -6,29 +6,35 @@
         class="form-control"
         placeholder="Write a comment..."
         rows="3"
+        [disabled]="isSubmitting()"
       ></textarea>
       <div class="article-form-footer">
         <app-avatar
-          [name]="(user$ | async)?.username ?? ''"
-          [image]="(user$ | async)?.image"
+          [name]="user()?.username ?? ''"
+          [image]="user()?.image"
+          size="small"
         />
         <button
           mat-flat-button
           (click)="addComment(form)"
-          [disabled]="isSubmitting$ | async"
+          [disabled]="isSubmitting()"
         >
           Post Comment
         </button>
       </div>
     </form>
   </mat-card>
-  @if(isLoading$ | async) {
-  <p>Loading comments...</p>
-  } @else { @if(comments$ | async; as comments) {
+  @if(isLoading()) {
+  <app-loading [fullWidth]="true" />
+  } @else if(comments()) {
   <div class="comments-container">
-    @for(comment of comments; track comment.id) {
-    <app-comment [comment]="comment" (delete)="deleteComment($event)" />
+    @for(comment of comments(); track comment.id) {
+    <app-comment
+      [comment]="comment"
+      (delete)="deleteComment($event)"
+      [isDeleting]="comment.id === deletingCommentId()"
+    />
     }
   </div>
-  } }
+  }
 </div>

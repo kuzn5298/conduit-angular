@@ -20,6 +20,8 @@ export class ToggleButtonComponent {
   toggle = output<void>();
 
   onClick() {
-    this.toggle.emit();
+    if (!this.disabled()) {
+      this.toggle.emit();
+    }
   }
 }

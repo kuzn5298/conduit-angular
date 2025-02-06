@@ -11,7 +11,7 @@ import {
 import { AuthService } from '../../../services/auth.service';
 
 @Injectable()
-export class registerEffect {
+export class RegisterEffect {
   private actions$ = inject(Actions);
   private router = inject(Router);
   private authService = inject(AuthService);

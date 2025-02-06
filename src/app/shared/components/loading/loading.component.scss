@@ -1,0 +1,10 @@
+:host {
+  display: inline-block;
+
+  &.full-width {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}

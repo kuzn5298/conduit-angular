@@ -13,5 +13,6 @@ export const followProfileSuccessAction = createAction(
 );
 
 export const followProfileFailureAction = createAction(
-  ActionTypes.FOLLOW_PROFILE_FAILURE
+  ActionTypes.FOLLOW_PROFILE_FAILURE,
+  props<{ id: string }>()
 );

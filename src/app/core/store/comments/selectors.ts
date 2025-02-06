@@ -14,6 +14,11 @@ export const isSubmittingCommentsSelector = createSelector(
   (commentsState: CommentsState) => commentsState.isSubmitting
 );
 
+export const deletingCommentIdSelector = createSelector(
+  commentsStoreSelector,
+  (commentsState: CommentsState) => commentsState.deletingCommentId
+);
+
 export const commentsSelector = createSelector(
   commentsStoreSelector,
   (commentsState: CommentsState) => commentsState.comments

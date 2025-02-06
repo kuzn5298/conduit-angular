@@ -1,42 +1,51 @@
-import { Component, inject, input, output } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
 import { Article, Profile } from '../../../../shared/model';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { userSelector } from '../../../../core/store/user/selectors';
 import {
   deleteArticleAction,
   favoriteArticleAction,
   followProfileAction,
+  isSubmittingFavoriteSelector,
+  isSubmittingFollowSelector,
   unfavoriteArticleAction,
   unfollowProfileAction,
 } from '../../../../core/store';
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-article-actions',
-  imports: [
-    RouterLink,
-    AsyncPipe,
-    ToggleButtonComponent,
-    MatIconModule,
-    MatButtonModule,
-  ],
+  imports: [RouterLink, ToggleButtonComponent, MatIconModule, MatButtonModule],
   templateUrl: './article-actions.component.html',
   styleUrl: './article-actions.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleActionsComponent {
   private store = inject(Store);
 
   article = input.required<Article>();
+  user = toSignal(this.store.select(userSelector));
+  isSubmittingFavorite = toSignal(
+    this.store.select(isSubmittingFavoriteSelector),
+    { initialValue: false }
+  );
+  isSubmittingFollow = toSignal(this.store.select(isSubmittingFollowSelector), {
+    initialValue: false,
+  });
 
-  isAuthor$ = this.store
-    .pipe(select(userSelector))
-    .pipe(map((user) => this.article().author.username === user?.username));
+  isAuthor = computed(
+    () => this.article().author.username === this.user()?.username
+  );
 
   favoriteArticle(article: Article): void {
     if (article.favorited) {
