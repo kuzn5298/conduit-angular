@@ -5,13 +5,12 @@
     <div class="content">
       <div>
         <app-feed-toggle [feedType]="feedType()" [tag]="tag()" />
-
-        @if(isLoading$ | async) {
-        <mat-progress-bar mode="indeterminate" />
+        @if(isLoading()) {
+        <app-loading [fullWidth]="true" size="4rem" />
         } @else {
         <app-feed-articles />
         <app-feed-pagination
-          [total]="(articlesCount$ | async) ?? 0"
+          [total]="articlesCount()"
           [page]="page()"
           [pageSize]="limit"
           (handlePage)="handlePageChange($event)"

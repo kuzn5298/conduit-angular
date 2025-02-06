@@ -6,14 +6,15 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FeedToggleComponent } from '../../components/feed-toggle/feed-toggle.component';
 import { FeedTagsComponent } from '../../components/feed-tags/feed-tags.component';
 import { FeedArticlesComponent } from '../../components/feed-articles/feed-articles.component';
 import { FeedPaginationComponent } from '../../components/feed-pagination/feed-pagination.component';
+import { FeedBannerComponent } from '../../components/feed-banner/feed-banner.component';
 import {
   articlesCountSelector,
   clearArticlesStateAction,
@@ -21,7 +22,7 @@ import {
   isLoadingArticlesSelector,
 } from '../../../../core/store';
 import { FeedType } from '../../../../shared/model';
-import { FeedBannerComponent } from '../../components/feed-banner/feed-banner.component';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 
 const LIMIT = 10;
 
@@ -32,12 +33,12 @@ const LIMIT = 10;
     FeedTagsComponent,
     FeedArticlesComponent,
     FeedPaginationComponent,
-    AsyncPipe,
     MatProgressBarModule,
     FeedBannerComponent,
+    LoadingComponent,
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css',
+  styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit, OnDestroy {
   private store = inject(Store);
@@ -45,8 +46,10 @@ export class MainComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
-  articlesCount$ = this.store.select(articlesCountSelector);
-  isLoading$ = this.store.select(isLoadingArticlesSelector);
+  articlesCount = toSignal(this.store.select(articlesCountSelector), {
+    initialValue: 0,
+  });
+  isLoading = toSignal(this.store.select(isLoadingArticlesSelector));
 
   limit = LIMIT;
 

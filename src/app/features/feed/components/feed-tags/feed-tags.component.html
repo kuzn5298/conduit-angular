@@ -1,11 +1,10 @@
 <div class="feed-tags">
   <p class="title">Popular Tags</p>
   <div class="tags-container">
-    @if(isLoading$ | async) {
-    <div class="loading-container"><mat-spinner /></div>
+    @if(isLoading()) {
+    <app-loading [fullWidth]="true" />
     } @else {
-    <app-tags [tags]="(tags$ | async) ?? []" />
-
+    <app-tags [tags]="tags()" />
     }
   </div>
 </div>
