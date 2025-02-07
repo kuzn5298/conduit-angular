@@ -1,10 +1,8 @@
 import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {
-  clearProfileStateAction,
   followProfileAction,
-  getProfileAction,
   isLoggedInSelector,
   isSubmittingFollowSelector,
   profileSelector,
@@ -12,7 +10,6 @@ import {
   userSelector,
 } from '../../../../core/store';
 import { Profile } from '../../../../shared/model';
-import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

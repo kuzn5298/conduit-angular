@@ -1,14 +1,12 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EMPTY, Observable } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { Errors } from '../../../../shared/model';
 import { LoginForm } from './login-form.interface';
 import {
   authErrorsSelector,
@@ -22,38 +20,32 @@ import {
   imports: [
     RouterLink,
     ErrorMessagesComponent,
-    AsyncPipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   private store = inject(Store);
   private fb = inject(FormBuilder);
 
-  isSubmitting$: Observable<boolean> = EMPTY;
-  errors$: Observable<Errors | null> = EMPTY;
+  isSubmitting = toSignal(this.store.select(isSubmittingAuthSelector), {
+    initialValue: false,
+  });
+  errors = toSignal(this.store.select(authErrorsSelector), {
+    initialValue: null,
+  });
 
   form: FormGroup = this.fb.group<LoginForm>({
     email: '',
     password: '',
   });
 
-  ngOnInit(): void {
-    this.initializeValues();
-  }
-
   ngOnDestroy(): void {
     this.store.dispatch(clearAuthStateAction());
-  }
-
-  initializeValues(): void {
-    this.isSubmitting$ = this.store.select(isSubmittingAuthSelector);
-    this.errors$ = this.store.select(authErrorsSelector);
   }
 
   onSubmit(): void {

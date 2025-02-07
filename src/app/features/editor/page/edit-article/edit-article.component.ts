@@ -1,12 +1,11 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { filter, map, Observable } from 'rxjs';
 import { ArticleFormComponent } from '../../components/article-form/article-form.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { ArticleInput, Errors } from '../../../../shared/model';
+import { ArticleInput } from '../../../../shared/model';
 import {
   articleSelector,
   clearArticleStateAction,
@@ -19,43 +18,36 @@ import {
 
 @Component({
   selector: 'app-edit-article',
-  imports: [
-    ArticleFormComponent,
-    AsyncPipe,
-    ErrorMessagesComponent,
-    MatProgressBarModule,
-  ],
+  imports: [ArticleFormComponent, ErrorMessagesComponent, MatProgressBarModule],
   templateUrl: './edit-article.component.html',
-  styleUrl: './edit-article.component.css',
+  styleUrl: './edit-article.component.scss',
 })
 export class EditArticleComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private route = inject(ActivatedRoute);
 
-  isSubmitting$: Observable<boolean> = this.store.pipe(
-    select(isSubmittingArticleSelector)
-  );
+  isSubmitting = toSignal(this.store.select(isSubmittingArticleSelector), {
+    initialValue: false,
+  });
 
-  isLoading$: Observable<boolean> = this.store.pipe(
-    select(isLoadingArticleSelector)
-  );
+  isLoading = toSignal(this.store.select(isLoadingArticleSelector), {
+    initialValue: true,
+  });
 
-  errors$: Observable<Errors | null> = this.store.pipe(
-    select(errorsArticleSelector)
-  );
+  article = toSignal(this.store.select(articleSelector), {
+    initialValue: null,
+  });
 
-  initialValue$ = this.store.pipe(
-    select(articleSelector),
-    filter(Boolean),
-    map(
-      (article): ArticleInput => ({
-        title: article?.title ?? '',
-        description: article?.description ?? '',
-        body: article?.body ?? '',
-        tagList: article?.tagList ?? [],
-      })
-    )
-  );
+  errors = toSignal(this.store.select(errorsArticleSelector), {
+    initialValue: null,
+  });
+
+  initialValue = computed(() => ({
+    title: this.article()?.title ?? '',
+    description: this.article()?.description ?? '',
+    body: this.article()?.body ?? '',
+    tagList: this.article()?.tagList ?? [],
+  }));
 
   ngOnInit(): void {
     this.fetchArticle();

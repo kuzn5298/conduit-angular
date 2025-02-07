@@ -1,6 +1,6 @@
 <div class="settings-page container">
   <h2>Your Settings</h2>
-  @if(errors$ | async; as errors) {
+  @if(errors(); as errors) {
   <app-error-messages [errors]="errors" class="errors" />
   }
 
@@ -47,7 +47,7 @@
     <button
       mat-flat-button
       type="submit"
-      [disabled]="form.invalid || (isSubmitting$ | async)"
+      [disabled]="form.invalid || isSubmitting()"
     >
       Update Settings
     </button>

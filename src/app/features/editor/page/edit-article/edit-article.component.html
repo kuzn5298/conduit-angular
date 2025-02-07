@@ -1,14 +1,14 @@
-@if(isLoading$ | async) {
+@if(isLoading()) {
 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 } @else {
 <div class="editor-page container">
   <h2>Edit Article</h2>
-  @if(errors$ | async; as errors) {
+  @if(errors(); as errors) {
   <app-error-messages [errors]="errors" class="errors" />
-  } @if(initialValue$ | async; as initialValue) {
+  } @if(initialValue(); as initialValue) {
   <app-article-form
     [initialValue]="initialValue"
-    [disabled]="(isSubmitting$ | async) ?? false"
+    [disabled]="isSubmitting()"
     (formSubmit)="onSubmit($event)"
   />
   }

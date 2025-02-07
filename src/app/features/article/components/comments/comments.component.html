@@ -11,7 +11,7 @@
       <div class="article-form-footer">
         <app-avatar
           [name]="user()?.username ?? ''"
-          [image]="user()?.image"
+          [image]="user()?.image ?? null"
           size="small"
         />
         <button

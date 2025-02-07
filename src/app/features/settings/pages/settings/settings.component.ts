@@ -1,38 +1,39 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-import { take } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import {
   changeSettingsAction,
   clearSettingsStateAction,
   errorsSettingsSelector,
   isSubmittingSettingsSelector,
-  userSelector,
 } from '../../../../core/store';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { UserWithPassword } from '../../../../shared/model';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-settings',
   imports: [
-    AsyncPipe,
     ErrorMessagesComponent,
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
   ],
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.css',
+  styleUrl: './settings.component.scss',
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnDestroy {
   private store = inject(Store);
   private fb = inject(FormBuilder);
 
-  isSubmitting$ = this.store.select(isSubmittingSettingsSelector);
-  errors$ = this.store.select(errorsSettingsSelector);
+  isSubmitting = toSignal(this.store.select(isSubmittingSettingsSelector), {
+    initialValue: false,
+  });
+  errors = toSignal(this.store.select(errorsSettingsSelector), {
+    initialValue: null,
+  });
 
   form = this.fb.group({
     email: [''],
@@ -43,15 +44,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     bio: [''],
   });
 
-  ngOnInit(): void {
-    this.initializationForm();
-  }
-
   ngOnDestroy(): void {
     this.store.dispatch(clearSettingsStateAction());
   }
-
-  initializationForm(): void {}
 
   submit(): void {
     if (this.form.valid) {

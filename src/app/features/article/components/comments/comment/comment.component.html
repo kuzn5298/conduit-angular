@@ -10,7 +10,7 @@
       [subtitle]="comment().createdAt | date"
       orientation="horizontal"
     />
-    @if(isAuthor$ | async) {
+    @if(isAuthor()) {
     <button
       mat-stroked-button
       (click)="deleteComment()"

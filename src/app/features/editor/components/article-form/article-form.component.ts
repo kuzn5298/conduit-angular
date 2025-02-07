@@ -24,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   templateUrl: './article-form.component.html',
-  styleUrl: './article-form.component.css',
+  styleUrl: './article-form.component.scss',
 })
 export class ArticleFormComponent implements OnInit, OnChanges {
   private fb = inject(FormBuilder);

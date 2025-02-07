@@ -1,21 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   output,
 } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
 import { Comment } from '../../../../../shared/model/comment.interface';
-import { getAvatarPlaceholder } from '../../../../../shared/utils';
-import { Profile } from '../../../../../shared/model';
-import { select, Store } from '@ngrx/store';
 import { userSelector } from '../../../../../core/store';
-import { map } from 'rxjs';
 import { ProfileComponent } from '../../../../../shared/components/profile/profile.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-comment',
@@ -24,7 +23,6 @@ import { ProfileComponent } from '../../../../../shared/components/profile/profi
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    AsyncPipe,
     ProfileComponent,
   ],
   templateUrl: './comment.component.html',
@@ -38,13 +36,11 @@ export class CommentComponent {
 
   private store = inject(Store);
 
-  isAuthor$ = this.store
-    .pipe(select(userSelector))
-    .pipe(map((user) => this.comment().author.username === user?.username));
+  user = toSignal(this.store.select(userSelector));
 
-  getAvatar(author: Profile): string {
-    return getAvatarPlaceholder(author?.image ?? null, author?.username);
-  }
+  isAuthor = computed(
+    () => this.comment().author.username === this.user()?.username
+  );
 
   deleteComment(): void {
     this.delete.emit(this.comment().id);

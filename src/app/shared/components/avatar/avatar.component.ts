@@ -4,9 +4,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-
-const getPlaceholderURL = (username: string = '') =>
-  `https://avatar.iran.liara.run/public/boy?username=${username}`;
+import { getAvatarPlaceholder } from '../../utils';
 
 type Size = 'small' | 'medium' | 'large';
 
@@ -24,10 +22,10 @@ type Size = 'small' | 'medium' | 'large';
 })
 export class AvatarComponent {
   name = input.required<string>();
-  image = input<string | null>();
+  image = input<string | null>(null);
   size = input<Size>('medium');
 
   src = computed(() => {
-    return this.image() || getPlaceholderURL(this.name());
+    return getAvatarPlaceholder(this.image(), this.name());
   });
 }

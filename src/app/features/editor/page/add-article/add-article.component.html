@@ -1,10 +1,10 @@
 <div class="editor-page container">
   <h2>New Article</h2>
-  @if(errors$ | async; as errors) {
+  @if(errors(); as errors) {
   <app-error-messages [errors]="errors" class="errors" />
   }
   <app-article-form
-    [disabled]="(isSubmitting$ | async) ?? false"
+    [disabled]="isSubmitting()"
     (formSubmit)="onSubmit($event)"
   />
 </div>

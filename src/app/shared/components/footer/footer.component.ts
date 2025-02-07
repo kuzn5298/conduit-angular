@@ -6,7 +6,7 @@ import { LogoComponent } from '../logo/logo.component';
   selector: 'app-footer',
   imports: [LogoComponent, RouterLink],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css',
+  styleUrl: './footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {}

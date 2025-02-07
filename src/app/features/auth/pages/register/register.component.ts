@@ -2,12 +2,10 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EMPTY, Observable } from 'rxjs';
-import { Errors } from '../../../../shared/model';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RegisterForm } from './register-form.interface';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import {
@@ -22,21 +20,24 @@ import {
   imports: [
     RouterLink,
     ErrorMessagesComponent,
-    AsyncPipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnDestroy {
   private store = inject(Store);
   private fb = inject(FormBuilder);
 
-  isSubmitting$: Observable<boolean> = EMPTY;
-  errors$: Observable<Errors | null> = EMPTY;
+  isSubmitting = toSignal(this.store.select(isSubmittingAuthSelector), {
+    initialValue: false,
+  });
+  errors = toSignal(this.store.select(authErrorsSelector), {
+    initialValue: null,
+  });
 
   form: FormGroup = this.fb.group<RegisterForm>({
     email: '',
@@ -44,17 +45,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     password: '',
   });
 
-  ngOnInit(): void {
-    this.initializeValues();
-  }
-
   ngOnDestroy(): void {
     this.store.dispatch(clearAuthStateAction());
-  }
-
-  initializeValues(): void {
-    this.isSubmitting$ = this.store.select(isSubmittingAuthSelector);
-    this.errors$ = this.store.select(authErrorsSelector);
   }
 
   onSubmit(): void {

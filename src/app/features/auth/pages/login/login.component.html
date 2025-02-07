@@ -4,7 +4,7 @@
     <a [routerLink]="['/register']">Need an account?</a>
   </div>
 
-  @if(errors$ | async; as errors) {
+  @if(errors(); as errors) {
   <app-error-messages [errors]="errors" class="errors" />
   }
 
@@ -17,7 +17,7 @@
       <mat-label>Password</mat-label>
       <input matInput type="password" formControlName="password" />
     </mat-form-field>
-    <button mat-flat-button [disabled]="isSubmitting$ | async" type="submit">
+    <button mat-flat-button [disabled]="isSubmitting()" type="submit">
       Sign in
     </button>
   </form>
