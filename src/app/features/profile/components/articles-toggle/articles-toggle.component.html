@@ -1,5 +1,5 @@
 <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-  @if(isLoggedIn$ | async) {
+  @if(isLoggedIn()) {
   <a
     mat-tab-link
     [routerLink]="[]"

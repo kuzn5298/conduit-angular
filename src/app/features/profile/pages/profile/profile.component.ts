@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   inject,
@@ -6,34 +7,42 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
+import { combineLatest, debounceTime } from 'rxjs';
 import { FeedType } from '../../../../shared/model';
 import {
-  isLoadingProfileSelector,
   getArticlesAction,
   clearArticlesStateAction,
   articlesCountSelector,
+  isLoadingProfileSelector,
+  clearProfileStateAction,
+  getProfileAction,
+  isLoadingArticlesSelector,
 } from '../../../../core/store';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ArticlesToggleComponent } from '../../components/articles-toggle/articles-toggle.component';
 import { ProfileArticlesComponent } from '../../components/profile-articles/profile-articles.component';
 import { ProfilePaginationComponent } from '../../components/profile-pagination/profile-pagination.component';
 import { ProfileUserComponent } from '../../components/profile-user/profile-user.component';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 
 const LIMIT = 10;
 
 @Component({
   selector: 'app-profile',
   imports: [
-    AsyncPipe,
     ArticlesToggleComponent,
     ProfileArticlesComponent,
     ProfilePaginationComponent,
     ProfileUserComponent,
+    LoadingComponent,
+    MatProgressBarModule,
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+  styleUrl: './profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
@@ -45,8 +54,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   page = signal(0);
   limit = LIMIT;
 
-  isLoading$ = this.store.select(isLoadingProfileSelector);
-  articlesCount$ = this.store.select(articlesCountSelector);
+  isLoadingArticle = toSignal(this.store.select(isLoadingArticlesSelector));
+  isLoadingProfile = toSignal(this.store.select(isLoadingProfileSelector));
+  articlesCount = toSignal(this.store.select(articlesCountSelector), {
+    initialValue: 0,
+  });
+
+  constructor() {}
 
   ngOnInit(): void {
     this.initializeListeners();
@@ -54,6 +68,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(clearArticlesStateAction());
+    this.store.dispatch(clearProfileStateAction());
+  }
+
+  fetchProfile(): void {
+    const id = this.route.snapshot.paramMap.get('id') ?? '';
+    this.store.dispatch(getProfileAction({ id }));
   }
 
   fetchFeed(): void {
@@ -69,16 +89,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   initializeListeners(): void {
-    const queryParamSubscription = this.route.queryParams.subscribe(
-      (params: Params) => {
+    let prevPath: string;
+    const routeSubscription = combineLatest([
+      this.route.queryParams,
+      this.route.url,
+    ])
+      .pipe(debounceTime(1))
+      .subscribe(([params, url]) => {
         this.feedType.set(params['feed'] ?? FeedType.My);
         this.page.set(Number(params['page'] ?? '0'));
-
         this.fetchFeed();
-      }
-    );
 
-    this.destroyRef.onDestroy(() => queryParamSubscription.unsubscribe());
+        if (prevPath !== url[0].path) {
+          prevPath = url[0].path;
+          this.fetchProfile();
+        }
+      });
+
+    this.destroyRef.onDestroy(() => {
+      routeSubscription.unsubscribe();
+    });
   }
 
   handlePageChange(page: number): void {

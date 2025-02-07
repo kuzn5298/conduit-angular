@@ -5,7 +5,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   selector: 'app-profile-pagination',
   imports: [MatPaginatorModule],
   templateUrl: './profile-pagination.component.html',
-  styleUrl: './profile-pagination.component.css',
+  styleUrl: './profile-pagination.component.scss',
 })
 export class ProfilePaginationComponent {
   page = input.required<number>();

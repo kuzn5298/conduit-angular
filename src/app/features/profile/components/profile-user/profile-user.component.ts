@@ -1,13 +1,12 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { combineLatest, map } from 'rxjs';
 import {
   clearProfileStateAction,
   followProfileAction,
   getProfileAction,
   isLoggedInSelector,
+  isSubmittingFollowSelector,
   profileSelector,
   unfollowProfileAction,
   userSelector,
@@ -17,47 +16,31 @@ import { getAvatarPlaceholder } from '../../../../shared/utils';
 import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
 
 @Component({
   selector: 'app-profile-user',
   imports: [
-    AsyncPipe,
     AvatarComponent,
     RouterLink,
     MatIconModule,
     MatButtonModule,
+    ToggleButtonComponent,
   ],
   templateUrl: './profile-user.component.html',
   styleUrl: './profile-user.component.scss',
 })
-export class ProfileUserComponent implements OnInit, OnDestroy {
+export class ProfileUserComponent {
   private store = inject(Store);
-  private route = inject(ActivatedRoute);
 
-  profile$ = this.store.select(profileSelector);
-  isLoggedIn$ = this.store.select(isLoggedInSelector);
-
-  isAuthor$ = combineLatest([
-    this.profile$,
-    this.store.pipe(select(userSelector)),
-  ]).pipe(map(([profile, user]) => profile?.username === user?.username));
-
-  ngOnInit(): void {
-    this.fetchProfile();
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(clearProfileStateAction());
-  }
-
-  getAvatar(profile: Profile | null): string {
-    return getAvatarPlaceholder(profile?.image ?? null, profile?.username);
-  }
-
-  fetchProfile(): void {
-    const id = this.route.snapshot.paramMap.get('id') ?? '';
-    this.store.dispatch(getProfileAction({ id }));
-  }
+  profile = toSignal(this.store.select(profileSelector));
+  isLoggedIn = toSignal(this.store.select(isLoggedInSelector));
+  user = toSignal(this.store.pipe(select(userSelector)));
+  isAuthor = computed(() => this.profile()?.username === this.user()?.username);
+  isSubmittingFollow = toSignal(this.store.select(isSubmittingFollowSelector), {
+    initialValue: false,
+  });
 
   followProfile(profile: Profile): void {
     if (profile.following) {

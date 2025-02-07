@@ -1,4 +1,4 @@
-@if(profile$ | async; as profile) {
+@if(profile(); as profile) {
 <div class="profile-user">
   <div class="container">
     <app-avatar
@@ -11,23 +11,26 @@
     <p>
       {{ profile.bio }}
     </p>
-    } @if(isLoggedIn$ | async) { @if(isAuthor$ | async) {
-    <a mat-stroked-button [routerLink]="['/settings']">
-      <mat-icon>settings</mat-icon>
-      Edit Profile Settings
-    </a>
-    }@else { @if(profile.following) {
-    <button mat-flat-button (click)="followProfile(profile)">
-      <mat-icon>remove</mat-icon>
-      Unfollow {{ profile.username }}
-    </button>
-    } @else {
-    <button mat-stroked-button (click)="followProfile(profile)">
-      <mat-icon>add</mat-icon>
-
-      Follow {{ profile.username }}
-    </button>
-    } } }
+    } @if(isLoggedIn()) {
+    <div>
+      @if (isAuthor()) {
+      <a mat-stroked-button [routerLink]="['/settings']">
+        <mat-icon>settings</mat-icon>
+        Edit Profile Settings
+      </a>
+      } @else {
+      <app-toggle-button
+        [active]="profile.following"
+        (toggle)="followProfile(profile)"
+        [disabled]="isSubmittingFollow()"
+      >
+        <mat-icon>{{ profile.following ? "remove " : "add " }}</mat-icon>
+        {{ profile.following ? "Unfollow " : "Follow " }}
+        {{ profile.username }}
+      </app-toggle-button>
+      }
+    </div>
+    }
   </div>
 </div>
 }

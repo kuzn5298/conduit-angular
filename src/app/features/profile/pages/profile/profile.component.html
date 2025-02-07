@@ -1,14 +1,22 @@
+@if(isLoadingProfile()) {
+<mat-progress-bar mode="indeterminate" />
+} @else {
 <div class="profile-page">
   <app-profile-user />
 
   <div class="container">
     <app-articles-toggle [feedType]="feedType()" />
+    @if(isLoadingArticle()) {
+    <app-loading size="4rem" [fullWidth]="true" />
+    } @else {
     <app-profile-articles />
     <app-profile-pagination
-      [total]="(articlesCount$ | async) ?? 0"
+      [total]="articlesCount()"
       [page]="page()"
       [pageSize]="limit"
       (handlePage)="handlePageChange($event)"
     />
+    }
   </div>
 </div>
+}
