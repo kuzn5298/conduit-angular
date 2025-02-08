@@ -65,7 +65,10 @@ export class CommentsComponent implements OnInit {
   }
 
   deleteComment(commentId: number): void {
-    const articleId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.store.dispatch(deleteCommentAction({ commentId, articleId }));
+    const confirmed = confirm('Are you sure you want to delete this comment?');
+    if (confirmed) {
+      const articleId = this.route.snapshot.paramMap.get('id') ?? '';
+      this.store.dispatch(deleteCommentAction({ commentId, articleId }));
+    }
   }
 }

@@ -64,6 +64,9 @@ export class ArticleActionsComponent {
   }
 
   deleteArticle(id: string): void {
-    this.store.dispatch(deleteArticleAction({ id }));
+    const confirmed = confirm('Are you sure you want to delete this article?');
+    if (confirmed) {
+      this.store.dispatch(deleteArticleAction({ id }));
+    }
   }
 }
