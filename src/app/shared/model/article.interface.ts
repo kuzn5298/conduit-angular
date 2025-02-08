@@ -20,10 +20,6 @@ export interface ArticleInput {
   tagList: string[];
 }
 
-export interface ArticleForm extends Omit<ArticleInput, 'tagList'> {
-  tagList: string;
-}
-
 export interface ArticleResponse {
   article: Article;
 }

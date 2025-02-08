@@ -7,13 +7,19 @@ import {
   output,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ArticleForm, ArticleInput } from '../../../../shared/model';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ArticleInput } from '../../../../shared/model';
 import { MarkdownEditorComponent } from '../../../../shared/components/markdown-editor/markdown-editor.component';
+import { TagsInputComponent } from './tags-input/tags-input.component';
 
 @Component({
   selector: 'app-article-form',
@@ -24,6 +30,7 @@ import { MarkdownEditorComponent } from '../../../../shared/components/markdown-
     MatIconModule,
     MatButtonModule,
     MarkdownEditorComponent,
+    TagsInputComponent,
   ],
   templateUrl: './article-form.component.html',
   styleUrl: './article-form.component.scss',
@@ -58,11 +65,11 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   initializeForm() {
     const initValue = this.initialValue();
 
-    this.form = this.fb.group<ArticleForm>({
+    this.form = this.fb.group({
       title: initValue.title ?? '',
       description: initValue.description ?? '',
       body: initValue.body ?? '',
-      tagList: initValue?.tagList?.join(' ') ?? '',
+      tagList: new FormControl<string[]>(initValue?.tagList ?? []),
     });
   }
 
@@ -73,7 +80,6 @@ export class ArticleFormComponent implements OnInit, OnChanges {
 
     this.formSubmit.emit({
       ...this.form.value,
-      tagList: this.form.value.tagList.split(' '),
     });
   }
 }

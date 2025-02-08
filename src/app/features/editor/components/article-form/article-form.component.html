@@ -16,10 +16,7 @@
     formControlName="body"
     placeholder="Write your article (in markdown)"
   />
-  <mat-form-field appearance="outline">
-    <mat-label>Tags</mat-label>
-    <input matInput type="text" formControlName="tagList" />
-  </mat-form-field>
+  <app-tags-input formControlName="tagList" />
   <button mat-flat-button type="submit" [disabled]="disabled() || form.invalid">
     Publish Article
   </button>
