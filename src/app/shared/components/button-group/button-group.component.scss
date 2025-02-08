@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+:host ::ng-deep button {
+  min-width: 0;
+  padding: 0 0.5rem;
+  border-radius: 0;
+  border-left-width: 0;
+  height: 2rem;
+
+  &:first-child {
+    border-left-width: 1px;
+    padding-left: 0.75rem;
+    border-top-left-radius: var(--mat-sys-corner-full);
+    border-bottom-left-radius: var(--mat-sys-corner-full);
+  }
+
+  &:last-child {
+    padding-right: 0.75rem;
+    border-top-right-radius: var(--mat-sys-corner-full);
+    border-bottom-right-radius: var(--mat-sys-corner-full);
+  }
+}
+
+:host ::ng-deep .mat-icon {
+  margin: 0;
+}

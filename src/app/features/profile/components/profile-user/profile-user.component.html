@@ -22,7 +22,7 @@
       <app-toggle-button
         [active]="profile.following"
         (toggle)="followProfile(profile)"
-        [disabled]="isSubmittingFollow()"
+        [notInteract]="isSubmittingFollow()"
       >
         <mat-icon>{{ profile.following ? "remove " : "add " }}</mat-icon>
         {{ profile.following ? "Unfollow " : "Follow " }}

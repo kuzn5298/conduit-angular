@@ -1,0 +1,45 @@
+<mat-card
+  appearance="outlined"
+  [class.focus]="isFocus()"
+  [class.disabled]="isDisabled()"
+>
+  <mat-card-header>
+    <div class="header" (click)="$event.preventDefault()">
+      @if(isPreview()) {
+      <span>Preview</span>
+      } @else {
+      <app-markdown-editor-controls
+        [elementRef]="textareaRef()"
+        [value]="markdownText()"
+        (change)="onChange($event)"
+        [disabled]="isDisabled()"
+      />
+      }
+
+      <div class="spacer"></div>
+      <app-toggle-button
+        (toggle)="togglePreview()"
+        [active]="isPreview()"
+        [disabled]="isDisabled()"
+        class="preview"
+      >
+        Preview
+      </app-toggle-button>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    @if(isPreview()) {
+    <div class="content" [innerHtml]="markdownText() | markdown"></div>
+    } @else {
+    <textarea
+      #textarea
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [value]="markdownText()"
+      (focus)="isFocus.set(true)"
+      (blur)="isFocus.set(false)"
+      (input)="onInputChange($event)"
+    ></textarea>
+    }
+  </mat-card-content>
+</mat-card>

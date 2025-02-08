@@ -1,0 +1,13 @@
+@for(group of formatButtons; track $index) {
+<app-button-group>
+  @for(button of group; track button.action) {
+  <button
+    mat-stroked-button
+    (click)="actionControl(button.action)"
+    [disabled]="disabled()"
+  >
+    <mat-icon>{{ button.icon }}</mat-icon>
+  </button>
+  }
+</app-button-group>
+}

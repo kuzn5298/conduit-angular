@@ -22,7 +22,7 @@
   <app-toggle-button
     [active]="article().author.following"
     (toggle)="followProfile(article().author)"
-    [disabled]="isSubmittingFollow()"
+    [notInteract]="isSubmittingFollow()"
   >
     <mat-icon>{{ article().author.following ? "remove " : "add " }}</mat-icon>
     {{ article().author.following ? "Unfollow " : "Follow " }}
@@ -32,7 +32,7 @@
   <app-toggle-button
     [active]="article().favorited"
     (toggle)="favoriteArticle(article())"
-    [disabled]="isSubmittingFavorite()"
+    [notInteract]="isSubmittingFavorite()"
   >
     <mat-icon>favorite</mat-icon>
     Favorite Article ({{ article().favoritesCount }})

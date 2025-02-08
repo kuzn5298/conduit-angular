@@ -3,11 +3,21 @@
 </ng-template>
 
 @if(active()) {
-<button mat-flat-button (click)="onClick()" [class.disabled]="disabled()">
+<button
+  mat-flat-button
+  (click)="onClick()"
+  [class.not-interact]="notInteract()"
+  [disabled]="disabled()"
+>
   <ng-container *ngTemplateOutlet="content" />
 </button>
 } @else {
-<button mat-stroked-button (click)="onClick()" [class.disabled]="disabled()">
+<button
+  mat-stroked-button
+  (click)="onClick()"
+  [class.not-interact]="notInteract()"
+  [disabled]="disabled()"
+>
   <ng-container *ngTemplateOutlet="content" />
 </button>
 }

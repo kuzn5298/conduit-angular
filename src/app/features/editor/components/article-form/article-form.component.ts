@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MarkdownEditorComponent } from '../../../../shared/components/markdown-editor/markdown-editor.component';
 
 @Component({
   selector: 'app-article-form',
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MarkdownEditorComponent,
   ],
   templateUrl: './article-form.component.html',
   styleUrl: './article-form.component.scss',

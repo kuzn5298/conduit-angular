@@ -10,7 +10,7 @@ button {
   }
 }
 
-.disabled {
+.not-interact {
   cursor: default;
 
   @include mat.button-overrides(

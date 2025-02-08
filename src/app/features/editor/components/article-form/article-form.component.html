@@ -12,15 +12,10 @@
       placeholder="What's this article about?"
     />
   </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Body</mat-label>
-    <textarea
-      rows="8"
-      matInput
-      formControlName="body"
-      placeholder="Write your article (in markdown)"
-    ></textarea>
-  </mat-form-field>
+  <app-markdown-editor
+    formControlName="body"
+    placeholder="Write your article (in markdown)"
+  />
   <mat-form-field appearance="outline">
     <mat-label>Tags</mat-label>
     <input matInput type="text" formControlName="tagList" />

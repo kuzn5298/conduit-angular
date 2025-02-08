@@ -9,7 +9,7 @@
     <app-toggle-button
       [active]="article().favorited"
       (toggle)="favoriteArticle(article())"
-      [disabled]="!isLoggedIn() || isSubmittingFavorite()"
+      [notInteract]="!isLoggedIn() || isSubmittingFavorite()"
     >
       <mat-icon>favorite</mat-icon> {{ article().favoritesCount }}
     </app-toggle-button>

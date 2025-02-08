@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ToggleButtonComponent {
   active = input<boolean>(false);
+  notInteract = input<boolean>(false);
   disabled = input<boolean>(false);
   toggle = output<void>();
 
