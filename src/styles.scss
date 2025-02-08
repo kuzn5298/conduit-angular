@@ -1,3 +1,29 @@
+@use "@angular/material" as mat;
+
+.light {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$spring-green-palette,
+      ),
+      typography: Roboto,
+    )
+  );
+}
+
+.dark {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$spring-green-palette,
+      ),
+      typography: Roboto,
+    )
+  );
+}
+
 $breakpoints: (
   xs: 600px,
   sm: 840px,
@@ -43,4 +69,8 @@ hr {
   border: none;
   border-top: 1px solid var(--mat-sys-surface-dim);
   margin: 0;
+}
+
+.mdc-tab--active .mdc-tab__text-label {
+  transition: none;
 }

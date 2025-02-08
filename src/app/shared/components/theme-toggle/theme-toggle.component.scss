@@ -1,0 +1,8 @@
+:host .theme-toggle {
+  padding: 0 1rem;
+  min-width: 2rem;
+
+  ::ng-deep mat-icon {
+    margin: 0;
+  }
+}

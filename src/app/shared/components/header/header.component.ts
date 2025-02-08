@@ -9,6 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { userSelector, logoutAction } from '../../../core/store';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { LogoComponent } from '../logo/logo.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ import { LogoComponent } from '../logo/logo.component';
     MatMenuModule,
     AvatarComponent,
     LogoComponent,
+    ThemeToggleComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
