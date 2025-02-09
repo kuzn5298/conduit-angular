@@ -9,7 +9,12 @@
       <p [innerHTML]="article.body | markdown"></p>
 
       @if(article.tagList.length) {
-      <app-tags [tags]="article.tagList" variant="outlined" />
+      <app-tags
+        appViewTransition="article-tags"
+        [transitionId]="article.slug"
+        [tags]="article.tagList"
+        variant="outlined"
+      />
       }
     </div>
     @if(isLoggedIn()) {

@@ -30,6 +30,8 @@
   </app-toggle-button>
 
   <app-toggle-button
+    appViewTransition="article-favorite"
+    transitionIdKey="id"
     [active]="article().favorited"
     (toggle)="favoriteArticle(article())"
     [notInteract]="isSubmittingFavorite()"

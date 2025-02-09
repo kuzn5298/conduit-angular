@@ -1,15 +1,19 @@
 <div class="article-banner">
   <div class="container">
-    <h1>{{ article().title }}</h1>
+    <h1 appViewTransition="article-title" [transitionId]="article().slug">
+      {{ article().title }}
+    </h1>
 
     <div class="profile-controls">
       <app-profile
+        appViewTransition="article-profile"
+        [transitionId]="article().slug"
         [profile]="article().author"
         [subtitle]="article().createdAt | date"
+        [style.view-transition-name]="'article-profile-' + article().slug"
       />
       @if(isLoggedIn()) {
       <app-article-actions [article]="article()" />
-
       }
     </div>
   </div>

@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -24,6 +25,7 @@ import {
 import { ArticleBannerComponent } from '../../components/article-banner/article-banner.component';
 import { TagsComponent } from '../../../../shared/components/tags/tags.component';
 import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
+import { ViewTransitionDirective } from '../../../../shared/directives/view-transition/view-transition.directive';
 
 @Component({
   selector: 'app-article',
@@ -33,17 +35,20 @@ import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
     TagsComponent,
     MatProgressBarModule,
     MarkdownPipe,
+    ViewTransitionDirective,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleComponent implements OnInit, OnDestroy {
-  private route = inject(ActivatedRoute);
   private store = inject(Store);
+  private route = inject(ActivatedRoute);
 
-  isLoading = toSignal(this.store.select(isLoadingArticleSelector));
   article = toSignal(this.store.select(articleSelector));
+  isLoadingArticle = toSignal(this.store.select(isLoadingArticleSelector));
+  isLoading = computed(() => this.isLoadingArticle() && !this.article());
+
   isLoggedIn = toSignal(this.store.select(isLoggedInSelector));
   user = toSignal(this.store.select(userSelector));
   isAuthor = computed(

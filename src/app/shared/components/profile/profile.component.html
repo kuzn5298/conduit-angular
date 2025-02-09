@@ -1,14 +1,23 @@
 <div class="profile" [class.horizontal]="orientation() === 'horizontal'">
   <app-avatar
-    [routerLink]="['/profile', profile().username]"
+    appViewTransition="profile-avatar"
+    [transitionId]="profile().username"
+    [transitionActive]="clicked()"
+    (click)="selectProfile(profile())"
     [image]="profile().image"
     [name]="profile().username"
     [size]="orientation() === 'horizontal' ? 'small' : 'medium'"
   />
   <div class="profile-info">
-    <a class="profile-name" [routerLink]="['/profile', profile().username]">
+    <a
+      appViewTransition="profile-name"
+      [transitionId]="profile().username"
+      [transitionActive]="clicked()"
+      class="profile-name"
+      (click)="selectProfile(profile())"
+    >
       {{ profile().username }}
     </a>
-    <span class="profile-date">{{ subtitle() }}</span>
+    <span class="profile-subtitle">{{ subtitle() }}</span>
   </div>
 </div>

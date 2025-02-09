@@ -14,10 +14,11 @@
   }
 
   .profile-name {
+    cursor: pointer;
     font: var(--mat-sys-title-medium);
   }
 
-  .profile-date {
+  .profile-subtitle {
     color: var(--mat-sys-outline);
     font: var(--mat-sys-body-small);
   }

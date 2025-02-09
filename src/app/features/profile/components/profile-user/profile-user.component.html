@@ -2,11 +2,15 @@
 <div class="profile-user">
   <div class="container">
     <app-avatar
+      appViewTransition="profile-avatar"
+      [transitionId]="profile.username"
       [image]="profile.image"
       [name]="profile.username"
       size="large"
     />
-    <h4>{{ profile.username }}</h4>
+    <h4 appViewTransition="profile-name" [transitionId]="profile.username">
+      {{ profile.username }}
+    </h4>
     @if(profile.bio) {
     <p>
       {{ profile.bio }}

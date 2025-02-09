@@ -22,10 +22,17 @@ import {
   unfollowProfileAction,
 } from '../../../../core/store';
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
+import { ViewTransitionDirective } from '../../../../shared/directives/view-transition/view-transition.directive';
 
 @Component({
   selector: 'app-article-actions',
-  imports: [RouterLink, ToggleButtonComponent, MatIconModule, MatButtonModule],
+  imports: [
+    RouterLink,
+    ToggleButtonComponent,
+    MatIconModule,
+    MatButtonModule,
+    ViewTransitionDirective,
+  ],
   templateUrl: './article-actions.component.html',
   styleUrl: './article-actions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

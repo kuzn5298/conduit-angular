@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   inject,
+  input,
   OnDestroy,
   OnInit,
   signal,
@@ -17,10 +19,10 @@ import {
   getArticlesAction,
   clearArticlesStateAction,
   articlesCountSelector,
-  isLoadingProfileSelector,
   clearProfileStateAction,
   getProfileAction,
   isLoadingArticlesSelector,
+  profileSelector,
 } from '../../../../core/store';
 import { ArticlesToggleComponent } from '../../components/articles-toggle/articles-toggle.component';
 import { ProfileArticlesComponent } from '../../components/profile-articles/profile-articles.component';
@@ -50,17 +52,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private destroyRef = inject(DestroyRef);
 
+  profileId = input.required<string>({ alias: 'id' });
+
   feedType = signal(FeedType.My);
   page = signal(0);
   limit = LIMIT;
 
+  profile = toSignal(this.store.select(profileSelector));
   isLoadingArticle = toSignal(this.store.select(isLoadingArticlesSelector));
-  isLoadingProfile = toSignal(this.store.select(isLoadingProfileSelector));
+  isLoadingProfile = computed(() => !this.profile());
   articlesCount = toSignal(this.store.select(articlesCountSelector), {
     initialValue: 0,
   });
-
-  constructor() {}
 
   ngOnInit(): void {
     this.initializeListeners();
@@ -73,6 +76,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   fetchProfile(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
+
     this.store.dispatch(getProfileAction({ id }));
   }
 

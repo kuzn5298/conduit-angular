@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { RouterLink } from '@angular/router';
 import {
@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
+import { ViewTransitionDirective } from '../../../../shared/directives/view-transition/view-transition.directive';
 
 @Component({
   selector: 'app-profile-user',
@@ -24,6 +25,7 @@ import { ToggleButtonComponent } from '../../../../shared/components/toggle-butt
     MatIconModule,
     MatButtonModule,
     ToggleButtonComponent,
+    ViewTransitionDirective,
   ],
   templateUrl: './profile-user.component.html',
   styleUrl: './profile-user.component.scss',

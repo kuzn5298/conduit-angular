@@ -2,11 +2,16 @@
   <mat-card-header>
     <mat-card-title>
       <app-profile
+        appViewTransition="article-profile"
+        [transitionId]="article().slug"
         [profile]="article().author"
         [subtitle]="article().createdAt | date"
-    /></mat-card-title>
+      />
+    </mat-card-title>
 
     <app-toggle-button
+      appViewTransition="article-favorite"
+      [transitionId]="article().slug"
       [active]="article().favorited"
       (toggle)="favoriteArticle(article())"
       [notInteract]="!isLoggedIn() || isSubmittingFavorite()"
@@ -14,11 +19,21 @@
       <mat-icon>favorite</mat-icon> {{ article().favoritesCount }}
     </app-toggle-button>
   </mat-card-header>
-  <mat-card-content [routerLink]="['/article', article().slug]">
-    <mat-card-title>{{ article().title }}</mat-card-title>
+  <mat-card-content (click)="selectArticle(article())">
+    <mat-card-title
+      appViewTransition="article-title"
+      [transitionId]="article().slug"
+    >
+      {{ article().title }}
+    </mat-card-title>
     <p class="card-body">{{ article().description }}</p>
   </mat-card-content>
   <mat-card-footer>
-    <app-tags [tags]="article().tagList" variant="outlined"></app-tags>
+    <app-tags
+      appViewTransition="article-tags"
+      [transitionId]="article().slug"
+      [tags]="article().tagList"
+      variant="outlined"
+    />
   </mat-card-footer>
 </mat-card>

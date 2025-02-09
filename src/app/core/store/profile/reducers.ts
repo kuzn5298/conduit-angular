@@ -19,7 +19,6 @@ export const profileReducer = createReducer(
     getProfileAction,
     (state): ProfileState => ({
       ...state,
-      profile: null,
       isLoading: true,
     })
   ),

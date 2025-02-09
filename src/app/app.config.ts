@@ -4,7 +4,11 @@ import {
   provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withViewTransitions,
+} from '@angular/router';
 import { isDevMode } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
@@ -16,6 +20,7 @@ import { routes } from './app.routes';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { InitializerService } from './core/services/initializer.service';
 import { globalEffects, globalReducers } from './core/store';
+import { onViewTransitionCreated } from './shared/utils/onViewTransitionCreated';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +31,7 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25,
       logOnly: !isDevMode(),
     }),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions({ onViewTransitionCreated })),
     provideHttpClient(withInterceptors([jwtInterceptor])),
     provideAppInitializer(() => inject(InitializerService).initialize()),
     provideAnimationsAsync(),

@@ -76,7 +76,6 @@ export const articleReducer = createReducer(
     getArticleAction,
     (state): ArticleState => ({
       ...state,
-      article: null,
       errors: null,
       isLoading: true,
     })
