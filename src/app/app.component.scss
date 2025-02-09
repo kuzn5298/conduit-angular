@@ -1,10 +1,17 @@
 :host {
-  display: flex;
-  flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+.scroll-container {
   display: flex;
   flex-direction: column;
   flex: 1;

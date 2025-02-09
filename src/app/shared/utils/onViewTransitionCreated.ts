@@ -1,4 +1,6 @@
+import { inject } from '@angular/core';
 import { ViewTransitionInfo } from '@angular/router';
+import { ViewTransitionService } from '../../core/services/view-transition.service';
 
 export const onViewTransitionCreated = ({
   transition,
@@ -10,4 +12,11 @@ export const onViewTransitionCreated = ({
   if (prevPath === nextPath) {
     transition.skipTransition();
   }
+
+  const viewTransitionService = inject(ViewTransitionService);
+  viewTransitionService.transitionType.set('route');
+
+  transition.finished.finally(() => {
+    viewTransitionService.transitionType.set('none');
+  });
 };

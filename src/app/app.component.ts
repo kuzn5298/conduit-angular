@@ -8,22 +8,28 @@ import {
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { ViewTransitionDirective } from './shared/directives/view-transition/view-transition.directive';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    ViewTransitionDirective,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  appContainer = viewChild<ElementRef>('appContainer');
+  scrollContainer = viewChild<ElementRef>('scrollContainer');
 
   router = inject(Router);
   destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     const routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && this.appContainer()) {
+      if (event instanceof NavigationEnd && this.scrollContainer()) {
         this.scrollToTop();
       }
     });
@@ -32,7 +38,7 @@ export class AppComponent {
   }
 
   private scrollToTop() {
-    const container = this.appContainer()?.nativeElement;
+    const container = this.scrollContainer()?.nativeElement;
     if (container) {
       container.scrollTop = 0;
     }
