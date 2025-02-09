@@ -14,9 +14,9 @@ export const onViewTransitionCreated = ({
   }
 
   const viewTransitionService = inject(ViewTransitionService);
-  viewTransitionService.transitionType.set('route');
+  viewTransitionService.setTransitionType('route');
 
   transition.finished.finally(() => {
-    viewTransitionService.transitionType.set('none');
+    viewTransitionService.resetTransitionType();
   });
 };

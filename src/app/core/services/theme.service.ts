@@ -35,10 +35,10 @@ export class ThemeService {
   }
 
   toggleTheme() {
-    this.viewTransitionService.transitionType.set('theme');
+    this.viewTransitionService.setTransitionType('theme');
     return document.startViewTransition(() => {
       this.setTheme(this.currentTheme() === 'light' ? 'dark' : 'light');
-      this.viewTransitionService.transitionType.set('none');
+      this.viewTransitionService.resetTransitionType;
     }).ready;
   }
 }

@@ -10,7 +10,6 @@
         [transitionId]="article().slug"
         [profile]="article().author"
         [subtitle]="article().createdAt | date"
-        [style.view-transition-name]="'article-profile-' + article().slug"
       />
       @if(isLoggedIn()) {
       <app-article-actions [article]="article()" />

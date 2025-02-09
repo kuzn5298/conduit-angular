@@ -1,7 +1,8 @@
 import { computed, Directive, inject, input } from '@angular/core';
-import { ViewTransitionService } from '../../../core/services/view-transition.service';
-
-type TransitionType = 'route' | 'theme';
+import {
+  TransitionType,
+  ViewTransitionService,
+} from '../../../core/services/view-transition.service';
 
 @Directive({
   selector: '[appViewTransition]',

@@ -1,10 +1,20 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
-type TransitionType = 'route' | 'theme' | 'none';
+export type TransitionType = 'route' | 'theme';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewTransitionService {
-  transitionType = signal<TransitionType>('none');
+  private type = signal<TransitionType>('route');
+
+  transitionType = computed(() => this.type());
+
+  setTransitionType(type: TransitionType) {
+    this.type.set(type);
+  }
+
+  resetTransitionType() {
+    this.type.set('route');
+  }
 }
