@@ -1,3 +1,16 @@
+@use "mixins";
+
 mat-form-field {
   width: 100%;
+}
+
+mat-chip-row {
+  overflow: hidden;
+
+  ::ng-deep .mdc-evolution-chip__cell {
+    overflow: hidden;
+  }
+  ::ng-deep .mdc-evolution-chip__text-label {
+    @include mixins.ellipsis;
+  }
 }

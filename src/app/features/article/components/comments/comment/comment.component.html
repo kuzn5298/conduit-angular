@@ -1,9 +1,7 @@
 <mat-card class="card" appearance="outlined">
-  <div class="card-body">
-    <p>
-      {{ comment().body }}
-    </p>
-  </div>
+  <p class="card-body">
+    {{ comment().body }}
+  </p>
   <div class="card-footer">
     <app-profile
       [profile]="comment().author"

@@ -4,6 +4,10 @@
   color: var(--mat-sys-on-surface);
 }
 
+.article-title {
+  overflow-wrap: break-word;
+}
+
 .article-banner .container {
   display: flex;
   flex-direction: column;
@@ -15,4 +19,8 @@
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
+}
+
+app-profile {
+  flex: 1;
 }

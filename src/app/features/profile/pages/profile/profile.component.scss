@@ -5,7 +5,7 @@
 }
 
 .profile-page .container {
-  max-width: 50rem;
+  width: min(50rem, 100%);
   box-sizing: border-box;
 }
 

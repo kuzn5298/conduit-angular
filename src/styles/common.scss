@@ -1,0 +1,31 @@
+@use "variables";
+
+.container {
+  margin: auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @each $name, $bp in variables.$breakpoints {
+    @media (min-width: $bp) {
+      max-width: $bp;
+    }
+  }
+}
+
+a {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--mat-sys-surface-dim);
+  margin: 0;
+}

@@ -1,3 +1,5 @@
+@use "mixins";
+
 .profile-user {
   padding: 2rem 0;
   background-color: var(--mat-sys-surface-container);
@@ -16,10 +18,15 @@
   }
 
   h4 {
+    max-width: 30rem;
+    width: 100%;
     font: var(--mat-sys-headline-medium);
+    @include mixins.ellipsis;
   }
 
   p {
     color: var(--mat-sys-outline);
+    @include mixins.multi-line-ellipsis;
+    width: 100%;
   }
 }

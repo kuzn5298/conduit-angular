@@ -1,6 +1,10 @@
 <div class="article-banner">
   <div class="container">
-    <h1 appViewTransition="article-title" [transitionId]="article().slug">
+    <h1
+      class="article-title"
+      appViewTransition="article-title"
+      [transitionId]="article().slug"
+    >
       {{ article().title }}
     </h1>
 

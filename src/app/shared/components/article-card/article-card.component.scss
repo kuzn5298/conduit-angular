@@ -1,3 +1,5 @@
+@use "mixins";
+
 .article-card {
   display: flex;
   flex-direction: column;
@@ -5,19 +7,29 @@
   width: 100%;
 }
 
-mat-card-header {
+.article-card-header {
+  display: flex;
+  padding: 1rem 1rem 0;
+  overflow: hidden;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+app-profile {
+  flex: 1;
 }
 
 mat-card-title {
   font: var(--mat-sys-headline-small);
   font-weight: bold;
+  @include mixins.multi-line-ellipsis();
 }
 
 mat-card-content {
   cursor: pointer;
+  @include mixins.multi-line-ellipsis(3);
 }
 
 .card-body {
@@ -32,4 +44,11 @@ mat-card-footer {
   display: flex;
   padding: 1rem;
   padding-top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+app-tags {
+  overflow: hidden;
 }

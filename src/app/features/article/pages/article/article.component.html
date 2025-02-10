@@ -6,7 +6,7 @@
 
   <div class="container">
     <div class="article-info">
-      <p [innerHTML]="article.body | markdown"></p>
+      <p class="article-body" [innerHTML]="article.body | markdown"></p>
 
       @if(article.tagList.length) {
       <app-tags

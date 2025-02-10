@@ -1,14 +1,11 @@
 <mat-card class="article-card" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>
-      <app-profile
-        appViewTransition="article-profile"
-        [transitionId]="article().slug"
-        [profile]="article().author"
-        [subtitle]="article().createdAt | date"
-      />
-    </mat-card-title>
-
+  <div class="article-card-header">
+    <app-profile
+      appViewTransition="article-profile"
+      [transitionId]="article().slug"
+      [profile]="article().author"
+      [subtitle]="article().createdAt | date"
+    />
     <app-toggle-button
       appViewTransition="article-favorite"
       [transitionId]="article().slug"
@@ -18,7 +15,7 @@
     >
       <mat-icon>favorite</mat-icon> {{ article().favoritesCount }}
     </app-toggle-button>
-  </mat-card-header>
+  </div>
   <mat-card-content (click)="selectArticle(article())">
     <mat-card-title
       appViewTransition="article-title"

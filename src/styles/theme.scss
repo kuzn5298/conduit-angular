@@ -1,0 +1,25 @@
+@use "@angular/material" as mat;
+
+[data-theme="light"] {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$spring-green-palette,
+      ),
+      typography: Roboto,
+    )
+  );
+}
+
+[data-theme="dark"] {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$spring-green-palette,
+      ),
+      typography: Roboto,
+    )
+  );
+}

@@ -1,3 +1,10 @@
+@use "mixins";
+
+:host {
+  overflow: hidden;
+  min-width: 10rem;
+}
+
 .profile {
   display: flex;
   align-items: center;
@@ -7,6 +14,8 @@
   .profile-info {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    flex: 1;
   }
 
   app-avatar {
@@ -16,6 +25,7 @@
   .profile-name {
     cursor: pointer;
     font: var(--mat-sys-title-medium);
+    @include mixins.ellipsis;
   }
 
   .profile-subtitle {
@@ -33,5 +43,6 @@
 
   .profile-name {
     font-size: 0.875rem;
+    flex: 1;
   }
 }

@@ -15,6 +15,18 @@
 }
 
 mat-card {
+  --mdc-outlined-text-field-disabled-input-text-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 38%,
+    transparent
+  );
+
+  --mdc-outlined-text-field-disabled-outline-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 12%,
+    transparent
+  );
+
   overflow: hidden;
   border-radius: 0.25rem;
   border-color: var(--mat-sys-outline);
@@ -31,9 +43,9 @@ mat-card {
   }
 
   &.disabled {
-    border-color: lightgray;
+    border-color: var(--mdc-outlined-text-field-disabled-outline-color);
     mat-card-header {
-      border-color: lightgray;
+      border-color: var(--mdc-outlined-text-field-disabled-outline-color);
     }
   }
 }
@@ -61,6 +73,11 @@ mat-card-content {
     color: var(--mat-sys-on-surface);
     background-color: var(--mat-sys-surface);
     resize: none;
+
+    &:disabled {
+      color: var(--mdc-outlined-text-field-disabled-input-text-color);
+      overflow: hidden;
+    }
   }
 
   &:last-child {
