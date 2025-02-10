@@ -21,7 +21,7 @@ export class ToggleButtonComponent {
   toggle = output<void>();
 
   onClick() {
-    if (!this.disabled()) {
+    if (!this.disabled() && !this.notInteract()) {
       this.toggle.emit();
     }
   }
