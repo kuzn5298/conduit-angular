@@ -7,8 +7,6 @@
       [subtitle]="article().createdAt | date"
     />
     <app-toggle-button
-      appViewTransition="article-favorite"
-      [transitionId]="article().slug"
       [active]="article().favorited"
       (toggle)="favoriteArticle(article())"
       [notInteract]="!isLoggedIn() || isSubmittingFavorite()"

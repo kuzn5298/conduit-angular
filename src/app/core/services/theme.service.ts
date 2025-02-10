@@ -8,7 +8,8 @@ import {
 import { PersistenceService } from './persistence.service';
 import { ViewTransitionService } from './view-transition.service';
 
-const LOCAL_STORAGE_THEME_KEY = 'conduit-theme';
+const LOCAL_STORAGE_THEME_KEY = 'conduit-theme' as const;
+const DEFAULT_THEME = 'light' as const;
 type Theme = 'light' | 'dark';
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ThemeService {
   private persistenceService = inject(PersistenceService);
   private viewTransitionService = inject(ViewTransitionService);
 
-  private currentTheme = signal<Theme>('dark');
+  private currentTheme = signal<Theme>(DEFAULT_THEME);
   getTheme = computed(() => this.currentTheme());
 
   constructor() {
