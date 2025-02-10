@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   inject,
   provideAppInitializer,
+  provideExperimentalZonelessChangeDetection,
   provideZoneChangeDetection,
 } from '@angular/core';
 import {
@@ -24,7 +25,7 @@ import { onViewTransitionCreated } from './shared/utils/onViewTransitionCreated'
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     provideStore(globalReducers),
     provideEffects(globalEffects),
     provideStoreDevtools({
