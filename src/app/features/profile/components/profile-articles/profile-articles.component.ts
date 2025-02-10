@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -18,6 +18,7 @@ const LIMIT = 10;
   imports: [ArticleCardComponent, MatPaginatorModule],
   templateUrl: './profile-articles.component.html',
   styleUrl: './profile-articles.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileArticlesComponent {
   private store = inject(Store);

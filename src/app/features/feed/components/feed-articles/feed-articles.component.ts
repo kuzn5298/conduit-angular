@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { articlesSelector } from '../../../../core/store';
@@ -9,6 +9,7 @@ import { ArticleCardComponent } from '../../../../shared/components/article-card
   imports: [ArticleCardComponent],
   templateUrl: './feed-articles.component.html',
   styleUrl: './feed-articles.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedArticlesComponent {
   private store = inject(Store);

@@ -1,5 +1,11 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ArticleFormComponent } from '../../components/article-form/article-form.component';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { ArticleInput } from '../../../../shared/model';
@@ -9,13 +15,13 @@ import {
   errorsArticleSelector,
   isSubmittingArticleSelector,
 } from '../../../../core/store';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-article',
   imports: [ArticleFormComponent, ErrorMessagesComponent],
   templateUrl: './add-article.component.html',
   styleUrl: './add-article.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddArticleComponent implements OnDestroy {
   private store = inject(Store);

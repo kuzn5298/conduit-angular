@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -6,6 +6,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
   host: {
     '[class.full-width]': 'fullWidth',
   },

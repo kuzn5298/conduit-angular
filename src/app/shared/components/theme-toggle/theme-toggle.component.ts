@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -14,6 +15,7 @@ import { ThemeService } from '../../../core/services/theme.service';
   imports: [MatIconModule, MatButtonModule],
   templateUrl: './theme-toggle.component.html',
   styleUrl: './theme-toggle.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeToggleComponent {
   private themeService = inject(ThemeService);

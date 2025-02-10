@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -12,6 +17,7 @@ import { isLoggedInSelector } from '../../../../core/store';
   imports: [RouterLink, MatTabsModule, MatIconModule],
   templateUrl: './articles-toggle.component.html',
   styleUrl: './articles-toggle.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticlesToggleComponent {
   feedType = input<FeedType>();

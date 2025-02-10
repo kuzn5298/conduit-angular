@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
@@ -20,6 +21,7 @@ import { ViewTransitionDirective } from './shared/directives/view-transition/vie
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   scrollContainer = viewChild<ElementRef>('scrollContainer');

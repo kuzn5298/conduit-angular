@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   input,
@@ -34,6 +35,7 @@ import { TagsInputComponent } from './tags-input/tags-input.component';
   ],
   templateUrl: './article-form.component.html',
   styleUrl: './article-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleFormComponent implements OnInit, OnChanges {
   private fb = inject(FormBuilder);

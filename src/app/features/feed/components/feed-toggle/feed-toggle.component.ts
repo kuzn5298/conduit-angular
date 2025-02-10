@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RouterLink } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -12,6 +17,7 @@ import { FeedType } from '../../../../shared/model';
   imports: [RouterLink, MatTabsModule, MatIconModule],
   templateUrl: './feed-toggle.component.html',
   styleUrl: './feed-toggle.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedToggleComponent {
   tag = input<string>();

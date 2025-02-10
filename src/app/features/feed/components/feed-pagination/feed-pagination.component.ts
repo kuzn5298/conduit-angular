@@ -1,4 +1,9 @@
-import { Component, input, computed, output } from '@angular/core';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 const PAGE_SIZE = 10;
@@ -8,6 +13,7 @@ const PAGE_SIZE = 10;
   imports: [MatPaginatorModule],
   templateUrl: './feed-pagination.component.html',
   styleUrl: './feed-pagination.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedPaginationComponent {
   page = input.required<number>();

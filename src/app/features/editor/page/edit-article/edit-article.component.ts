@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -21,6 +28,7 @@ import {
   imports: [ArticleFormComponent, ErrorMessagesComponent, MatProgressBarModule],
   templateUrl: './edit-article.component.html',
   styleUrl: './edit-article.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditArticleComponent implements OnInit, OnDestroy {
   private store = inject(Store);

@@ -1,4 +1,9 @@
-import { Component, input, computed, output } from '@angular/core';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -6,6 +11,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   imports: [MatPaginatorModule],
   templateUrl: './profile-pagination.component.html',
   styleUrl: './profile-pagination.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePaginationComponent {
   page = input.required<number>();

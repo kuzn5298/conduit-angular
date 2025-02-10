@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
@@ -21,6 +26,7 @@ import { LoadingComponent } from '../../../../shared/components/loading/loading.
   ],
   templateUrl: './feed-tags.component.html',
   styleUrl: './feed-tags.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedTagsComponent implements OnInit {
   private store = inject(Store);

@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { RouterLink } from '@angular/router';
 import {
@@ -29,6 +34,7 @@ import { ViewTransitionDirective } from '../../../../shared/directives/view-tran
   ],
   templateUrl: './profile-user.component.html',
   styleUrl: './profile-user.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileUserComponent {
   private store = inject(Store);
