@@ -1,5 +1,6 @@
 @use "mixins";
 @use "variables";
+@use "sass:map";
 
 .profile-user {
   padding: 2rem 0;
@@ -33,7 +34,7 @@
 }
 
 .profile-actions {
-  @media (min-width: map-get(variables.$breakpoints, md)) {
+  @media (min-width: map.get(variables.$breakpoints, md)) {
     align-self: flex-end;
   }
 }
