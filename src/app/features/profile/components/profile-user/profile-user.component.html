@@ -16,7 +16,7 @@
       {{ profile.bio }}
     </p>
     } @if(isLoggedIn()) {
-    <div>
+    <div class="profile-actions">
       @if (isAuthor()) {
       <a mat-stroked-button [routerLink]="['/settings']">
         <mat-icon>settings</mat-icon>

@@ -8,8 +8,6 @@
 
 :host {
   .edit-button {
-    height: 2rem;
-
     @include mat.button-overrides(
       (
         outlined-label-text-color: var(--mat-sys-outline),
@@ -19,8 +17,6 @@
   }
 
   .remove-button {
-    height: 2rem;
-
     @include mat.button-overrides(
       (
         outlined-label-text-color: var(--mat-sys-error),

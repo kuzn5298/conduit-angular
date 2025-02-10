@@ -1,4 +1,5 @@
 @use "mixins";
+@use "variables";
 
 .profile-user {
   padding: 2rem 0;
@@ -28,5 +29,11 @@
     color: var(--mat-sys-outline);
     @include mixins.multi-line-ellipsis;
     width: 100%;
+  }
+}
+
+.profile-actions {
+  @media (min-width: map-get(variables.$breakpoints, md)) {
+    align-self: flex-end;
   }
 }

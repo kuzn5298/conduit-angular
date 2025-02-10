@@ -1,3 +1,5 @@
+@use "variables";
+
 .home-page {
   padding-bottom: 1rem;
 }
@@ -10,6 +12,10 @@
 
   & > * {
     overflow: hidden;
+  }
+
+  @media (max-width: map-get(variables.$breakpoints, sm)) {
+    grid-template-columns: 1fr;
   }
 }
 

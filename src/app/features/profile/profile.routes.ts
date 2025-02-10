@@ -6,6 +6,11 @@ import { FollowProfileEffect } from '../../core/store';
 
 export const profileRoutes: Routes = [
   {
+    path: '',
+    component: ProfileComponent,
+    providers: [provideEffects([GetProfileEffect, FollowProfileEffect])],
+  },
+  {
     path: ':id',
     component: ProfileComponent,
     providers: [provideEffects([GetProfileEffect, FollowProfileEffect])],

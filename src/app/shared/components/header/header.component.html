@@ -6,28 +6,21 @@
       <li>
         <app-theme-toggle />
       </li>
+      @for(link of links(); track link.label) {
       <li>
         <button
           mat-button
-          [routerLink]="['/']"
+          [routerLink]="[link.to]"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{
-            exact: true,
-            queryParams: 'ignored',
-            paths: 'exact'
-          }"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [queryParamsHandling]="'preserve'"
+          [class.only-icon]="link.onlyIcon"
         >
-          <mat-icon>home</mat-icon>
-          Home
+          <mat-icon>{{ link.icon }}</mat-icon>
+          {{ !link.onlyIcon ? link.label : "" }}
         </button>
       </li>
-      @if(user(); as user) {
-      <li>
-        <button mat-button [routerLink]="['/editor']" routerLinkActive="active">
-          <mat-icon>edit_square</mat-icon>
-          New post
-        </button>
-      </li>
+      } @if(user(); as user) {
       <li>
         <button
           mat-button
@@ -44,35 +37,18 @@
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu" class="profile-menu">
-          <button mat-menu-item [routerLink]="['/profile', user.username]">
-            <mat-icon>person</mat-icon>
-            <span>Profile</span>
+          @for(link of menuLinks(); track link.label) {
+          <button mat-menu-item [routerLink]="[link.to]">
+            <mat-icon>{{ link.icon }}</mat-icon>
+            <span>{{ link.label }}</span>
           </button>
-          <button mat-menu-item [routerLink]="['/settings']">
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
-          </button>
+          }
           <hr />
           <button mat-menu-item (click)="logout()">
             <mat-icon>logout</mat-icon>
             <span>Logout</span>
           </button>
         </mat-menu>
-      </li>
-      } @else {
-      <li>
-        <button mat-button routerLinkActive="active" [routerLink]="['/login']">
-          Sign in
-        </button>
-      </li>
-      <li>
-        <button
-          mat-button
-          routerLinkActive="active"
-          [routerLink]="['/register']"
-        >
-          Sign up
-        </button>
       </li>
       }
     </ul>

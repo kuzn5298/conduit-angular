@@ -23,6 +23,7 @@ import {
   getProfileAction,
   isLoadingArticlesSelector,
   profileSelector,
+  userSelector,
 } from '../../../../core/store';
 import { ArticlesToggleComponent } from '../../components/articles-toggle/articles-toggle.component';
 import { ProfileArticlesComponent } from '../../components/profile-articles/profile-articles.component';
@@ -52,12 +53,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private destroyRef = inject(DestroyRef);
 
-  profileId = input.required<string>({ alias: 'id' });
-
   feedType = signal(FeedType.My);
   page = signal(0);
   limit = LIMIT;
 
+  user = toSignal(this.store.select(userSelector));
   profile = toSignal(this.store.select(profileSelector));
   isLoadingArticle = toSignal(this.store.select(isLoadingArticlesSelector));
   isLoadingProfile = computed(() => !this.profile());
@@ -74,26 +74,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.dispatch(clearProfileStateAction());
   }
 
-  fetchProfile(): void {
-    const id = this.route.snapshot.paramMap.get('id') ?? '';
+  get profileId(): string {
+    return (
+      this.route.snapshot.paramMap.get('id') ?? this.user()?.username ?? ''
+    );
+  }
 
-    this.store.dispatch(getProfileAction({ id }));
+  fetchProfile(): void {
+    this.store.dispatch(getProfileAction({ id: this.profileId }));
   }
 
   fetchFeed(): void {
     const offset = this.page() * this.limit;
-    const id = this.route.snapshot.paramMap.get('id') ?? '';
 
     this.store.dispatch(
       getArticlesAction({
         feedType: this.feedType(),
-        options: { limit: this.limit, offset, author: id },
+        options: { limit: this.limit, offset, author: this.profileId },
       })
     );
   }
 
   initializeListeners(): void {
-    let prevPath: string;
+    let prevPath: string = '';
     const routeSubscription = combineLatest([
       this.route.queryParams,
       this.route.url,
@@ -104,8 +107,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.page.set(Number(params['page'] ?? '0'));
         this.fetchFeed();
 
-        if (prevPath !== url[0].path) {
-          prevPath = url[0].path;
+        if (prevPath !== url[0]?.path) {
+          prevPath = url[0]?.path;
           this.fetchProfile();
         }
       });

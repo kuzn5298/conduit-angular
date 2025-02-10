@@ -9,7 +9,9 @@ import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 import { Article, Profile } from '../../../../shared/model';
 import { userSelector } from '../../../../core/store/user/selectors';
 import {
@@ -22,6 +24,7 @@ import {
   unfollowProfileAction,
 } from '../../../../core/store';
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
+
 @Component({
   selector: 'app-article-actions',
   imports: [RouterLink, ToggleButtonComponent, MatIconModule, MatButtonModule],
@@ -31,6 +34,7 @@ import { ToggleButtonComponent } from '../../../../shared/components/toggle-butt
 })
 export class ArticleActionsComponent {
   private store = inject(Store);
+  private breakpointObserver = inject(BreakpointObserver);
 
   article = input.required<Article>();
   user = toSignal(this.store.select(userSelector));
@@ -41,6 +45,12 @@ export class ArticleActionsComponent {
   isSubmittingFollow = toSignal(this.store.select(isSubmittingFollowSelector), {
     initialValue: false,
   });
+  isMobile = toSignal(
+    this.breakpointObserver
+      .observe([Breakpoints.HandsetPortrait, Breakpoints.TabletPortrait])
+      .pipe(map((result) => result.matches)),
+    { initialValue: false }
+  );
 
   isAuthor = computed(
     () => this.article().author.username === this.user()?.username
