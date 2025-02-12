@@ -4,9 +4,6 @@
   transitionType="theme"
 >
   <app-header />
-  @if(loading()) {
-  <mat-progress-bar mode="indeterminate" />
-  }
   <div class="scroll-container" #scrollContainer>
     <main>
       <router-outlet />

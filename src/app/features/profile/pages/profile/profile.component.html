@@ -1,3 +1,6 @@
+@if(isLoadingProfile()) {
+<mat-progress-bar mode="indeterminate" />
+} @else {
 <div class="profile-page">
   <app-profile-user />
 
@@ -16,3 +19,4 @@
     }
   </div>
 </div>
+}

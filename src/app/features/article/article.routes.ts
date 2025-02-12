@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import {
-  ArticleComponent,
-  articleResolver,
-} from './pages/article/article.component';
+import { ArticleComponent } from './pages/article/article.component';
 import {
   AddCommentEffect,
   commentsReducer,
@@ -32,8 +29,5 @@ export const articleRoutes: Routes = [
         DeleteArticleEffect,
       ]),
     ],
-    resolve: {
-      isLoadedArticle: articleResolver,
-    },
   },
 ];

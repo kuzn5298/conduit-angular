@@ -1,4 +1,6 @@
-@if(article(); as article) {
+@if(isLoading()){
+<mat-progress-bar mode="indeterminate" />
+} @if(article(); as article) {
 <div class="article-page">
   <app-article-banner [article]="article" />
 
@@ -21,4 +23,5 @@
     }
   </div>
 </div>
+
 }

@@ -2,22 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   OnDestroy,
+  OnInit,
+  signal,
 } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
-import {
-  combineLatest,
-  filter,
-  first,
-  firstValueFrom,
-  map,
-  Observable,
-} from 'rxjs';
+import { combineLatest, debounceTime } from 'rxjs';
 import { FeedType } from '../../../../shared/model';
 import {
   getArticlesAction,
@@ -28,7 +24,6 @@ import {
   isLoadingArticlesSelector,
   profileSelector,
   userSelector,
-  isLoadingProfileSelector,
 } from '../../../../core/store';
 import { ArticlesToggleComponent } from '../../components/articles-toggle/articles-toggle.component';
 import { ProfileArticlesComponent } from '../../components/profile-articles/profile-articles.component';
@@ -52,18 +47,14 @@ const LIMIT = 10;
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileComponent implements OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
   private store = inject(Store);
+  private destroyRef = inject(DestroyRef);
 
-  feedType = input.required<FeedType, string>({
-    alias: 'feed',
-    transform: (value) => (value ?? FeedType.My) as FeedType,
-  });
-  page = input.required<number, string>({
-    transform: (value) => Number(value ?? '0'),
-  });
-
+  feedType = signal(FeedType.My);
+  page = signal(0);
   limit = LIMIT;
 
   user = toSignal(this.store.select(userSelector));
@@ -74,9 +65,57 @@ export class ProfileComponent implements OnDestroy {
     initialValue: 0,
   });
 
+  ngOnInit(): void {
+    this.initializeListeners();
+  }
+
   ngOnDestroy(): void {
     this.store.dispatch(clearArticlesStateAction());
     this.store.dispatch(clearProfileStateAction());
+  }
+
+  get profileId(): string {
+    return (
+      this.route.snapshot.paramMap.get('id') ?? this.user()?.username ?? ''
+    );
+  }
+
+  fetchProfile(): void {
+    this.store.dispatch(getProfileAction({ id: this.profileId }));
+  }
+
+  fetchFeed(): void {
+    const offset = this.page() * this.limit;
+
+    this.store.dispatch(
+      getArticlesAction({
+        feedType: this.feedType(),
+        options: { limit: this.limit, offset, author: this.profileId },
+      })
+    );
+  }
+
+  initializeListeners(): void {
+    let prevPath: string = '';
+    const routeSubscription = combineLatest([
+      this.route.queryParams,
+      this.route.url,
+    ])
+      .pipe(debounceTime(1))
+      .subscribe(([params, url]) => {
+        this.feedType.set(params['feed'] ?? FeedType.My);
+        this.page.set(Number(params['page'] ?? '0'));
+        this.fetchFeed();
+
+        if (prevPath !== url[0]?.path) {
+          prevPath = url[0]?.path;
+          this.fetchProfile();
+        }
+      });
+
+    this.destroyRef.onDestroy(() => {
+      routeSubscription.unsubscribe();
+    });
   }
 
   handlePageChange(page: number): void {
@@ -86,51 +125,3 @@ export class ProfileComponent implements OnDestroy {
     });
   }
 }
-
-export const feedResolver: ResolveFn<Promise<void>> = async (
-  activatedRouteSnapshot: ActivatedRouteSnapshot
-) => {
-  const store = inject(Store);
-  const id = activatedRouteSnapshot.paramMap.get('id');
-  const page = Number(activatedRouteSnapshot.queryParamMap.get('page') ?? 0);
-  const feedType = (activatedRouteSnapshot.queryParamMap.get('feed') ??
-    FeedType.My) as FeedType;
-  const user = await firstValueFrom(store.select(userSelector));
-  const author = id ?? user?.username ?? '';
-
-  const offset = page * LIMIT;
-
-  store.dispatch(
-    getArticlesAction({
-      feedType,
-      options: {
-        limit: LIMIT,
-        offset,
-        author: author,
-      },
-    })
-  );
-};
-
-export const profileResolver: ResolveFn<Observable<boolean>> = async (
-  activatedRouteSnapshot: ActivatedRouteSnapshot
-) => {
-  const store = inject(Store);
-  const id = activatedRouteSnapshot.paramMap.get('id');
-  const user = await firstValueFrom(store.select(userSelector));
-  const profile = await firstValueFrom(store.select(profileSelector));
-  const profileId = id ?? user?.username ?? '';
-
-  if (profile?.username !== profileId) {
-    store.dispatch(getProfileAction({ id: profileId }));
-  }
-
-  return combineLatest([
-    store.select(isLoadingProfileSelector),
-    store.select(profileSelector),
-  ]).pipe(
-    filter(([isLoading, profile]) => !isLoading || !!profile),
-    first(),
-    map(() => true)
-  );
-};

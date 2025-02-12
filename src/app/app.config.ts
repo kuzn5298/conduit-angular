@@ -32,11 +32,7 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25,
       logOnly: !isDevMode(),
     }),
-    provideRouter(
-      routes,
-      withComponentInputBinding(),
-      withViewTransitions({ onViewTransitionCreated })
-    ),
+    provideRouter(routes, withViewTransitions({ onViewTransitionCreated })),
     provideHttpClient(withInterceptors([jwtInterceptor])),
     provideAppInitializer(() => inject(InitializerService).initialize()),
     provideAnimationsAsync(),
