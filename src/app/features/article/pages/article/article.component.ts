@@ -5,9 +5,8 @@ import {
   inject,
   input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -26,6 +25,7 @@ import { ArticleBannerComponent } from '../../components/article-banner/article-
 import { TagsComponent } from '../../../../shared/components/tags/tags.component';
 import { MarkdownPipe } from '../../../../shared/pipes/markdown.pipe';
 import { ViewTransitionDirective } from '../../../../shared/directives/view-transition/view-transition.directive';
+import { combineLatest, filter, first, map } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -41,30 +41,34 @@ import { ViewTransitionDirective } from '../../../../shared/directives/view-tran
   styleUrl: './article.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticleComponent implements OnInit, OnDestroy {
+export class ArticleComponent implements OnDestroy {
   private store = inject(Store);
-  private route = inject(ActivatedRoute);
 
   article = toSignal(this.store.select(articleSelector));
-  isLoadingArticle = toSignal(this.store.select(isLoadingArticleSelector));
-  isLoading = computed(() => this.isLoadingArticle() && !this.article());
-
   isLoggedIn = toSignal(this.store.select(isLoggedInSelector));
   user = toSignal(this.store.select(userSelector));
   isAuthor = computed(
     () => this.article()?.author.username === this.user()?.username
   );
 
-  ngOnInit(): void {
-    this.fetchArticle();
-  }
-
   ngOnDestroy(): void {
     this.store.dispatch(clearArticleStateAction());
   }
-
-  fetchArticle(): void {
-    const id = this.route.snapshot.paramMap.get('id') ?? '';
-    this.store.dispatch(getArticleAction({ id }));
-  }
 }
+
+export const articleResolver: ResolveFn<boolean> = (
+  activatedRouteSnapshot: ActivatedRouteSnapshot
+) => {
+  const store = inject(Store);
+  const id = activatedRouteSnapshot.paramMap.get('id') ?? '';
+  store.dispatch(getArticleAction({ id }));
+
+  return combineLatest([
+    store.select(isLoadingArticleSelector),
+    store.select(articleSelector),
+  ]).pipe(
+    filter(([isLoading, article]) => !isLoading || !!article),
+    first(),
+    map(() => true)
+  );
+};
